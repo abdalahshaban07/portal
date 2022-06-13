@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './components/layout/header/header.component';
 import { SharedModule } from '@shared/shared.module';
 import { FooterComponent } from './components/layout/footer/footer.component';
+import { WelcomeComponent } from './components/layout/welcome/welcome.component';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent],
+  declarations: [HeaderComponent, FooterComponent, WelcomeComponent],
   imports: [CommonModule, SharedModule],
   exports: [HeaderComponent, FooterComponent],
 })
