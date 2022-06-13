@@ -1,0 +1,30 @@
+@import "variables.scss";
+
+.navbar-items,
+.profile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.profile {
+  justify-content: end;
+}
+
+.mat-toolbar {
+  background-color: $primary-2;
+  height: 12rem;
+}
+
+.toolbar-row {
+  height: fit-content;
+  padding-block: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap-reverse;
+}
+
+.active {
+  background-color: yellow;
+  background: white;
+}

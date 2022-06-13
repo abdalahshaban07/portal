@@ -1,12 +1,13 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { HeaderComponent } from './components/layout/header/header.component';
+import { SharedModule } from '@shared/shared.module';
+import { FooterComponent } from './components/layout/footer/footer.component';
 
 @NgModule({
-  declarations: [
-    PageNotFoundComponent
-  ],
-  imports: [CommonModule],
+  declarations: [HeaderComponent, FooterComponent],
+  imports: [CommonModule, SharedModule],
+  exports: [HeaderComponent, FooterComponent],
 })
 export class CoreModule {
   constructor(@Optional() @SkipSelf() core: CoreModule) {
