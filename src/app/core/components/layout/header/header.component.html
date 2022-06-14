@@ -1,0 +1,87 @@
+<div style="position: relative">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row class="toolbar-row">
+      <div>
+        <button
+          mat-button
+          routerLink="/"
+          routerLinkActive="active"
+          routerLinkActiveOptions="{exact: true}"
+        >
+          Dashboard
+        </button>
+        <button
+          mat-button
+          routerLink="/admins"
+          routerLinkActive="active"
+          routerLinkActiveOptions="{exact: true}"
+        >
+          Admins
+        </button>
+        <button
+          mat-button
+          [matMenuTriggerFor]="PCI"
+          #clickHoverMenuTrigger="matMenuTrigger"
+        >
+          PCI-DSS Requirment
+        </button>
+        <mat-menu #PCI="matMenu" yPosition="below" xPosition="before">
+          <button
+            mat-menu-item
+            routerLink="/addQuestion"
+            routerLinkActive="active"
+            routerLinkActiveOptions="{exact: true}"
+          >
+            Add Question
+          </button>
+          <mat-divider></mat-divider>
+          <button
+            mat-menu-item
+            routerLink="/checkAnswer"
+            routerLinkActive="active"
+          >
+            Check Answer
+          </button>
+          <mat-divider></mat-divider>
+          <button
+            mat-menu-item
+            routerLink="/viewQuestion"
+            routerLinkActive="active"
+            routerLinkActiveOptions="{exact: true}"
+          >
+            View Question
+          </button>
+        </mat-menu>
+
+        <button mat-button>Questions</button>
+      </div>
+
+      <div>
+        <mat-form-field>
+          <input matInput type="text" />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="(false)"
+            [attr.aria-label]="'search label'"
+          >
+            <mat-icon>search</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <button mat-icon-button class="icon-button" aria-label="icon-button">
+          <mat-icon matBadge="10" matBadgeColor="warn">notifications</mat-icon>
+        </button>
+        <app-avatar
+          [avatar]="'https://picsum.photos/seed/picsum/300/300'"
+        ></app-avatar>
+        <app-profile [name]="'ahmed'"></app-profile>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <div class="welcome">
+    <app-welcome></app-welcome>
+  </div>
+</div>

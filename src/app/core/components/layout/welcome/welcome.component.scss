@@ -1,0 +1,34 @@
+@import "variables.scss";
+.welcome {
+  background-color: $primary-3;
+  color: $secondary-1;
+  border-radius: 25px;
+  padding: 1rem;
+}
+
+.welcome-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.welcome-des {
+  width: 50%;
+  font-size: 14px;
+}
+.mat-button {
+  background-color:#fff;
+  color: $primary-2;
+  border-radius: 15px;
+  width: 210px;
+  height: 50px;
+}
+
+div {
+  margin-bottom: 15px;
+}
+
+.btn-wrap {
+  .col {
+    text-align: center;
+  }
+}

@@ -23,17 +23,17 @@
       "dom"
     ],
     "paths": {
-      "@shared": [
+      "@shared/*": [
         "src/app/shared/*"
       ],
-      "@core": [
+      "@core/*": [
         "src/app/core/*"
       ],
-      "@features": [
+      "@features/*": [
         "src/app/features/*"
       ],
       "@env": [
-        "src/environments/environments"
+        "src/environments/environment"
       ],
     }
   },

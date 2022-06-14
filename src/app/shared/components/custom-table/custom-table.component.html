@@ -1,0 +1,99 @@
+<!-- Action Bar -->
+<div class="table-actionbar" *ngIf="dataSource.data.length !== 0">
+  <div class="search-box">
+    <mat-form-field class="example-form-field" appearance="outline">
+      <mat-icon matPrefix>search</mat-icon>
+      <mat-label>Search</mat-label>
+      <input
+        matInput
+        type="text"
+        (ngModel)="(value)"
+        (keyup)="applyFilter($event)"
+      />
+      <button
+        *ngIf="value"
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        (click)="value = ''"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+</div>
+<!-- Table -->
+<div class="table-data">
+  <mat-table [dataSource]="dataSource" matSort recycleRows>
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="select">
+      <mat-header-cell *matHeaderCellDef>
+        <mat-checkbox
+          (change)="$event ? masterToggle() : null"
+          [checked]="selection.hasValue() && isAllSelected()"
+          [indeterminate]="selection.hasValue() && !isAllSelected()"
+          [aria-label]="checkboxLabel()"
+        >
+        </mat-checkbox>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <mat-checkbox
+          (click)="$event.stopPropagation()"
+          (change)="$event ? selection.toggle(row) : null"
+          [checked]="selection.isSelected(row)"
+          [aria-label]="checkboxLabel(row)"
+        >
+        </mat-checkbox>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container
+      *ngFor="let column of columns"
+      [matColumnDef]="column.columnDef"
+    >
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        {{ column.header }}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <span *ngIf="!column.icon">
+          <span *ngIf="column.hasAvatar">
+            <app-avatar [avatar]="row?.avatar"></app-avatar>
+          </span>
+          {{ column.cell(row) }}
+        </span>
+        <span *ngIf="column.icon" [class]="column.cell(row)">
+          <mat-icon>circle</mat-icon>
+        </span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+      <mat-cell
+        *matCellDef="let element"
+        action-buttons
+        (buttonAction)="onTableAction($event, element)"
+        [actions]="actions"
+      >
+        {{ element.weight }}
+      </mat-cell>
+    </ng-container>
+    <mat-header-row
+      *matHeaderRowDef="displayedColumns; sticky: true"
+    ></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+  <table class="no-record">
+    <tr *ngIf="!dataSource.data.length">
+      <td style="text-align: center">No Records Found!</td>
+    </tr>
+  </table>
+</div>
+<!-- Table pagination -->
+<mat-paginator
+  *ngIf="dataSource.data.length"
+  [pageSizeOptions]="[5, 10, 20]"
+  showFirstLastButtons
+  aria-label="Select page of periodic elements"
+>
+</mat-paginator>

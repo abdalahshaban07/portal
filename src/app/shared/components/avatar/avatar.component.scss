@@ -1,0 +1,10 @@
+.avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%; /* половина ширины и высоты */
+  margin: 10px;
+  object-fit: cover;
+}
+.mat-ripple {
+  display: none;
+}
