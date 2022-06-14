@@ -1,0 +1,21 @@
+<button
+  mat-button
+  [matMenuTriggerFor]="Profile"
+  disableRipple="true"
+  routerLink="['/routePath']"
+  routerLinkActive="active"
+>
+  Welcome , {{ name }}
+  <mat-icon>keyboard_arrow_down</mat-icon>
+</button>
+<mat-menu
+  #Profile="matMenu"
+  yPosition="below"
+  xPosition="before"
+  overlapTrigger="false"
+>
+  <button mat-menu-item>Profile</button>
+  <button mat-menu-item>Setting</button>
+  <mat-divider></mat-divider>
+  <button mat-menu-item>LogOut</button>
+</mat-menu>
