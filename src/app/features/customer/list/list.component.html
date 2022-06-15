@@ -1,11 +1,16 @@
-<div class="container">
-  <span class="table-name">Customer</span>
-  <app-custom-table
-    (action)="onTableAction($event)"
-    [dataSource]="datatSet"
-    [columns]="columns"
-    [haveActions]="true"
-    [actions]="actions"
-    [haveSelect]="true"
-  ></app-custom-table>
+<div class="warp container">
+  <div class="welcome">
+    <app-welcome></app-welcome>
+  </div>
+  <div class="wrap-table">
+    <span class="table-name">Customer</span>
+    <app-custom-table
+      (action)="onTableAction($event)"
+      [dataSource]="datatSet"
+      [columns]="columns"
+      [haveActions]="true"
+      [actions]="actions"
+      [haveSelect]="true"
+    ></app-custom-table>
+  </div>
 </div>

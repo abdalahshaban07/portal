@@ -18,6 +18,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CustomTableComponent } from './components/custom-table/custom-table.component';
 import { ActionButtonsComponent } from './components/action-buttons/action-buttons.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { WelcomeComponent } from './components/welcome/welcome.component';
 
 const MaterialComponents = [
   MatToolbarModule,
@@ -42,14 +43,15 @@ const MaterialComponents = [
     CustomTableComponent,
     ActionButtonsComponent,
     ProfileComponent,
+    WelcomeComponent,
   ],
   imports: [CommonModule, MaterialComponents],
   exports: [
     MaterialComponents,
     AvatarComponent,
-
     CustomTableComponent,
     ProfileComponent,
+    WelcomeComponent,
   ],
 })
 export class SharedModule {}

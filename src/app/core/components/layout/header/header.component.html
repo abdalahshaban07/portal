@@ -1,21 +1,15 @@
-<div style="position: relative">
+<div>
   <mat-toolbar color="primary">
     <mat-toolbar-row class="toolbar-row">
       <div>
         <button
           mat-button
-          routerLink="/"
-          routerLinkActive="active"
-          routerLinkActiveOptions="{exact: true}"
+          routerLink="/dashboard"
+          routerLinkActive="active-link"
         >
           Dashboard
         </button>
-        <button
-          mat-button
-          routerLink="/admins"
-          routerLinkActive="active"
-          routerLinkActiveOptions="{exact: true}"
-        >
+        <button mat-button routerLink="/admins" routerLinkActive="active-link">
           Admins
         </button>
         <button
@@ -29,8 +23,7 @@
           <button
             mat-menu-item
             routerLink="/addQuestion"
-            routerLinkActive="active"
-            routerLinkActiveOptions="{exact: true}"
+            routerLinkActive="active-link"
           >
             Add Question
           </button>
@@ -38,7 +31,7 @@
           <button
             mat-menu-item
             routerLink="/checkAnswer"
-            routerLinkActive="active"
+            routerLinkActive="active-link"
           >
             Check Answer
           </button>
@@ -46,8 +39,7 @@
           <button
             mat-menu-item
             routerLink="/viewQuestion"
-            routerLinkActive="active"
-            routerLinkActiveOptions="{exact: true}"
+            routerLinkActive="active-link"
           >
             View Question
           </button>
@@ -81,7 +73,4 @@
       </div>
     </mat-toolbar-row>
   </mat-toolbar>
-  <div class="welcome">
-    <app-welcome></app-welcome>
-  </div>
 </div>
