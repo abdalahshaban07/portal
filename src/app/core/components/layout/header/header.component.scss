@@ -12,7 +12,13 @@
 
 .mat-toolbar {
   background-color: $primary-2;
-  height: 12rem;
+}
+
+.wrap-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .toolbar-row {
@@ -22,9 +28,25 @@
   align-items: center;
   justify-content: space-evenly;
   flex-wrap: wrap-reverse;
+  .mat-button {
+    margin-right: 10px;
+  }
+}
+
+.second-row {
+  align-items: flex-start;
+  height: fit-content;
+  justify-content: center;
+  margin-block: 10px;
+}
+
+.icon-button {
+  margin-right: 10px;
 }
 
 .active-link {
-  background-color: yellow;
-  background: yellow;
+  background-color: $primary-1;
+  color: $primary-2;
+  font-weight: bold;
+  transition: all 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
 }

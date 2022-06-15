@@ -4,6 +4,7 @@
   color: $secondary-1;
   border-radius: 25px;
   padding: 1rem;
+  margin-block: 13px;
 }
 
 .welcome-text {
@@ -16,7 +17,7 @@
   font-size: 14px;
 }
 .mat-button {
-  background-color:#fff;
+  background-color: #fff;
   color: $primary-2;
   border-radius: 15px;
   width: 210px;

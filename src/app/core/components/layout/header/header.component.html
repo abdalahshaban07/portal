@@ -1,7 +1,7 @@
 <div>
   <mat-toolbar color="primary">
     <mat-toolbar-row class="toolbar-row">
-      <div>
+      <div class="wrap-link">
         <button
           mat-button
           routerLink="/dashboard"
@@ -44,8 +44,13 @@
             View Question
           </button>
         </mat-menu>
-
-        <button mat-button>Questions</button>
+        <button
+          mat-button
+          routerLink="/question"
+          routerLinkActive="active-link"
+        >
+          Questions
+        </button>
       </div>
 
       <div>
@@ -70,6 +75,12 @@
           [avatar]="'https://picsum.photos/seed/picsum/300/300'"
         ></app-avatar>
         <app-profile [name]="'ahmed'"></app-profile>
+      </div>
+    </mat-toolbar-row>
+
+    <mat-toolbar-row class="second-row" *ngIf="showCategory">
+      <div class="wrap-category">
+        <app-category-card></app-category-card>
       </div>
     </mat-toolbar-row>
   </mat-toolbar>

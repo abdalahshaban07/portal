@@ -14,6 +14,13 @@ const routes: Routes = [
         (m) => m.CustomerModule
       ),
   },
+  {
+    path: 'checkErrors',
+    loadChildren: () =>
+      import('@features/check-errors/check-errors.module').then(
+        (m) => m.CheckErrorsModule
+      ),
+  },
 ];
 
 @NgModule({

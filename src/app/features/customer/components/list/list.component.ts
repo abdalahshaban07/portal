@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { TableButtonAction } from '@shared/models/tableButtonAction';
-import { PeriodicElement } from '../models/periodic_element';
+import { PeriodicElement } from '../../models/periodic_element';
 
 const ELEMENT_DATA: PeriodicElement[] = [
   {

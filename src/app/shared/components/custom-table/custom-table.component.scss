@@ -1,5 +1,16 @@
 @import "variables.scss";
 
+.warp {
+  width: 90% !important;
+}
+.table-name {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #242424;
+  text-transform: uppercase;
+  display: inline-block;
+  margin-block: 1rem;
+}
 .table-data {
   position: relative;
   height: 300px;
@@ -58,11 +69,11 @@
 }
 
 .active {
-  color: green;
+  color: $staus-color-green;
 }
 .waiting {
-  color: yellow;
+  color: $staus-color-yellow;
 }
 .not_active {
-  color: red;
+  color: $staus-color-red;
 }

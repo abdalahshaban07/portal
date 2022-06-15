@@ -27,6 +27,8 @@ export class CustomTableComponent implements OnInit {
   @Input() dataSource!: MatTableDataSource<any>;
   @Input() haveSelect!: boolean;
   @Input() haveActions!: boolean;
+  @Input() hasName!: boolean;
+  @Input() name!: string;
   @Input() actions!: string[];
 
   @ViewChild(MatSort, { static: true }) sort!: MatSort;

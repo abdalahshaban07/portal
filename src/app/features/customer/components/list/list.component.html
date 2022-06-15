@@ -1,9 +1,8 @@
-<div class="warp container">
+<div class="warp container-fluid">
   <div class="welcome">
     <app-welcome></app-welcome>
   </div>
   <div class="wrap-table">
-    <span class="table-name">Customer</span>
     <app-custom-table
       (action)="onTableAction($event)"
       [dataSource]="datatSet"
@@ -11,6 +10,8 @@
       [haveActions]="true"
       [actions]="actions"
       [haveSelect]="true"
+      [hasName]="true"
+      [name]="'Customer'"
     ></app-custom-table>
   </div>
 </div>
