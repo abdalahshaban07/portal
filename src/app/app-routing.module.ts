@@ -15,7 +15,7 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'checkErrors',
+    path: 'check-errors',
     loadChildren: () =>
       import('@features/check-errors/check-errors.module').then(
         (m) => m.CheckErrorsModule

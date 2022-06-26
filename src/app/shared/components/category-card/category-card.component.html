@@ -1,9 +1,20 @@
-<div class="container-fluid warp-card">
-  <mat-card *ngFor="let category of categories; let i = index">
+<div class="warp-card" fxLayout="row wrap">
+  <mat-card
+    class="card"
+    *ngFor="let category of categories; let i = index"
+    fxFlex.sm="34%"
+    fxFlex.xs="80%"
+    fxLayout="column"
+  >
     <mat-card-subtitle>{{ category.name }}</mat-card-subtitle>
-    <mat-card-actions>
+    <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">
       <button mat-button disabled>{{ category.prcentage }}%</button>
-      <button mat-button class="continue" [routerLink]="[category.routerLink]">
+      <button
+        mat-button
+        class="continue"
+        [routerLink]="[category.routerLink]"
+        [queryParams]="{ list: category.routeParameter }"
+      >
         Continue
       </button>
     </mat-card-actions>

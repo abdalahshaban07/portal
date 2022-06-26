@@ -5,6 +5,7 @@ export interface ICategory {
   description: string;
   prcentage: number;
   routerLink: string;
+  routeParameter: string;
 }
 
 @Component({
@@ -18,25 +19,29 @@ export class CategoryCardComponent {
       name: 'List Of Documents',
       description: 'List of all documents',
       prcentage: 50,
-      routerLink: '/documents',
+      routerLink: '/check-errors/view',
+      routeParameter: 'documents',
     },
     {
       name: 'List Of Records',
       description: 'List of all records',
       prcentage: 60,
-      routerLink: '/records',
+      routerLink: '/check-errors/view',
+      routeParameter: 'records',
     },
     {
       name: 'List Of Solutions',
       description: 'List of all solutions',
       prcentage: 70,
-      routerLink: '/solutions',
+      routerLink: '/check-errors/view',
+      routeParameter: 'solutions',
     },
     {
       name: 'Configuration Requirements',
       description: 'List of all configuration requirements',
       prcentage: 80,
-      routerLink: '/configuration-requirements',
+      routerLink: '/check-errors/view',
+      routeParameter: 'configuration',
     },
   ];
   constructor() {}

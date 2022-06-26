@@ -1,0 +1,23 @@
+<div class="container wrap">
+  <div class="list-name">
+    <span>{{ list }}</span>
+  </div>
+
+  <div class="question" *ngFor="let question of questions; trackBy: trackByFn">
+    <app-question [question]="question"></app-question>
+    <div class="acceptance-history">
+      <app-acceptance-history></app-acceptance-history>
+    </div>
+  </div>
+
+  <div class="not-accept-reason">
+    <h2>
+      Why is this list not showing the records that were updated in the last 24
+      hours?
+    </h2>
+  </div>
+
+  <div class="acceptance-btn-actions">
+    <button mat-button routerLink="/check-errors">Check Update Errors</button>
+  </div>
+</div>

@@ -1,17 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
-import { TableButtonAction } from '@shared/models/tableButtonAction';
-
-export interface IClient {
-  id: number;
-  name: string;
-  company: string;
-  joinDate: number;
-  errors: string;
-  statues: string;
-  avatar: string;
-}
+import { Comment } from '@shared/models/question';
+import { IClient } from '../list/list.component';
 
 const ELEMENT_DATA: IClient[] = [
   {
@@ -42,17 +32,19 @@ const ELEMENT_DATA: IClient[] = [
     errors: 'list of document Q3',
   },
 ];
+
 @Component({
-  selector: 'app-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss'],
+  selector: 'app-acceptance-history',
+  templateUrl: './acceptance-history.component.html',
+  styleUrls: ['./acceptance-history.component.scss'],
 })
-export class ListComponent {
+export class AcceptanceHistoryComponent implements OnInit {
+  @Input() questionId: number = 1;
   columns = [
     {
       columnDef: 'name',
       header: 'Name',
-      hasAvatar: true,
+      hasAvatar: false,
       cell: (element: IClient) => `${element.name}`,
     },
     {
@@ -78,29 +70,8 @@ export class ListComponent {
       cell: (element: IClient) => `${element.statues}`,
     },
   ];
-
   datatSet = new MatTableDataSource<IClient>(ELEMENT_DATA);
-  actions = ['view', 'edit', 'delete'];
+  constructor() {}
 
-  constructor(private readonly router: Router) {}
-
-  onTableAction(event: TableButtonAction) {
-    switch (event.name) {
-      case 'edit':
-        console.log('edit');
-        break;
-      case 'delete':
-        console.log(this.datatSet.data);
-        this.datatSet.data = this.datatSet.data.filter(
-          (element) => element.id !== event.value?.id
-        );
-        break;
-      case 'view':
-        this.router.navigate(['/check-errors/view'], {
-          queryParams: {
-            list: 'records',
-          },
-        });
-    }
-  }
+  ngOnInit(): void {}
 }

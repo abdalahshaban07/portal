@@ -17,6 +17,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
 
 // Components
 import { AvatarComponent } from './components/avatar/avatar.component';
@@ -25,6 +27,11 @@ import { ActionButtonsComponent } from './components/action-buttons/action-butto
 import { ProfileComponent } from './components/profile/profile.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { CategoryCardComponent } from './components/category-card/category-card.component';
+import { QuestionComponent } from './components/question/question.component';
+
+//
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule } from '@angular/forms';
 
 const MaterialComponents = [
   MatToolbarModule,
@@ -41,6 +48,8 @@ const MaterialComponents = [
   MatPaginatorModule,
   MatSortModule,
   MatCheckboxModule,
+  MatSidenavModule,
+  MatListModule,
 ];
 
 @NgModule({
@@ -51,8 +60,15 @@ const MaterialComponents = [
     ProfileComponent,
     WelcomeComponent,
     CategoryCardComponent,
+    QuestionComponent,
   ],
-  imports: [CommonModule, MaterialComponents, RouterModule],
+  imports: [
+    CommonModule,
+    MaterialComponents,
+    RouterModule,
+    FormsModule,
+    FlexLayoutModule,
+  ],
   exports: [
     RouterModule,
     MaterialComponents,
@@ -61,6 +77,8 @@ const MaterialComponents = [
     ProfileComponent,
     WelcomeComponent,
     CategoryCardComponent,
+    QuestionComponent,
+    FlexLayoutModule,
   ],
 })
 export class SharedModule {}

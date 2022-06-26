@@ -1,7 +1,11 @@
 @import "variables.scss";
 
-.warp {
-  width: 90% !important;
+.wrap {
+  width: 90%;
+  margin: auto;
+}
+.wrap_xs {
+  width: 100%;
 }
 .table-name {
   font-size: 1.5em;
@@ -27,11 +31,11 @@
   }
 }
 
-.mat-column-select,
-.mat-column-action,
-.mat-column-statues {
-  flex: 0 0 10%;
-}
+// .mat-column-select,
+// .mat-column-action,
+// .mat-column-statues {
+//   flex: 0 0 10%;
+// }
 
 .mat-header-row {
   background-color: #242424;
@@ -77,3 +81,13 @@
 .not_active {
   color: $staus-color-red;
 }
+
+// mat-table {
+//   display: flex !important;
+//   flex-direction: row !important;
+// }
+
+// mat-row,
+// mat-header-row {
+//   flex-direction: column !important;
+// }

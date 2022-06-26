@@ -13,7 +13,6 @@
 }
 
 .welcome-des {
-  width: 50%;
   font-size: 14px;
 }
 .mat-button {
@@ -24,8 +23,8 @@
   height: 50px;
 }
 
-div {
-  margin-bottom: 15px;
+div:not(:last-child) {
+  margin-bottom: 1rem;
 }
 
 .btn-wrap {
