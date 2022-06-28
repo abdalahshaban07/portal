@@ -19,7 +19,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
     company: 'XYZ Company',
     joinDate: Date.now(),
     finishedProcess: 'Finished',
-    statues: 'waiting',
+    statues: 'not_active',
     avatar: 'https://picsum.photos/500/300?random=2',
   },
   {

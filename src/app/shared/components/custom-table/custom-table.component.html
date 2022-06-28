@@ -1,9 +1,14 @@
-<div class="wrap" fxLayout="column" ngClass.lt-md="wrap_xs">
+<div
+  class="wrap"
+  fxLayout="column"
+  ngClass.lt-md="wrap_xs"
+  [ngStyle]="{ width: width }"
+>
   <span class="table-name" *ngIf="hasName">{{ name }}</span>
   <!-- Action Bar -->
   <div class="table-actionbar" *ngIf="dataSource.data.length !== 0">
     <!-- search box -->
-    <div class="search-box">
+    <div class="search-box" *ngIf="hasSearch">
       <mat-form-field class="example-form-field" appearance="outline">
         <mat-icon matPrefix>search</mat-icon>
         <mat-label>Search</mat-label>

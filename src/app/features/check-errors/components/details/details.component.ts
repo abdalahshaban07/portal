@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Question } from '@shared/models/question';
+import { AddCommentComponent } from '../add-comment/add-comment.component';
 
 const titles: { [key: string]: string } = {
   documents: 'List Of Documents',
@@ -14,15 +17,20 @@ const titles: { [key: string]: string } = {
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.scss'],
 })
-export class DetailsComponent implements OnInit {
+export class DetailsComponent implements OnInit, AfterViewInit {
   list!: string;
-  questions: Question[] = [];
+  // questions: Question[] = [];
+
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+  questions!: MatTableDataSource<Question>;
+
+  disabledConfirm = true;
 
   constructor(private activeRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.getList();
-    this.questions = [
+    this.questions = new MatTableDataSource<Question>([
       {
         id: 1,
         title: '1-Business Description / Services Information',
@@ -49,7 +57,11 @@ export class DetailsComponent implements OnInit {
         ],
         comments: [],
       },
-    ];
+    ]);
+  }
+
+  ngAfterViewInit() {
+    this.questions.paginator = this.paginator;
   }
 
   getList() {
@@ -60,5 +72,9 @@ export class DetailsComponent implements OnInit {
 
   trackByFn(index: number, item: Question) {
     return item.id;
+  }
+
+  getServerData(event?: PageEvent) {
+    console.log(event);
   }
 }

@@ -19,19 +19,19 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { MatChipsModule } from '@angular/material/chips';
 
 // Components
 import { AvatarComponent } from './components/avatar/avatar.component';
 import { CustomTableComponent } from './components/custom-table/custom-table.component';
 import { ActionButtonsComponent } from './components/action-buttons/action-buttons.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { WelcomeComponent } from './components/welcome/welcome.component';
 import { CategoryCardComponent } from './components/category-card/category-card.component';
 import { QuestionComponent } from './components/question/question.component';
 
 //
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const MaterialComponents = [
   MatToolbarModule,
@@ -50,6 +50,8 @@ const MaterialComponents = [
   MatCheckboxModule,
   MatSidenavModule,
   MatListModule,
+  MatFormFieldModule,
+  MatChipsModule,
 ];
 
 @NgModule({
@@ -58,7 +60,6 @@ const MaterialComponents = [
     CustomTableComponent,
     ActionButtonsComponent,
     ProfileComponent,
-    WelcomeComponent,
     CategoryCardComponent,
     QuestionComponent,
   ],
@@ -67,6 +68,7 @@ const MaterialComponents = [
     MaterialComponents,
     RouterModule,
     FormsModule,
+    ReactiveFormsModule,
     FlexLayoutModule,
   ],
   exports: [
@@ -75,10 +77,10 @@ const MaterialComponents = [
     AvatarComponent,
     CustomTableComponent,
     ProfileComponent,
-    WelcomeComponent,
     CategoryCardComponent,
     QuestionComponent,
     FlexLayoutModule,
+    ReactiveFormsModule,
   ],
 })
 export class SharedModule {}

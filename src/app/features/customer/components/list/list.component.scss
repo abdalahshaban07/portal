@@ -1,8 +1,14 @@
-.table-name {
-  font-size: 1.5em;
-  font-weight: bold;
-  color: #242424;
-  text-transform: uppercase;
-  display: inline-block;
+.wrap {
+  width: 90%;
+  margin: auto;
   margin-block: 1rem;
+  .create-btn {
+    margin-bottom: 1rem;
+    .mat-button {
+      border-radius: 20px;
+      background-color: #454545;
+      padding: 13px;
+      color: #fff;
+    }
+  }
 }

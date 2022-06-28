@@ -11,7 +11,8 @@
       <div
         class="logo"
         fxFlex="10%"
-        fxFlex.lt-md="25%"
+        fxFlex.sm="20%"
+        fxFlex.xs="30%"
         fxFlexAlign="center center"
       >
         <a routerLink="/">
@@ -23,7 +24,7 @@
 
       <div
         class="links"
-        fxFlex="40%"
+        fxFlex="42%"
         fxShow
         fxHide.lt-md
         fxLayoutAlign="center center"
@@ -38,6 +39,13 @@
 
         <button mat-button routerLink="/admins" routerLinkActive="active-link">
           Admins
+        </button>
+        <button
+          mat-button
+          routerLink="/customers"
+          routerLinkActive="active-link"
+        >
+          Customers
         </button>
         <button
           mat-button
@@ -71,19 +79,20 @@
             View Question
           </button>
         </mat-menu>
-        <button
+        <!-- <button
           mat-button
           routerLink="/question"
           routerLinkActive="active-link"
         >
           Questions
-        </button>
+        </button> -->
       </div>
 
       <!-- search bar -->
       <div
         class="search"
         fxFlex="20%"
+        fxFlex.lt-md="30%"
         fxShow
         fxHide.lt-sm
         fxLayoutAlign="center center"
@@ -104,7 +113,7 @@
       <!-- user -->
       <div
         class="user"
-        fxFlex="25%"
+        fxFlex="23%"
         fxShow
         fxHide.lt-md
         fxLayoutAlign="center center"
@@ -147,6 +156,7 @@
     (backdropClick)="close()"
     fxHide.gt-sm
     [fxShow]="sidenav.opened"
+    class="sidenav-container"
     ngClass.sm="sidenav-container_sm"
     ngClass.xs="sidenav-container_xs"
   >
@@ -164,6 +174,7 @@
         <button mat-button routerLink="/dashboard">Dashboard</button>
 
         <button mat-button routerLink="/admins">Admins</button>
+        <button mat-button routerLink="/customers">Customers</button>
         <button
           mat-button
           [matMenuTriggerFor]="PCI"

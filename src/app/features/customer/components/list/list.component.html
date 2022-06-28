@@ -1,17 +1,20 @@
-<div class="warp container-fluid">
-  <div class="welcome">
-    <app-welcome></app-welcome>
+<div class="wrap" fxLayout="column" fxLayoutAlign="start">
+  <div class="create-btn">
+    <button mat-button>
+      <mat-icon>create_new_folder</mat-icon>
+      Create New Customer
+    </button>
   </div>
-</div>
-<div class="wrap-table">
-  <app-custom-table
-    (action)="onTableAction($event)"
-    [dataSource]="datatSet"
-    [columns]="columns"
-    [haveActions]="true"
-    [actions]="actions"
-    [haveSelect]="true"
-    [hasName]="true"
-    [name]="'Customer'"
-  ></app-custom-table>
+  <div>
+    <app-custom-table
+      (action)="onTableAction($event)"
+      [dataSource]="datatSet"
+      [columns]="columns"
+      [haveActions]="true"
+      [actions]="actions"
+      [haveSelect]="true"
+      [hasName]="false"
+      [name]="'Customer'"
+    ></app-custom-table>
+  </div>
 </div>

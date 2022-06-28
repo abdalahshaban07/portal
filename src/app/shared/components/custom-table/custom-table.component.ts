@@ -28,6 +28,8 @@ export class CustomTableComponent implements OnInit {
   @Input() haveSelect!: boolean;
   @Input() haveActions: boolean = false;
   @Input() hasName: boolean = false;
+  @Input() hasSearch: boolean = false;
+  @Input() width: string = '100%';
   @Input() name!: string;
   @Input() actions!: string[];
 
