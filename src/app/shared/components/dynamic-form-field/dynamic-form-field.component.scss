@@ -1,0 +1,28 @@
+::ng-deep .mat-form-field-outline-start {
+  border-radius: 10px 0 0 10px !important;
+  min-width: 10px !important;
+}
+
+::ng-deep .mat-form-field-outline-end {
+  border-radius: 0 10px 10px 0 !important;
+}
+
+::ng-deep .mat-form-field-underline {
+  display: none;
+}
+
+.div-upload {
+  // top: -15px;
+  // position: absolute;
+  .input-readeOnly {
+    display: none;
+  }
+
+  .mat-icon {
+    margin-right: 5px;
+  }
+}
+
+.form-buttons {
+  margin-top: 1rem;
+}

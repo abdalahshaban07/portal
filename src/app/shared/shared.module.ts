@@ -20,6 +20,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatSelectModule } from '@angular/material/select';
 
 // Components
 import { AvatarComponent } from './components/avatar/avatar.component';
@@ -32,6 +33,7 @@ import { QuestionComponent } from './components/question/question.component';
 //
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DynamicFormFieldComponent } from './components/dynamic-form-field/dynamic-form-field.component';
 
 const MaterialComponents = [
   MatToolbarModule,
@@ -52,6 +54,7 @@ const MaterialComponents = [
   MatListModule,
   MatFormFieldModule,
   MatChipsModule,
+  MatSelectModule,
 ];
 
 @NgModule({
@@ -62,6 +65,7 @@ const MaterialComponents = [
     ProfileComponent,
     CategoryCardComponent,
     QuestionComponent,
+    DynamicFormFieldComponent,
   ],
   imports: [
     CommonModule,
@@ -81,6 +85,7 @@ const MaterialComponents = [
     QuestionComponent,
     FlexLayoutModule,
     ReactiveFormsModule,
+    DynamicFormFieldComponent,
   ],
 })
 export class SharedModule {}
