@@ -13,6 +13,8 @@ export class DynamicFormFieldComponent implements OnInit {
   dataimage: string = '';
   selectedFile!: any[];
 
+  hide: boolean = true;
+
   constructor(private rootFormGroup: FormGroupDirective) {}
 
   ngOnInit(): void {

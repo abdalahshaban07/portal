@@ -27,10 +27,14 @@
         <input
           *ngSwitchCase="'password'"
           matInput
-          type="password"
+          [type]="hide ? 'password' : 'text'"
           [formControlName]="formItem.id"
           [value]="formItem.value"
         />
+
+        <mat-icon matSuffix (click)="hide = !hide" *ngSwitchCase="'password'">{{
+          hide ? "visibility_off" : "visibility"
+        }}</mat-icon>
 
         <!-- select -->
         <mat-select [formControlName]="formItem.id" *ngSwitchCase="'select'">
