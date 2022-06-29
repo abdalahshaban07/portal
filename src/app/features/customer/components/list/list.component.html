@@ -9,12 +9,14 @@
     <app-custom-table
       (action)="onTableAction($event)"
       [dataSource]="datatSet"
+      [length]="length"
       [columns]="columns"
       [haveActions]="true"
       [actions]="actions"
       [haveSelect]="true"
       [hasName]="false"
       [name]="'Customer'"
+      (pagenatior)="onPaginator($event)"
     ></app-custom-table>
   </div>
 </div>

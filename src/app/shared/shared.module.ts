@@ -34,6 +34,8 @@ import { QuestionComponent } from './components/question/question.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DynamicFormFieldComponent } from './components/dynamic-form-field/dynamic-form-field.component';
+import { PaginatorComponent } from './components/paginator/paginator.component';
+
 
 const MaterialComponents = [
   MatToolbarModule,
@@ -66,6 +68,8 @@ const MaterialComponents = [
     CategoryCardComponent,
     QuestionComponent,
     DynamicFormFieldComponent,
+    PaginatorComponent,
+    
   ],
   imports: [
     CommonModule,
