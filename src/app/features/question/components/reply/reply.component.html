@@ -1,0 +1,25 @@
+<div class="wrap-form">
+  <form
+    class="form"
+    [formGroup]="questionForm"
+    fxLayout="column"
+    fxLayoutGap="0px"
+  >
+    <ng-container *ngFor="let formItem of questionFormFields">
+      <app-dynamic-form-field [formItem]="formItem"></app-dynamic-form-field>
+    </ng-container>
+  </form>
+  <form
+    class="form"
+    [formGroup]="replyForm"
+    fxLayout="column"
+    fxLayoutGap="0px"
+  >
+    <ng-container *ngFor="let formItem of replyFormFields">
+      <app-dynamic-form-field [formItem]="formItem"></app-dynamic-form-field>
+    </ng-container>
+    <div class="form-buttons">
+      <button mat-button type="button" (click)="sendReply()">Reply</button>
+    </div>
+  </form>
+</div>

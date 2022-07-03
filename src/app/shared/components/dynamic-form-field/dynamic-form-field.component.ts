@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormGroupDirective } from '@angular/forms';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { DynamicFormFieldModel } from './dynamic-form-field.model';
 
 @Component({
@@ -15,10 +16,29 @@ export class DynamicFormFieldComponent implements OnInit {
 
   hide: boolean = true;
 
+  config: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: '15rem',
+    minHeight: '5rem',
+    placeholder: 'Enter text here...',
+    translate: 'no',
+    defaultParagraphSeparator: 'p',
+    defaultFontName: 'Arial',
+    enableToolbar: true,
+    showToolbar: true,
+    sanitize: true,
+    toolbarPosition: 'top',
+    toolbarHiddenButtons: [
+      ['insertVideo', 'insertHorizontalRule', 'toggleEditorMode'],
+    ],
+  };
+
   constructor(private rootFormGroup: FormGroupDirective) {}
 
   ngOnInit(): void {
     this.form = this.rootFormGroup.form;
+    
   }
 
   async uploadFile(imgFile: any, formItem: string) {

@@ -35,7 +35,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DynamicFormFieldComponent } from './components/dynamic-form-field/dynamic-form-field.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
-
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 const MaterialComponents = [
   MatToolbarModule,
@@ -69,7 +69,6 @@ const MaterialComponents = [
     QuestionComponent,
     DynamicFormFieldComponent,
     PaginatorComponent,
-    
   ],
   imports: [
     CommonModule,
@@ -78,6 +77,7 @@ const MaterialComponents = [
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
+    AngularEditorModule,
   ],
   exports: [
     RouterModule,
@@ -90,6 +90,7 @@ const MaterialComponents = [
     FlexLayoutModule,
     ReactiveFormsModule,
     DynamicFormFieldComponent,
+    PaginatorComponent,
   ],
 })
 export class SharedModule {}

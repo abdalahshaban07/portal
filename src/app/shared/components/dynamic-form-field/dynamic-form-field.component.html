@@ -11,7 +11,7 @@
           matInput
           type="text"
           [formControlName]="formItem.id"
-          [value]="formItem.value"
+          [value]="formItem.defaultValue?.value"
         />
 
         <!-- email -->
@@ -20,7 +20,7 @@
           matInput
           type="email"
           [formControlName]="formItem.id"
-          [value]="formItem.value"
+          [value]="formItem.defaultValue?.value"
         />
 
         <!-- password -->
@@ -29,7 +29,7 @@
           matInput
           [type]="hide ? 'password' : 'text'"
           [formControlName]="formItem.id"
-          [value]="formItem.value"
+          [value]="formItem.defaultValue?.value"
         />
 
         <mat-icon matSuffix (click)="hide = !hide" *ngSwitchCase="'password'">{{
@@ -52,7 +52,8 @@
           *ngSwitchCase="'textarea'"
           matInput
           [formControlName]="formItem.id"
-          [value]="formItem.value"
+          [value]="formItem.defaultValue?.value"
+          [rows]="formItem.rows"
         ></textarea>
         <!-- file -->
         <div *ngSwitchCase="'file'" class="div-upload">
@@ -92,6 +93,28 @@
           </div>
         </div>
 
+        <!-- Editor -->
+        <ng-container *ngSwitchCase="'editor'">
+          <input
+            class="input-readeOnly"
+            matInput
+            readonly
+            name="editor-input"
+          />
+          <angular-editor
+            [formControlName]="formItem.id"
+            [config]="config"
+          ></angular-editor>
+          <br />
+          <mat-error
+            *ngIf="
+              form.get(formItem.id)?.hasError('required') &&
+              form.get(formItem.id)?.touched
+            "
+            >{{ formItem.label }} is required
+          </mat-error>
+        </ng-container>
+
         <!-- Errors -->
         <mat-error *ngIf="form.get(formItem.id)?.hasError('required')"
           >{{ formItem.label }} is required
@@ -101,6 +124,9 @@
         </mat-error>
         <mat-error *ngIf="form.get(formItem.id)?.hasError('pattern')">
           {{ formItem.label }} is invalid
+        </mat-error>
+        <mat-error *ngIf="form.get(formItem.id)?.hasError('maxlength')">
+          {{ formItem.label }} is too long
         </mat-error>
         <mat-error *ngIf="form.get(formItem.id)?.hasError('mustMatch')">
           {{ formItem.label }} must match with Password

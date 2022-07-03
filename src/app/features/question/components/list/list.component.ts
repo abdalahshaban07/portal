@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PeriodicElement } from '@features/customer/models/periodic_element';
 import { TableButtonAction } from '@shared/models/tableButtonAction';
-import { PeriodicElement } from '../../models/periodic_element';
 
 const ELEMENT_DATA: PeriodicElement[] = [
   {
@@ -456,7 +456,6 @@ const ELEMENT_DATA: PeriodicElement[] = [
     avatar: 'https://picsum.photos/500/300?random=3',
   },
 ];
-
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -515,7 +514,6 @@ export class ListComponent implements OnInit {
           (element) => element.id !== event.value?.id
         );
         console.log('delete');
-
         break;
     }
   }

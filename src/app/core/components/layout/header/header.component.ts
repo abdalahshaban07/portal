@@ -28,10 +28,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   showCategorys() {
     let showRouterLinks = [
       '/check-errors',
-      '/check-errors/view?list=documents',
-      '/check-errors/view?list=records',
-      '/check-errors/view?list=solutions',
-      '/check-errors/view?list=configuration',
+      '/check-errors/list/documents',
+      '/check-errors/list/records',
+      '/check-errors/list/solutions',
+      '/check-errors/list/configuration',
     ];
     this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationEnd) {

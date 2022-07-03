@@ -11,6 +11,10 @@
   display: none;
 }
 
+::ng-deep .mat-form-field-disabled .mat-form-field-outline {
+  background-color: #f4f4f4;
+}
+
 .div-upload {
   // top: -15px;
   // position: absolute;
@@ -24,5 +28,17 @@
 }
 
 .form-buttons {
-  margin-top: 1rem;
+  margin-top: 2rem;
+}
+
+.input-readeOnly {
+  display: none;
+}
+
+::ng-deep .angular-editor-textarea {
+  img {
+    display: block;
+    height: 100% !important;
+    object-fit: contain !important;
+  }
 }

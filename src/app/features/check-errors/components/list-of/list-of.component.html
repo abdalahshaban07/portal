@@ -25,4 +25,10 @@
       <app-add-comment [questionId]="question.id"></app-add-comment>
     </ng-container>
   </div>
+
+  <!-- pagenatior -->
+  <app-paginator
+    [length]="length"
+    (pagenatior)="onPageChange($event)"
+  ></app-paginator>
 </div>

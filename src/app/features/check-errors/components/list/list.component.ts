@@ -80,15 +80,12 @@ export class ListComponent {
   ];
 
   datatSet = new MatTableDataSource<IClient>(ELEMENT_DATA);
-  actions = ['view', 'edit', 'delete'];
+  actions = ['view', 'delete'];
 
   constructor(private readonly router: Router) {}
 
   onTableAction(event: TableButtonAction) {
     switch (event.name) {
-      case 'edit':
-        console.log('edit');
-        break;
       case 'delete':
         console.log(this.datatSet.data);
         this.datatSet.data = this.datatSet.data.filter(
@@ -96,11 +93,7 @@ export class ListComponent {
         );
         break;
       case 'view':
-        this.router.navigate(['/check-errors/view'], {
-          queryParams: {
-            list: 'records',
-          },
-        });
+        this.router.navigate(['/check-errors/view/22']);
     }
   }
 }

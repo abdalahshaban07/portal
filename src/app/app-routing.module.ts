@@ -22,6 +22,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'questions',
+    loadChildren: () =>
+      import('@features/question/question.module').then(
+        (m) => m.QuestionModule
+      ),
+  },
+  {
     path: 'check-errors',
     loadChildren: () =>
       import('@features/check-errors/check-errors.module').then(

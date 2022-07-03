@@ -20,35 +20,52 @@ export class ControlComponent implements OnInit {
         id: 'name',
         label: 'Name',
         type: 'text',
-        value: '',
+        defaultValue: {
+          value: '',
+          disabled: false,
+        },
         validators: [Validators.required],
       },
       {
         id: 'email',
         label: 'Email',
         type: 'email',
-        value: '',
+        defaultValue: {
+          value: '',
+          disabled: false,
+        },
         validators: [Validators.required, Validators.email],
       },
       {
         id: 'password',
         label: 'Password',
         type: 'password',
-        value: '',
+        defaultValue: {
+          value: '',
+          disabled: false,
+        },
         validators: [Validators.required],
       },
       {
         id: 'confirmPassword',
         label: 'Confirm Password',
         type: 'password',
-        value: '',
-        validators: [mustMatch('password')],
+        defaultValue: {
+          value: '',
+          disabled: false,
+        },
+        validators: [
+          /*mustMatch('password')*/
+        ],
       },
       {
         id: 'phone',
         label: 'Phone Number',
         type: 'text',
-        value: '',
+        defaultValue: {
+          value: '',
+          disabled: false,
+        },
         validators: [Validators.required, Validators.pattern('^[0-9]+$')],
       },
       {
@@ -59,14 +76,20 @@ export class ControlComponent implements OnInit {
           male: 'Male',
           female: 'Female',
         },
-        value: '',
+        defaultValue: {
+          value: '',
+          disabled: false,
+        },
         validators: [Validators.required],
       },
       {
         id: 'city',
         label: 'City',
         type: 'text',
-        value: '',
+        defaultValue: {
+          value: '',
+          disabled: false,
+        },
         validators: [Validators.required],
       },
       {
@@ -77,13 +100,18 @@ export class ControlComponent implements OnInit {
           eg: 'Egypt',
           ksa: 'Saudi Arabia',
         },
-        value: '',
+        defaultValue: {
+          value: '',
+          disabled: false,
+        },
         validators: [Validators.required],
       },
       // {
       //   id: 'profileImage',
       //   type: 'file',
-      //   value: '',
+      //  defaultValue: {
+      //     value: '',
+      //   },
       //   validators: [Validators.required, requiredFileType('png')],
       // },
     ];
@@ -94,7 +122,10 @@ export class ControlComponent implements OnInit {
   createForm() {
     this.myForm = this.fb.group({});
     this.dynamicFormFields.forEach((field) => {
-      const control = this.fb.control(field.value, field.validators);
+      const control = this.fb.control(
+        { ...field.defaultValue },
+        field.validators
+      );
       this.myForm.addControl(field.id, control);
     });
   }

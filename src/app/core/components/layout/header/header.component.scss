@@ -85,13 +85,6 @@
   }
 }
 
-// .sidenav-container_sm {
-//   height: 54vh;
-// }
-// .sidenav-container_xs {
-//   height: 58vh;
-// }
-
 .mat-drawer {
   height: auto;
 }
@@ -116,7 +109,7 @@
 }
 
 .search {
-  color: $secondary-5;
+  color: $secondary-5 !important;
   .mat-form-field {
     width: 100%;
   }

@@ -55,29 +55,13 @@
           PCI-DSS Requirment
         </button>
         <mat-menu #PCI="matMenu" yPosition="below" xPosition="before">
-          <button
-            mat-menu-item
-            routerLink="/addQuestion"
-            routerLinkActive="active-link"
-          >
+          <button mat-menu-item routerLink="/questions/create">
             Add Question
           </button>
           <mat-divider></mat-divider>
-          <button
-            mat-menu-item
-            routerLink="/checkAnswer"
-            routerLinkActive="active-link"
-          >
-            Check Answer
-          </button>
+          <button mat-menu-item routerLink="/checkAnswer">Check Answer</button>
           <mat-divider></mat-divider>
-          <button
-            mat-menu-item
-            routerLink="/viewQuestion"
-            routerLinkActive="active-link"
-          >
-            View Question
-          </button>
+          <button mat-menu-item routerLink="/questions">View Question</button>
         </mat-menu>
         <!-- <button
           mat-button

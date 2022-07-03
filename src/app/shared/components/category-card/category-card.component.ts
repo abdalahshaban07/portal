@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 export interface ICategory {
   name: string;
   description: string;
   prcentage: number;
   routerLink: string;
-  routeParameter: string;
 }
 
 @Component({
@@ -19,30 +19,28 @@ export class CategoryCardComponent {
       name: 'List Of Documents',
       description: 'List of all documents',
       prcentage: 50,
-      routerLink: '/check-errors/view',
-      routeParameter: 'documents',
+      routerLink: 'check-errors/list/documents',
     },
     {
       name: 'List Of Records',
       description: 'List of all records',
       prcentage: 60,
-      routerLink: '/check-errors/view',
-      routeParameter: 'records',
+      routerLink: 'check-errors/list/records',
     },
     {
       name: 'List Of Solutions',
       description: 'List of all solutions',
       prcentage: 70,
-      routerLink: '/check-errors/view',
-      routeParameter: 'solutions',
+      routerLink: 'check-errors/list/solutions',
     },
     {
       name: 'Configuration Requirements',
       description: 'List of all configuration requirements',
       prcentage: 80,
-      routerLink: '/check-errors/view',
-      routeParameter: 'configuration',
+      routerLink: 'check-errors/list/configuration',
     },
   ];
-  constructor() {}
+  constructor(private activeRoute: ActivatedRoute) {
+    console.log(activeRoute.url);
+  }
 }
