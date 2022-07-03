@@ -10,8 +10,29 @@ const routes: Routes = [
   {
     path: 'dashboard',
     loadChildren: () =>
+      import('@features/dashboard/dashboard.module').then(
+        (m) => m.DashboardModule
+      ),
+  },
+  {
+    path: 'customers',
+    loadChildren: () =>
       import('@features/customer/customer.module').then(
         (m) => m.CustomerModule
+      ),
+  },
+  {
+    path: 'questions',
+    loadChildren: () =>
+      import('@features/question/question.module').then(
+        (m) => m.QuestionModule
+      ),
+  },
+  {
+    path: 'check-errors',
+    loadChildren: () =>
+      import('@features/check-errors/check-errors.module').then(
+        (m) => m.CheckErrorsModule
       ),
   },
 ];

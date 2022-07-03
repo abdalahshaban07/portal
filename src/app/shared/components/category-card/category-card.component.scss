@@ -1,0 +1,30 @@
+@import "variables.scss";
+
+.warp-card {
+  justify-content: center;
+  .mat-card {
+    border-radius: 15px;
+    padding: 5px;
+    background-color: $secondary-1;
+    color: $secondary-4;
+    margin: 7px;
+    .mat-card-subtitle {
+      padding-left: 5px;
+      margin-bottom: 10px;
+    }
+    .mat-card-actions {
+      margin-bottom: 2px;
+      display: flex;
+
+      .mat-button[disabled] {
+        font-size: 2rem;
+        font-weight: bolder;
+      }
+
+      .continue {
+        background-color: #fff;
+        border-radius: 15px;
+      }
+    }
+  }
+}

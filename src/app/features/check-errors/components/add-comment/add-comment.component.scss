@@ -1,0 +1,44 @@
+@import "variables.scss";
+
+.file-name {
+  margin-left: 1rem;
+}
+
+.acceptance-btn-actions {
+  padding-inline: 1rem;
+  .mat-button {
+    color: $secondary-1;
+    border-radius: 10px;
+  }
+  .btn-accept,
+  .btn-confirm {
+    background-color: $staus-color-green;
+  }
+
+  .btn-confirm[disabled] {
+    background-color: $secondary-2;
+  }
+
+  .btn-add-comment {
+    background-color: $staus-color-red;
+  }
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+  border-radius: 10px;
+  border: 1px solid gray;
+}
+
+::ng-deep .mat-chip {
+  margin-bottom: 15px !important;
+}
+
+.file-input {
+  .mat-icon {
+    margin-right: 7px;
+  }
+  .mat-button {
+    margin-right: 3rem;
+  }
+  margin-bottom: 1rem;
+}

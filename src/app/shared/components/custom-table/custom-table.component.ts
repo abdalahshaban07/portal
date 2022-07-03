@@ -7,7 +7,7 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { TableButtonAction } from '@shared/models/tableButtonAction';
@@ -19,20 +19,35 @@ import { TableColumn } from '@shared/models/tableColumn';
   styleUrls: ['./custom-table.component.scss'],
 })
 export class CustomTableComponent implements OnInit {
-  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+  // inputs
   @Input() type!: string;
-  @Output() action: EventEmitter<TableButtonAction> =
-    new EventEmitter<TableButtonAction>();
   @Input() columns!: Array<TableColumn>;
   @Input() dataSource!: MatTableDataSource<any>;
   @Input() haveSelect!: boolean;
-  @Input() haveActions!: boolean;
+  @Input() haveActions: boolean = false;
+  @Input() hasName: boolean = false;
+  @Input() hasSearch: boolean = false;
+  @Input() width: string = '100%';
+  @Input() height: string = '100vh';
+  @Input() name!: string;
   @Input() actions!: string[];
 
-  @ViewChild(MatSort, { static: true }) sort!: MatSort;
+  // outputs
+  @Output() action: EventEmitter<TableButtonAction> =
+    new EventEmitter<TableButtonAction>();
+  @Output() pagenatior = new EventEmitter();
+
+  // view childs
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator; // paginator
+  @ViewChild(MatSort, { static: true }) sort!: MatSort; // sort
+
+  // variables
   selection = new SelectionModel<any>(true, []);
   displayedColumns: string[] = [];
   value!: string;
+
+  // // paginator properties
+  @Input() length!: number;
 
   constructor() {}
 
@@ -49,9 +64,6 @@ export class CustomTableComponent implements OnInit {
     this.haveActions && this.displayedColumns.push('action');
     // this.dataSource = new MatTableDataSource<any>(this.dataset);
 
-    // set pagination
-    this.dataSource.paginator = this.paginator;
-
     // set sorting
     this.dataSource.sort = this.sort;
   }
@@ -60,6 +72,14 @@ export class CustomTableComponent implements OnInit {
     e = { ...e, value: element };
     this.action.emit(e);
   }
+
+  onPageChange(event: { pageNumber: number; pageSize: number }): void {
+    this.pagenatior.emit({
+      pageNumber: event.pageNumber,
+      pageSize: event.pageSize,
+    });
+  }
+
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;

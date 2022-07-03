@@ -4,6 +4,8 @@
   color: $secondary-1;
   border-radius: 25px;
   padding: 1rem;
+  width: 90%;
+  margin: auto;
 }
 
 .welcome-text {
@@ -12,19 +14,18 @@
 }
 
 .welcome-des {
-  width: 50%;
   font-size: 14px;
 }
 .mat-button {
-  background-color:#fff;
+  background-color: #fff;
   color: $primary-2;
   border-radius: 15px;
   width: 210px;
   height: 50px;
 }
 
-div {
-  margin-bottom: 15px;
+div:not(:last-child) {
+  margin-bottom: 1rem;
 }
 
 .btn-wrap {

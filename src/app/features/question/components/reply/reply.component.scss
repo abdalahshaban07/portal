@@ -1,0 +1,17 @@
+@import "variables.scss";
+
+.wrap-form {
+  margin-block: 3rem;
+  .form {
+    width: 80%;
+    margin: 0 auto;
+  }
+  .form-buttons {
+    .mat-button {
+      padding: 5px;
+      border-radius: 10px;
+      background-color: $primary-3;
+      color: $secondary-5;
+    }
+  }
+}

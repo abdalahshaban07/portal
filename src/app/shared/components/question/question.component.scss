@@ -1,0 +1,22 @@
+@import "variables.scss";
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.question-title {
+  color: $primary-1;
+  font-weight: bold;
+  line-height: 40px;
+  font-size: 1.4rem;
+}
+
+.question-note,
+.question-content {
+  font-size: 14px;
+}
+
+.question-note {
+  padding-inline: 1rem;
+}
