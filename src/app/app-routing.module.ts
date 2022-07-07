@@ -35,6 +35,11 @@ const routes: Routes = [
         (m) => m.CheckErrorsModule
       ),
   },
+  {
+    path: 'admin',
+    loadChildren: () =>
+      import('@features/admin/admin.module').then((m) => m.AdminModule),
+  },
 ];
 
 @NgModule({
