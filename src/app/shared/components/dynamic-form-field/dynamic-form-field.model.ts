@@ -9,7 +9,8 @@ export interface DynamicFormFieldModel {
     | 'password'
     | 'textarea'
     | 'file'
-    | 'editor';
+    | 'editor'
+    | 'toggle';
   label?: string;
   selectMenuOptions?: { [key: string]: string };
   defaultValue?: DefaultValue;

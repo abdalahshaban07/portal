@@ -1,0 +1,10 @@
+<div class="wrap-form">
+  <form class="form" [formGroup]="myForm" fxLayout="column" fxLayoutGap="0px">
+    <ng-container *ngFor="let formItem of dynamicFormFields">
+      <app-dynamic-form-field [formItem]="formItem"></app-dynamic-form-field>
+    </ng-container>
+    <div class="form-buttons">
+      <button mat-button type="button" (click)="saveData()">Submit</button>
+    </div>
+  </form>
+</div>

@@ -21,6 +21,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSelectModule } from '@angular/material/select';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 // Components
 import { AvatarComponent } from './components/avatar/avatar.component';
@@ -54,9 +55,9 @@ const MaterialComponents = [
   MatCheckboxModule,
   MatSidenavModule,
   MatListModule,
-  MatFormFieldModule,
   MatChipsModule,
   MatSelectModule,
+  MatButtonToggleModule,
 ];
 
 @NgModule({

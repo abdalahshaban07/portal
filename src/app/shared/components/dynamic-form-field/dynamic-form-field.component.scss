@@ -42,3 +42,20 @@
     object-fit: contain !important;
   }
 }
+
+::ng-deep .mat-button-toggle-group {
+  border: none;
+  .mat-button-toggle {
+    border-radius: 1rem;
+    border: none;
+    margin-right: 10px;
+    .mat-button-toggle-button {
+      border: 1px solid #707070;
+      border-radius: 1rem;
+      padding-inline: 1.5rem;
+    }
+    .mat-button-toggle-label-content {
+      padding-inline: 1.5rem;
+    }
+  }
+}

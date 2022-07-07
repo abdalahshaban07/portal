@@ -6,22 +6,24 @@
         [appearance]="formItem.type === 'file' ? 'standard' : 'outline'"
       >
         <!-- text -->
-        <input
-          *ngSwitchCase="'text'"
-          matInput
-          type="text"
-          [formControlName]="formItem.id"
-          [value]="formItem.defaultValue?.value"
-        />
+        <ng-container *ngSwitchCase="'text'">
+          <input
+            matInput
+            type="text"
+            [formControlName]="formItem.id"
+            [value]="formItem.defaultValue?.value"
+          />
+        </ng-container>
 
         <!-- email -->
-        <input
-          *ngSwitchCase="'email'"
-          matInput
-          type="email"
-          [formControlName]="formItem.id"
-          [value]="formItem.defaultValue?.value"
-        />
+        <ng-container *ngSwitchCase="'email'">
+          <input
+            matInput
+            type="email"
+            [formControlName]="formItem.id"
+            [value]="formItem.defaultValue?.value"
+          />
+        </ng-container>
 
         <!-- password -->
         <input
@@ -31,32 +33,25 @@
           [formControlName]="formItem.id"
           [value]="formItem.defaultValue?.value"
         />
-
         <mat-icon matSuffix (click)="hide = !hide" *ngSwitchCase="'password'">{{
           hide ? "visibility_off" : "visibility"
         }}</mat-icon>
 
         <!-- select -->
-        <mat-select [formControlName]="formItem.id" *ngSwitchCase="'select'">
-          <mat-option [value]="null">Please Select</mat-option>
-          <mat-option
-            [value]="menuOption.key"
-            *ngFor="let menuOption of formItem.selectMenuOptions | keyvalue"
-          >
-            {{ menuOption.value }}
-          </mat-option>
-        </mat-select>
+        <ng-container *ngSwitchCase="'select'">
+          <mat-select [formControlName]="formItem.id">
+            <mat-option [value]="null">Please Select</mat-option>
+            <mat-option
+              [value]="menuOption.key"
+              *ngFor="let menuOption of formItem.selectMenuOptions | keyvalue"
+            >
+              {{ menuOption.value }}
+            </mat-option>
+          </mat-select>
+        </ng-container>
 
-        <!-- textarea -->
-        <textarea
-          *ngSwitchCase="'textarea'"
-          matInput
-          [formControlName]="formItem.id"
-          [value]="formItem.defaultValue?.value"
-          [rows]="formItem.rows"
-        ></textarea>
-        <!-- file -->
-        <div *ngSwitchCase="'file'" class="div-upload">
+        <!-- toggle -->
+        <ng-container *ngSwitchCase="'toggle'">
           <input
             class="input-readeOnly"
             [formControlName]="formItem.id"
@@ -64,34 +59,71 @@
             readonly
             name="name"
           />
-          <!-- Fetch selected filed on change -->
-          <button mat-button (click)="fileInput.click()">
-            <mat-icon>cloud_upload</mat-icon>
-            <span>Upload Image</span>
+          <mat-button-toggle-group
+            [formControlName]="formItem.id"
+            multiple
+            matInput
+            [name]="formItem.id"
+          >
+            <mat-button-toggle
+              [aria-label]="formItem.id"
+              [value]="menuOption.key"
+              *ngFor="let menuOption of formItem.selectMenuOptions | keyvalue"
+            >
+              {{ menuOption.value }}
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+        </ng-container>
+
+        <!-- textarea -->
+        <ng-container *ngSwitchCase="'textarea'">
+          <textarea
+            matInput
+            [formControlName]="formItem.id"
+            [value]="formItem.defaultValue?.value"
+            [rows]="formItem.rows"
+          ></textarea>
+        </ng-container>
+
+        <!-- file -->
+        <ng-container *ngSwitchCase="'file'">
+          <div class="div-upload">
             <input
-              #fileInput
-              type="file"
-              (change)="uploadFile($event, formItem.id)"
-              [style.display]="'none'"
-              [accept]="'image/*'"
+              class="input-readeOnly"
+              [formControlName]="formItem.id"
+              matInput
+              readonly
+              name="name"
             />
-          </button>
-          <div fxLayout="row wrap" fxLayoutGap="15px">
-            <div *ngFor="let file of selectedFile; let i = index">
-              <mat-chip-list *ngIf="selectedFile.length">
-                <mat-chip>
-                  {{ file?.name }}
-                  <mat-icon
-                    matChipRemove
-                    (click)="removeFileByIndex(i, formItem.id)"
-                  >
-                    cancel</mat-icon
-                  >
-                </mat-chip>
-              </mat-chip-list>
+
+            <button mat-button (click)="fileInput.click()">
+              <mat-icon>cloud_upload</mat-icon>
+              <span>Upload Image</span>
+              <input
+                #fileInput
+                type="file"
+                (change)="uploadFile($event, formItem.id)"
+                [style.display]="'none'"
+                [accept]="'image/*'"
+              />
+            </button>
+            <div fxLayout="row wrap" fxLayoutGap="15px">
+              <div *ngFor="let file of selectedFile; let i = index">
+                <mat-chip-list *ngIf="selectedFile.length">
+                  <mat-chip>
+                    {{ file?.name }}
+                    <mat-icon
+                      matChipRemove
+                      (click)="removeFileByIndex(i, formItem.id)"
+                    >
+                      cancel</mat-icon
+                    >
+                  </mat-chip>
+                </mat-chip-list>
+              </div>
             </div>
           </div>
-        </div>
+        </ng-container>
 
         <!-- Editor -->
         <ng-container *ngSwitchCase="'editor'">
@@ -116,6 +148,7 @@
         </ng-container>
 
         <!-- Errors -->
+
         <mat-error *ngIf="form.get(formItem.id)?.hasError('required')"
           >{{ formItem.label }} is required
         </mat-error>
