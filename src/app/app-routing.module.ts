@@ -40,6 +40,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('@features/admin/admin.module').then((m) => m.AdminModule),
   },
+  {
+    path: 'certificate',
+    loadChildren: () =>
+      import('@features/certificate/certificate.module').then(
+        (m) => m.CertificateModule
+      ),
+  },
 ];
 
 @NgModule({

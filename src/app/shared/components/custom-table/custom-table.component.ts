@@ -23,7 +23,7 @@ export class CustomTableComponent implements OnInit {
   @Input() type!: string;
   @Input() columns!: Array<TableColumn>;
   @Input() dataSource!: MatTableDataSource<any>;
-  @Input() haveSelect!: boolean;
+  @Input() haveSelect: boolean = false;
   @Input() haveActions: boolean = false;
   @Input() hasName: boolean = false;
   @Input() hasSearch: boolean = false;
