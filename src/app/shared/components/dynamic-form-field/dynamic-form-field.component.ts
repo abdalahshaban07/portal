@@ -38,7 +38,6 @@ export class DynamicFormFieldComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.rootFormGroup.form;
-    
   }
 
   async uploadFile(imgFile: any, formItem: string) {

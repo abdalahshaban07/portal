@@ -4,7 +4,9 @@
       <app-dynamic-form-field [formItem]="formItem"></app-dynamic-form-field>
     </ng-container>
     <div class="form-buttons">
-      <button mat-button type="button" (click)="saveData()">Add</button>
+      <button mat-button type="button" (click)="saveData()">
+        {{ formMode }}
+      </button>
     </div>
   </form>
 </div>

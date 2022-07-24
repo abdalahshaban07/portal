@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CertificateService } from '@features/certificate/services/certificate.service';
+import { IQuestion } from '@features/question/models/question';
+import { QuesationService } from '@features/question/services/quesation.service';
 import { DynamicFormFieldModel } from '@shared/components/dynamic-form-field/dynamic-form-field.model';
+import { FormMode } from '@shared/Enums/formMode';
+import { ToastrService } from 'ngx-toastr';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 @Component({
@@ -11,14 +17,20 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
 export class ControlComponent implements OnInit {
   myForm!: FormGroup;
   dynamicFormFields!: DynamicFormFieldModel[];
-  isAddMode!: boolean;
+  formMode!: FormMode;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private quesationService: QuesationService,
+    private activeRoute: ActivatedRoute,
+    private toastr: ToastrService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.dynamicFormFields = [
       {
-        id: 'question',
+        id: 'quesation',
         label: 'Question',
         type: 'text',
         defaultValue: {
@@ -28,34 +40,66 @@ export class ControlComponent implements OnInit {
         validators: [Validators.required],
       },
       {
-        id: 'content',
-        label: 'Content',
+        id: 'description',
+        label: 'Description',
         type: 'editor',
         defaultValue: {
           value: '',
           disabled: false,
         },
-        validators: [Validators.required, Validators.maxLength(5)],
+        validators: [],
       },
       {
-        id: 'category',
+        id: 'categoryId',
         label: 'Select Category',
         type: 'select',
-        selectMenuOptions: {
-          1: 'Category 1',
-          2: 'Category 2',
-          3: 'Category 3',
-          4: 'Category 4',
-        },
+        selectMenuOptions: [
+          {
+            key: 1,
+            value: 'List of Documents',
+          },
+          {
+            key: 2,
+            value: 'List of Records',
+          },
+          {
+            key: 3,
+            value: 'List of Solutions',
+          },
+          {
+            key: 4,
+            value: 'Configuration Requirements',
+          },
+        ],
         defaultValue: {
           value: '',
           disabled: false,
         },
         validators: [Validators.required],
       },
+      {
+        id: 'isActive',
+        label: 'Is Active',
+        type: 'select',
+        selectMenuOptions: [
+          {
+            key: true,
+            value: 'True',
+          },
+          {
+            key: false,
+            value: 'False',
+          },
+        ],
+        defaultValue: {
+          value: '',
+          disabled: false,
+        },
+      },
     ];
 
     this.createForm();
+    this.getIdFromUrl();
   }
 
   createForm() {
@@ -69,15 +113,50 @@ export class ControlComponent implements OnInit {
     });
   }
 
-  saveData() {
-    // check if add or edit
-    // if add, add to db
-    // if edit, update db
-    // if (this.myForm.invalid) {
-    this.myForm.markAllAsTouched();
-    //   return;
-    // }
+  getIdFromUrl() {
+    const id = this.activeRoute.snapshot.paramMap.get('id');
+    if (id) {
+      this.formMode = FormMode.Edit;
+      this.getItemById(id);
+    } else {
+      this.formMode = FormMode.Add;
+    }
+  }
 
-    console.log(this.myForm, 'from control component');
+  getItemById(id: number | string) {
+    this.quesationService.get(id).subscribe((data) => {
+      console.log(data.data);
+      let question = data.data as IQuestion;
+      this.myForm.patchValue(question);
+    });
+  }
+
+  saveData() {
+    if (this.myForm.invalid) return;
+    const data = this.myForm.value;
+    if (this.formMode === FormMode.Add) {
+      this.addQuestion(data);
+    } else {
+      this.updateQuestion(data);
+    }
+  }
+
+  addQuestion(data: IQuestion) {
+    console.log(data);
+    return;
+    this.quesationService.add(data).subscribe(() => {
+      this.actionAfterAddOrUpdate('added');
+    });
+  }
+  updateQuestion(data: IQuestion) {
+    this.quesationService.update(data).subscribe(() => {
+      this.actionAfterAddOrUpdate('updated');
+    });
+  }
+
+  actionAfterAddOrUpdate(status: 'added' | 'updated') {
+    this.myForm.reset();
+    this.toastr.success(`Certificate ${status} successfully`);
+    this.router.navigate(['/questions']);
   }
 }

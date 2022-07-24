@@ -69,11 +69,11 @@ export class ControlComponent implements OnInit {
         id: 'permission',
         label: 'Permission',
         type: 'toggle',
-        selectMenuOptions: {
-          Admin: 'Admin',
-          Editor: 'Editor',
-          Moderator: 'Moderator',
-        },
+        // selectMenuOptions: {
+        //   Admin: 'Admin',
+        //   Editor: 'Editor',
+        //   Moderator: 'Moderator',
+        // },
         defaultValue: {
           value: '',
           disabled: false,
