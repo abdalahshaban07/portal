@@ -42,10 +42,10 @@
           <mat-select [formControlName]="formItem.id">
             <mat-option [value]="null">Please Select</mat-option>
             <mat-option
-              [value]="menuOption.value"
-              *ngFor="let menuOption of formItem.selectMenuOptions | keyvalue"
+              [value]="menuOption.key"
+              *ngFor="let menuOption of formItem.selectMenuOptions"
             >
-              {{ menuOption.key }}
+              {{ menuOption.value }}
             </mat-option>
           </mat-select>
         </ng-container>
@@ -68,7 +68,7 @@
             <mat-button-toggle
               [aria-label]="formItem.id"
               [value]="menuOption.key"
-              *ngFor="let menuOption of formItem.selectMenuOptions | keyvalue"
+              *ngFor="let menuOption of formItem.selectMenuOptions"
             >
               {{ menuOption.value }}
             </mat-button-toggle>

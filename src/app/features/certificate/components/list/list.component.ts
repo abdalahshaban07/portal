@@ -57,7 +57,6 @@ export class ListComponent
   override actionsBtn = [
     TableConsts.actionButton.delete,
     TableConsts.actionButton.edit,
-    TableConsts.actionButton.view,
   ];
   ngOnInit(): void {
     this.haveActions = true;

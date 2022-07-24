@@ -72,10 +72,10 @@ export class ControlComponent implements OnInit {
         id: 'gender',
         label: 'Gender',
         type: 'select',
-        selectMenuOptions: {
-          male: 'Male',
-          female: 'Female',
-        },
+        // selectMenuOptions: {
+        //   male: 'Male',
+        //   female: 'Female',
+        // },
         defaultValue: {
           value: '',
           disabled: false,
@@ -96,10 +96,10 @@ export class ControlComponent implements OnInit {
         id: 'country',
         label: 'Country',
         type: 'select',
-        selectMenuOptions: {
-          eg: 'Egypt',
-          ksa: 'Saudi Arabia',
-        },
+        // selectMenuOptions: {
+        //   eg: 'Egypt',
+        //   ksa: 'Saudi Arabia',
+        // },
         defaultValue: {
           value: '',
           disabled: false,

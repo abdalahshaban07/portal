@@ -86,7 +86,7 @@ export class CustomTableComponent<T> {
 
   onEditClick(item: any) {
     console.log('edit');
-    this.router.navigate(['edit/', 1], { relativeTo: this.route });
+    this.router.navigate(['edit/', item.id], { relativeTo: this.route });
   }
 
   createPage() {

@@ -1,539 +1,73 @@
-import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute, Router } from '@angular/router';
-import { PeriodicElement } from '@features/customer/models/periodic_element';
-import { TableButtonAction } from '@shared/models/tableButtonAction';
+import { Component, Injector, OnInit } from '@angular/core';
+import { IQuestion } from '@features/question/models/question';
+import { QuesationService } from '@features/question/services/quesation.service';
+import { TableConsts } from '@shared/components/custom-table/consts/table';
+import { CustomTableComponent } from '@shared/components/custom-table/custom-table.component';
+import { ListTableService } from '@shared/components/custom-table/list-table.service';
+import { TableColumn } from '@shared/models/tableColumn';
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {
-    id: 1,
-    clientName: 'John Doe',
-    company: 'ABC Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'active',
-    avatar: 'https://picsum.photos/500/300?random=1',
-  },
-  {
-    id: 1,
-    clientName: 'John Doe',
-    company: 'ABC Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'active',
-    avatar: 'https://picsum.photos/500/300?random=1',
-  },
-  {
-    id: 1,
-    clientName: 'John Doe',
-    company: 'ABC Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'active',
-    avatar: 'https://picsum.photos/500/300?random=1',
-  },
-  {
-    id: 2,
-    clientName: 'Ernest Garrett',
-    company: 'XYZ Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'not_active',
-    avatar: 'https://picsum.photos/500/300?random=2',
-  },
-  {
-    id: 3,
-    clientName: 'Peter Parker',
-    company: 'ABC Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'not_active',
-    avatar: 'https://picsum.photos/500/300?random=3',
-  },
-  {
-    id: 1,
-    clientName: 'John Doe',
-    company: 'ABC Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'active',
-    avatar: 'https://picsum.photos/500/300?random=1',
-  },
-  {
-    id: 2,
-    clientName: 'Ernest Garrett',
-    company: 'XYZ Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'not_active',
-    avatar: 'https://picsum.photos/500/300?random=2',
-  },
-  {
-    id: 3,
-    clientName: 'Peter Parker',
-    company: 'ABC Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'not_active',
-    avatar: 'https://picsum.photos/500/300?random=3',
-  },
-  {
-    id: 1,
-    clientName: 'John Doe',
-    company: 'ABC Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'active',
-    avatar: 'https://picsum.photos/500/300?random=1',
-  },
-  {
-    id: 2,
-    clientName: 'Ernest Garrett',
-    company: 'XYZ Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'not_active',
-    avatar: 'https://picsum.photos/500/300?random=2',
-  },
-  {
-    id: 3,
-    clientName: 'Peter Parker',
-    company: 'ABC Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'not_active',
-    avatar: 'https://picsum.photos/500/300?random=3',
-  },
-  {
-    id: 1,
-    clientName: 'John Doe',
-    company: 'ABC Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'active',
-    avatar: 'https://picsum.photos/500/300?random=1',
-  },
-  {
-    id: 2,
-    clientName: 'Ernest Garrett',
-    company: 'XYZ Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'not_active',
-    avatar: 'https://picsum.photos/500/300?random=2',
-  },
-  {
-    id: 3,
-    clientName: 'Peter Parker',
-    company: 'ABC Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'not_active',
-    avatar: 'https://picsum.photos/500/300?random=3',
-  },
-  {
-    id: 1,
-    clientName: 'John Doe',
-    company: 'ABC Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'active',
-    avatar: 'https://picsum.photos/500/300?random=1',
-  },
-  {
-    id: 2,
-    clientName: 'Ernest Garrett',
-    company: 'XYZ Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'not_active',
-    avatar: 'https://picsum.photos/500/300?random=2',
-  },
-  {
-    id: 3,
-    clientName: 'Peter Parker',
-    company: 'ABC Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'not_active',
-    avatar: 'https://picsum.photos/500/300?random=3',
-  },
-  {
-    id: 1,
-    clientName: 'John Doe',
-    company: 'ABC Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'active',
-    avatar: 'https://picsum.photos/500/300?random=1',
-  },
-  {
-    id: 2,
-    clientName: 'Ernest Garrett',
-    company: 'XYZ Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'not_active',
-    avatar: 'https://picsum.photos/500/300?random=2',
-  },
-  {
-    id: 3,
-    clientName: 'Peter Parker',
-    company: 'ABC Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'not_active',
-    avatar: 'https://picsum.photos/500/300?random=3',
-  },
-  {
-    id: 1,
-    clientName: 'John Doe',
-    company: 'ABC Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'active',
-    avatar: 'https://picsum.photos/500/300?random=1',
-  },
-  {
-    id: 2,
-    clientName: 'Ernest Garrett',
-    company: 'XYZ Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'not_active',
-    avatar: 'https://picsum.photos/500/300?random=2',
-  },
-  {
-    id: 3,
-    clientName: 'Peter Parker',
-    company: 'ABC Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'not_active',
-    avatar: 'https://picsum.photos/500/300?random=3',
-  },
-  {
-    id: 1,
-    clientName: 'John Doe',
-    company: 'ABC Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'active',
-    avatar: 'https://picsum.photos/500/300?random=1',
-  },
-  {
-    id: 2,
-    clientName: 'Ernest Garrett',
-    company: 'XYZ Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'not_active',
-    avatar: 'https://picsum.photos/500/300?random=2',
-  },
-  {
-    id: 3,
-    clientName: 'Peter Parker',
-    company: 'ABC Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'not_active',
-    avatar: 'https://picsum.photos/500/300?random=3',
-  },
-  {
-    id: 1,
-    clientName: 'John Doe',
-    company: 'ABC Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'active',
-    avatar: 'https://picsum.photos/500/300?random=1',
-  },
-  {
-    id: 2,
-    clientName: 'Ernest Garrett',
-    company: 'XYZ Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'not_active',
-    avatar: 'https://picsum.photos/500/300?random=2',
-  },
-  {
-    id: 3,
-    clientName: 'Peter Parker',
-    company: 'ABC Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'not_active',
-    avatar: 'https://picsum.photos/500/300?random=3',
-  },
-  {
-    id: 1,
-    clientName: 'John Doe',
-    company: 'ABC Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'active',
-    avatar: 'https://picsum.photos/500/300?random=1',
-  },
-  {
-    id: 2,
-    clientName: 'Ernest Garrett',
-    company: 'XYZ Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'not_active',
-    avatar: 'https://picsum.photos/500/300?random=2',
-  },
-  {
-    id: 3,
-    clientName: 'Peter Parker',
-    company: 'ABC Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'not_active',
-    avatar: 'https://picsum.photos/500/300?random=3',
-  },
-  {
-    id: 1,
-    clientName: 'John Doe',
-    company: 'ABC Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'active',
-    avatar: 'https://picsum.photos/500/300?random=1',
-  },
-  {
-    id: 2,
-    clientName: 'Ernest Garrett',
-    company: 'XYZ Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'not_active',
-    avatar: 'https://picsum.photos/500/300?random=2',
-  },
-  {
-    id: 3,
-    clientName: 'Peter Parker',
-    company: 'ABC Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'not_active',
-    avatar: 'https://picsum.photos/500/300?random=3',
-  },
-  {
-    id: 1,
-    clientName: 'John Doe',
-    company: 'ABC Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'active',
-    avatar: 'https://picsum.photos/500/300?random=1',
-  },
-  {
-    id: 2,
-    clientName: 'Ernest Garrett',
-    company: 'XYZ Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'not_active',
-    avatar: 'https://picsum.photos/500/300?random=2',
-  },
-  {
-    id: 3,
-    clientName: 'Peter Parker',
-    company: 'ABC Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'not_active',
-    avatar: 'https://picsum.photos/500/300?random=3',
-  },
-  {
-    id: 1,
-    clientName: 'John Doe',
-    company: 'ABC Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'active',
-    avatar: 'https://picsum.photos/500/300?random=1',
-  },
-  {
-    id: 2,
-    clientName: 'Ernest Garrett',
-    company: 'XYZ Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'not_active',
-    avatar: 'https://picsum.photos/500/300?random=2',
-  },
-  {
-    id: 3,
-    clientName: 'Peter Parker',
-    company: 'ABC Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'not_active',
-    avatar: 'https://picsum.photos/500/300?random=3',
-  },
-  {
-    id: 1,
-    clientName: 'John Doe',
-    company: 'ABC Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'active',
-    avatar: 'https://picsum.photos/500/300?random=1',
-  },
-  {
-    id: 2,
-    clientName: 'Ernest Garrett',
-    company: 'XYZ Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'not_active',
-    avatar: 'https://picsum.photos/500/300?random=2',
-  },
-  {
-    id: 3,
-    clientName: 'Peter Parker',
-    company: 'ABC Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'not_active',
-    avatar: 'https://picsum.photos/500/300?random=3',
-  },
-  {
-    id: 1,
-    clientName: 'John Doe',
-    company: 'ABC Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'active',
-    avatar: 'https://picsum.photos/500/300?random=1',
-  },
-  {
-    id: 2,
-    clientName: 'Ernest Garrett',
-    company: 'XYZ Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'not_active',
-    avatar: 'https://picsum.photos/500/300?random=2',
-  },
-  {
-    id: 3,
-    clientName: 'Peter Parker',
-    company: 'ABC Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'not_active',
-    avatar: 'https://picsum.photos/500/300?random=3',
-  },
-  {
-    id: 1,
-    clientName: 'John Doe',
-    company: 'ABC Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'active',
-    avatar: 'https://picsum.photos/500/300?random=1',
-  },
-  {
-    id: 2,
-    clientName: 'Ernest Garrett',
-    company: 'XYZ Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'not_active',
-    avatar: 'https://picsum.photos/500/300?random=2',
-  },
-  {
-    id: 3,
-    clientName: 'Peter Parker',
-    company: 'ABC Company',
-    joinDate: Date.now(),
-    finishedProcess: 'Finished',
-    statues: 'not_active',
-    avatar: 'https://picsum.photos/500/300?random=3',
-  },
-];
 @Component({
   selector: 'app-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss'],
+  templateUrl:
+    '../../../../shared/components/custom-table/custom-table.component.html',
+
+  styleUrls: [
+    '../../../../shared/components/custom-table/custom-table.component.scss',
+  ],
+  providers: [
+    {
+      provide: ListTableService,
+      useExisting: QuesationService,
+    },
+  ],
 })
-export class ListComponent implements OnInit {
-  columns = [
+export class ListComponent
+  extends CustomTableComponent<IQuestion>
+  implements OnInit
+{
+  override columns: TableColumn[] = [
     {
-      columnDef: 'clientName',
-      header: 'Client Name',
-      hasAvatar: true,
-      cell: (element: PeriodicElement) => `${element.clientName}`,
+      columnDef: 'id',
+      header: 'ID',
+      cell: (element: IQuestion) => `${element.id}`,
     },
     {
-      columnDef: 'company',
-      header: 'Company',
-      cell: (element: PeriodicElement) => `${element.company}`,
+      columnDef: 'title',
+      header: 'Title',
+      cell: (element: IQuestion) =>
+        element.quesation1.length > 35
+          ? element.quesation1.substring(0, 35) + '...'
+          : element.quesation1,
     },
     {
-      columnDef: 'joinDate',
-      header: 'Join Date',
-      date: true,
-      cell: (element: PeriodicElement) => `${element.joinDate}`,
+      columnDef: 'description',
+      header: 'Description',
+      cell: (element: IQuestion) =>
+        element.description.length > 35
+          ? element.description.substring(0, 35) + '...'
+          : element.description || 'description',
     },
     {
-      columnDef: 'finishedProcess',
-      header: 'Finished Process',
-      cell: (element: PeriodicElement) => `${element.finishedProcess}`,
-    },
-    {
-      columnDef: 'statues',
-      header: 'Statues',
+      columnDef: 'is Active',
+      header: 'Is Active',
       icon: true,
-      cell: (element: PeriodicElement) => `${element.statues}`,
+      cell: (element: IQuestion) =>
+        element.isActive ? 'active' : 'not_active',
     },
   ];
 
-  datatSet = new MatTableDataSource<any>();
-  actions = ['edit', 'delete'];
-  length!: number;
+  constructor(private injector: Injector) {
+    super(injector);
+  }
 
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  override actionsBtn = [
+    TableConsts.actionButton.delete,
+    TableConsts.actionButton.edit,
+  ];
   ngOnInit(): void {
-    this.paginator();
-  }
-
-  onTableAction(event: TableButtonAction) {
-    switch (event.name) {
-      case 'edit':
-        console.log('edit');
-        this.router.navigate(['edit/', 1], { relativeTo: this.route });
-        break;
-      case 'delete':
-        console.log(this.datatSet.data);
-        this.datatSet.data = this.datatSet.data.filter(
-          (element) => element.id !== event.value?.id
-        );
-        console.log('delete');
-        break;
-    }
-  }
-
-  onPaginator(event: any) {
-    let pageNumber = event.pageNumber;
-    let pageSize = event.pageSize;
-    this.paginator(pageNumber, pageSize);
-  }
-
-  // simulation paginator for table
-
-  paginator(current_page = 1, per_page_items = 5) {
-    let items = ELEMENT_DATA;
-    let page = current_page || 1,
-      per_page = per_page_items || 10,
-      offset = (page - 1) * per_page,
-      paginatedItems = items.slice(offset).slice(0, per_page_items),
-      total_pages = Math.ceil(items.length / per_page);
-    this.length = ELEMENT_DATA.length;
-    this.datatSet.data = paginatedItems;
+    this.haveActions = true;
+    this.hasCreateButton = true;
+    this.name = 'Quesation';
+    super.ngOnInitC();
   }
 }

@@ -54,10 +54,16 @@ export class ControlComponent implements OnInit {
         id: 'isActive',
         label: 'Is Active',
         type: 'select',
-        selectMenuOptions: {
-          true: true,
-          false: false,
-        },
+        selectMenuOptions: [
+          {
+            key: true,
+            value: 'True',
+          },
+          {
+            key: false,
+            value: 'False',
+          },
+        ],
         defaultValue: {
           value: '',
           disabled: false,

@@ -49,8 +49,8 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-// .active-link {
-//   background-color: yellow !important;
-//   background: red !important;
-//   color: blue !important;
-// }
+ngx-loading {
+  .backdrop {
+    height: 127% !important;
+  }
+}
