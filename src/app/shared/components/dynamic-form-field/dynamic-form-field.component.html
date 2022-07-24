@@ -42,10 +42,10 @@
           <mat-select [formControlName]="formItem.id">
             <mat-option [value]="null">Please Select</mat-option>
             <mat-option
-              [value]="menuOption.key"
+              [value]="menuOption.value"
               *ngFor="let menuOption of formItem.selectMenuOptions | keyvalue"
             >
-              {{ menuOption.value }}
+              {{ menuOption.key }}
             </mat-option>
           </mat-select>
         </ng-container>

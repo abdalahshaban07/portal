@@ -4,6 +4,7 @@ import { TableConsts } from '../custom-table/consts/table';
 
 @Component({
   selector: '[action-buttons]',
+  // selector: 'action-buttons',
   templateUrl: './action-buttons.component.html',
   styleUrls: ['./action-buttons.component.scss'],
 })
@@ -24,9 +25,15 @@ export class ActionButtonsComponent implements OnInit {
     });
   }
   onDeleteClick() {
-    this.buttonAction.emit({ name: TableConsts.actionButton.delete });
+    this.buttonAction.emit({
+      name: TableConsts.actionButton.delete,
+      value: this.value,
+    });
   }
   onViewClick() {
-    this.buttonAction.emit({ name: TableConsts.actionButton.view });
+    this.buttonAction.emit({
+      name: TableConsts.actionButton.view,
+      value: this.value,
+    });
   }
 }

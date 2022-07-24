@@ -12,7 +12,7 @@ export interface DynamicFormFieldModel {
     | 'editor'
     | 'toggle';
   label?: string;
-  selectMenuOptions?: { [key: string]: string };
+  selectMenuOptions?: { [key: string]: string | boolean | number };
   defaultValue?: DefaultValue;
   validators?: ValidatorFn[];
   rows?: number;

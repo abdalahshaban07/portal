@@ -13,5 +13,8 @@
       background-color: $primary-3;
       color: $secondary-5;
     }
+    .mat-button[disabled] {
+      background-color: $secondary-2;
+    }
   }
 }

@@ -36,6 +36,8 @@ $portal-theme: mat.define-light-theme(
 
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
+@import "~ngx-toastr/toastr";
+// @import "~ngx-toastr/toastr-bs4-alert";
 
 html,
 body {

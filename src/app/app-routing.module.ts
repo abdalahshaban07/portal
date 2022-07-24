@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HasRoleGuard } from '@core/guards/has-role.guard';
+import { IsAuthenticatedGuard } from '@core/guards/is-authenticated.guard';
 
 const routes: Routes = [
   {
@@ -46,6 +48,10 @@ const routes: Routes = [
       import('@features/certificate/certificate.module').then(
         (m) => m.CertificateModule
       ),
+    canActivate: [HasRoleGuard],
+    data: {
+      role: 'Admin',
+    },
   },
 ];
 

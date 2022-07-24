@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ControlComponent } from './control/control.component';
-import { ListComponent } from './list/list.component';
+import { ControlComponent } from './components/control/control.component';
+import { ListComponent } from './components/list/list.component';
 
 const routes: Routes = [
   {
@@ -13,7 +13,7 @@ const routes: Routes = [
     component: ControlComponent,
   },
   {
-    path: 'view/:id',
+    path: 'edit/:id',
     component: ControlComponent,
   },
 ];
