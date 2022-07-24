@@ -2,6 +2,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import {
   Component,
   EventEmitter,
+  Injector,
   Input,
   OnInit,
   Output,
@@ -9,75 +10,100 @@ import {
 } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatCell, MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute, Router } from '@angular/router';
+import { paginatorForHttp } from '@shared/configs/paginator';
 import { TableButtonAction } from '@shared/models/tableButtonAction';
 import { TableColumn } from '@shared/models/tableColumn';
+import { finalize } from 'rxjs';
+import { TableConsts } from './consts/table';
+import { ListTableService } from './list-table.service';
 
 @Component({
   selector: 'app-custom-table',
   templateUrl: './custom-table.component.html',
   styleUrls: ['./custom-table.component.scss'],
 })
-export class CustomTableComponent implements OnInit {
-  // inputs
-  @Input() type!: string;
-  @Input() columns!: Array<TableColumn>;
-  @Input() dataSource!: MatTableDataSource<any>;
-  @Input() haveSelect!: boolean;
-  @Input() haveActions: boolean = false;
-  @Input() hasName: boolean = false;
-  @Input() hasSearch: boolean = false;
-  @Input() width: string = '100%';
-  @Input() height: string = '100vh';
-  @Input() name!: string;
-  @Input() actions!: string[];
+export class CustomTableComponent<T> {
+  ELEMENT_DATA!: any[];
+  dataSource = new MatTableDataSource<T>();
+  columns!: Array<TableColumn>;
+  haveSelect: boolean = false;
+  haveActions: boolean = false;
+  hasName: boolean = false;
+  hasCreateButton: boolean = false;
+  hasSearch: boolean = false;
+  width: string = '100%';
+  height: string = '100vh';
+  name!: string;
+  actionsBtn: string[] = [
+    TableConsts.actionButton.delete,
+    TableConsts.actionButton.edit,
+  ];
 
-  // outputs
-  @Output() action: EventEmitter<TableButtonAction> =
-    new EventEmitter<TableButtonAction>();
-  @Output() pagenatior = new EventEmitter();
-
-  // view childs
-  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator; // paginator
   @ViewChild(MatSort, { static: true }) sort!: MatSort; // sort
 
-  // variables
   selection = new SelectionModel<any>(true, []);
   displayedColumns: string[] = [];
   value!: string;
 
-  // // paginator properties
-  @Input() length!: number;
+  length!: number;
 
-  constructor() {}
+  private router!: Router;
+  private route!: ActivatedRoute;
+  private listTableService!: ListTableService;
 
-  ngOnInit(): void {
-    // set checkbox column
+  constructor(injector: Injector) {
+    this.router = injector.get(Router);
+    this.route = injector.get(ActivatedRoute);
+    this.listTableService = injector.get(ListTableService);
+  }
+
+  ngOnInitC(): void {
     this.haveSelect && this.displayedColumns.push('select');
 
-    // set table columns
     this.displayedColumns = this.displayedColumns.concat(
       this.columns.map((x) => x.columnDef)
-    ); // pre-fix static
+    );
 
-    // add action column
     this.haveActions && this.displayedColumns.push('action');
-    // this.dataSource = new MatTableDataSource<any>(this.dataset);
 
-    // set sorting
     this.dataSource.sort = this.sort;
+
+    this.paginator();
   }
 
-  onTableAction(e: TableButtonAction, element: any): void {
-    e = { ...e, value: element };
-    this.action.emit(e);
+  onTableAction(event: TableButtonAction): void {
+    switch (event.name) {
+      case 'edit':
+        this.onEditClick(event.value);
+        break;
+      case 'delete':
+        this.onDeleteClick(event);
+        break;
+    }
   }
 
-  onPageChange(event: { pageNumber: number; pageSize: number }): void {
-    this.pagenatior.emit({
-      pageNumber: event.pageNumber,
-      pageSize: event.pageSize,
-    });
+  onEditClick(item: any) {
+    console.log('edit');
+    this.router.navigate(['edit/', 1], { relativeTo: this.route });
+  }
+
+  createPage() {
+    this.router.navigate(['create'], { relativeTo: this.route });
+  }
+
+  onDeleteClick(event: TableButtonAction) {
+    const id = event.value?.id;
+
+    // this.dataSource.data = this.dataSource.data.filter(
+    //   (item: any) => item.id !== id
+    // );
+
+    this.listTableService
+      .delete(id)
+      .pipe(finalize(() => this.paginator()))
+      .subscribe();
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
@@ -106,5 +132,21 @@ export class CustomTableComponent implements OnInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
       row.id + 1
     }`;
+  }
+
+  onPageChange(event: { pageNumber: number; pageSize: number }): void {
+    this.paginator(event.pageNumber, event.pageSize);
+  }
+
+  paginator(
+    current_page = paginatorForHttp.pageNumber,
+    per_page_items = paginatorForHttp.pageSize
+  ) {
+    this.listTableService
+      .getList(current_page, per_page_items)
+      .subscribe(({ data: { totalCount, dataList } }) => {
+        this.length = totalCount;
+        this.dataSource.data = dataList as [];
+      });
   }
 }

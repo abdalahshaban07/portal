@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { ngxLoadingAnimationTypes, NgxLoadingModule } from 'ngx-loading';
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,6 +16,9 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
+    NgxLoadingModule.forRoot({
+      animationType: ngxLoadingAnimationTypes.circleSwish,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],

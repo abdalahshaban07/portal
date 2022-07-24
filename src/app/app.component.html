@@ -1,5 +1,6 @@
 <div class="wrap">
   <!-- header -->
+  <!-- *ngIf="authService.isLoggedIn$ | async" -->
   <header>
     <app-header></app-header>
   </header>
@@ -11,4 +12,8 @@
   <!-- <footer>
     <app-footer></app-footer>
   </footer> -->
+  <ngx-loading
+    [show]="(loader.loading$ | async)!"
+    [config]="{ backdropBorderRadius: '3px' }"
+  ></ngx-loading>
 </div>
