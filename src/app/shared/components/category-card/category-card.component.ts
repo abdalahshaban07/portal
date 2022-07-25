@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-export interface ICategory {
+export interface ICategoryCard {
   name: string;
   description: string;
   prcentage: number;
@@ -14,7 +14,7 @@ export interface ICategory {
   styleUrls: ['./category-card.component.scss'],
 })
 export class CategoryCardComponent {
-  categories: ICategory[] = [
+  categories: ICategoryCard[] = [
     {
       name: 'List Of Documents',
       description: 'List of all documents',
