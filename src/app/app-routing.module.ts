@@ -43,6 +43,13 @@ const routes: Routes = [
       import('@features/admin/admin.module').then((m) => m.AdminModule),
   },
   {
+    path: 'category',
+    loadChildren: () =>
+      import('@features/category/category.module').then(
+        (m) => m.CategoryModule
+      ),
+  },
+  {
     path: 'certificate',
     loadChildren: () =>
       import('@features/certificate/certificate.module').then(
