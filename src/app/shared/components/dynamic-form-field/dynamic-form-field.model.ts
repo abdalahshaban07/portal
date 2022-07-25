@@ -1,4 +1,5 @@
 import { ValidatorFn } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 export interface DynamicFormFieldModel {
   id: string;
@@ -21,7 +22,7 @@ export interface DynamicFormFieldModel {
 }
 
 type DefaultValue = { value: string; disabled: boolean };
-type selectMenuOptions = {
+export type selectMenuOptions = {
   key: number | string | boolean;
   value: string | boolean | number;
 };

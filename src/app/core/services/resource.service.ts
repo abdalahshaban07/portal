@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
 import { ApiListResponse, ResponseModel } from '@core/model/apiListResponse';
 import { environment } from '@env';
+import { paginatorForHttp } from '@shared/configs/paginator';
 import { map, Observable, tap } from 'rxjs';
 
 @Injectable({
@@ -26,7 +27,10 @@ export abstract class ResourceService<T extends { id?: string | number }> {
     return json;
   }
 
-  getList(pageNum: number, pagSize: number): Observable<ApiListResponse<T>> {
+  getList(
+    pageNum: number = paginatorForHttp.pageNumber,
+    pagSize: number = paginatorForHttp.pageSize
+  ): Observable<ApiListResponse<T>> {
     let params = new HttpParams()
       .set('pageNum', pageNum.toString())
       .set('pagSize', pagSize.toString());
@@ -37,8 +41,8 @@ export abstract class ResourceService<T extends { id?: string | number }> {
   }
 
   get(id: string | number): Observable<ResponseModel<T>> {
-    let params = new HttpParams().set('id', id.toString());
-
+    let idParam = this.getResourceUrl() === 'ClientUser' ? 'UserID' : 'id';
+    let params = new HttpParams().set(idParam, id.toString());
     return this._http.get<ResponseModel<T>>(
       `${this.APIUrl}/GetById?${params.toString()}`
     );
