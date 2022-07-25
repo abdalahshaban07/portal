@@ -11,6 +11,7 @@ export interface DynamicFormFieldModel {
     | 'file'
     | 'editor'
     | 'toggle';
+
   label?: string;
   // selectMenuOptions?: { [key: number | string]: string | boolean | number };
   selectMenuOptions?: selectMenuOptions[];

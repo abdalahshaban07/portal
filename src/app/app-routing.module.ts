@@ -50,6 +50,11 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'client',
+    loadChildren: () =>
+      import('@features/client/client.module').then((m) => m.ClientModule),
+  },
+  {
     path: 'certificate',
     loadChildren: () =>
       import('@features/certificate/certificate.module').then(
