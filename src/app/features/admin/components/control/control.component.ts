@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { IAdmin } from '@features/admin/models/admin';
+import { AdminService } from '@features/admin/services/admin.service';
 import { DynamicFormFieldModel } from '@shared/components/dynamic-form-field/dynamic-form-field.model';
-import { mustMatch } from '@shared/services/MustMatchPassword';
+import { FormMode } from '@shared/Enums/formMode';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-control',
@@ -11,9 +15,22 @@ import { mustMatch } from '@shared/services/MustMatchPassword';
 export class ControlComponent implements OnInit {
   myForm!: FormGroup;
   dynamicFormFields!: DynamicFormFieldModel[];
-  constructor(private fb: FormBuilder) {}
+  formMode!: FormMode;
+  id!: number | string;
+  constructor(
+    private fb: FormBuilder,
+    private adminService: AdminService,
+    private activeRoute: ActivatedRoute,
+    private toastr: ToastrService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
+    this.getIdFromUrl();
+    this.createForm();
+  }
+
+  createDynamicFormFields() {
     this.dynamicFormFields = [
       {
         id: 'name',
@@ -28,12 +45,22 @@ export class ControlComponent implements OnInit {
       {
         id: 'email',
         label: 'Email',
-        type: 'email',
+        type: 'text',
         defaultValue: {
           value: '',
           disabled: false,
         },
         validators: [Validators.required, Validators.email],
+      },
+      {
+        id: 'username',
+        label: 'Username',
+        type: 'text',
+        defaultValue: {
+          value: '',
+          disabled: false,
+        },
+        validators: [Validators.required],
       },
       {
         id: 'password',
@@ -46,47 +73,141 @@ export class ControlComponent implements OnInit {
         validators: [Validators.required],
       },
       {
-        id: 'confirmPassword',
-        label: 'Confirm Password',
-        type: 'password',
-        defaultValue: {
-          value: '',
-          disabled: false,
-        },
-        validators: [mustMatch('password')],
-      },
-      {
-        id: 'position',
-        label: 'Position',
+        id: 'phone',
+        label: 'Phone',
         type: 'text',
         defaultValue: {
           value: '',
           disabled: false,
         },
-        validators: [Validators.required],
       },
       {
-        id: 'permission',
-        label: 'Permission',
-        type: 'toggle',
-        // selectMenuOptions: {
-        //   Admin: 'Admin',
-        //   Editor: 'Editor',
-        //   Moderator: 'Moderator',
-        // },
+        id: 'gender',
+        label: 'Gender',
+        type: 'select',
+        selectMenuOptions: this.getGenderIds(),
         defaultValue: {
           value: '',
           disabled: false,
         },
         validators: [Validators.required],
       },
+      {
+        id: 'country',
+        label: 'Country',
+        type: 'select',
+        selectMenuOptions: this.getCountryIds(),
+        defaultValue: {
+          value: '',
+          disabled: false,
+        },
+        validators: [Validators.required],
+      },
+      {
+        id: 'city',
+        label: 'City',
+        type: 'select',
+        selectMenuOptions: this.getCityIds(),
+        defaultValue: {
+          value: '',
+          disabled: false,
+        },
+        validators: [Validators.required],
+      },
+      {
+        id: 'role',
+        label: 'role',
+        type: 'toggle',
+        selectMenuOptions: this.getPrmissions(),
+        defaultValue: {
+          value: '',
+          disabled: false,
+        },
+        multiple: false,
+        validators: [Validators.required],
+      },
     ];
 
-    this.createForm();
-    this.getUser();
+    /* Filtering the password field from the dynamic form fields array if the form mode is edit. */
+    // if (FormMode.Edit === this.formMode) {
+    //   this.dynamicFormFields = this.dynamicFormFields.filter(
+    //     (field) => field.id !== 'password'
+    //   );
+    // }
+  }
+
+  getIdFromUrl() {
+    this.id = this.activeRoute.snapshot.paramMap.get('id') as number | string;
+    if (this.id) {
+      this.formMode = FormMode.Edit;
+      this.getItemById(this.id);
+    } else {
+      this.formMode = FormMode.Add;
+    }
+  }
+
+  getCityIds() {
+    return [
+      {
+        key: 'Alex',
+        value: 'AlexV',
+      },
+      {
+        key: 2,
+        value: 'Cairo',
+      },
+    ];
+  }
+
+  getCountryIds() {
+    return [
+      {
+        key: 1,
+        value: 'Egypt',
+      },
+      {
+        key: 2,
+        value: 'KSA',
+      },
+    ];
+  }
+
+  getGenderIds() {
+    return [
+      {
+        key: 1,
+        value: 'Male',
+      },
+      {
+        key: 2,
+        value: 'Female',
+      },
+    ];
+  }
+
+  getPrmissions() {
+    return [
+      {
+        key: 'Admin',
+        value: 'Admin',
+      },
+      {
+        key: 'Editor',
+        value: 'Editor',
+      },
+      {
+        key: 'Moderator',
+        value: 'Moderator',
+      },
+      {
+        key: 'Consultant',
+        value: 'Consultant',
+      },
+    ];
   }
 
   createForm() {
+    this.createDynamicFormFields();
     this.myForm = this.fb.group({});
     this.dynamicFormFields.forEach((field) => {
       const control = this.fb.control(
@@ -97,29 +218,40 @@ export class ControlComponent implements OnInit {
     });
   }
 
-  getUser() {
-    const user = {
-      name: 'abdlah',
-      email: 'abdlah@gmail.com',
-      password: '123456',
-      position: 'developer',
-      permission: ['Admin', 'Editor'],
-    };
-
-    setTimeout(() => {
-      this.myForm.patchValue(user);
-    }, 2000);
+  getItemById(id: number | string) {
+    this.adminService.get(id).subscribe((data) => {
+      console.log(data);
+      this.myForm.patchValue(data.data as IAdmin);
+    });
   }
 
   saveData() {
-    // check if add or edit
-    // if add, add to db
-    // if edit, update db
-    // if (this.myForm.invalid) {
-    //   this.myForm.markAllAsTouched();
-    //   return;
-    // }
+    if (this.myForm.invalid) return;
 
-    console.log(this.myForm.value, 'from control component');
+    let data = this.myForm.value;
+
+    if (this.formMode === FormMode.Add) {
+      this.addCertificate(data);
+    } else {
+      data = { ...data, id: this.id };
+      this.updateCertificate(data);
+    }
+  }
+
+  addCertificate(data: IAdmin) {
+    this.adminService.add(data).subscribe(() => {
+      this.actionAfterAddOrUpdate('added');
+    });
+  }
+  updateCertificate(data: IAdmin) {
+    this.adminService.update(data).subscribe(() => {
+      this.actionAfterAddOrUpdate('updated');
+    });
+  }
+
+  actionAfterAddOrUpdate(status: 'added' | 'updated') {
+    this.myForm.reset();
+    this.toastr.success(`${status} successfully`);
+    this.router.navigate(['/admin']);
   }
 }

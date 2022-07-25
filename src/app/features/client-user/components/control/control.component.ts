@@ -33,6 +33,7 @@ export class ControlComponent implements OnInit {
     this.createForm();
   }
 
+  
   createDynamicFormFields() {
     this.dynamicFormFields = [
       {

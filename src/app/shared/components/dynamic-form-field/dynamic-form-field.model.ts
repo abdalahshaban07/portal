@@ -19,6 +19,7 @@ export interface DynamicFormFieldModel {
   defaultValue?: DefaultValue;
   validators?: ValidatorFn[];
   rows?: number;
+  multiple?: boolean;
 }
 
 type DefaultValue = { value: string; disabled: boolean };
