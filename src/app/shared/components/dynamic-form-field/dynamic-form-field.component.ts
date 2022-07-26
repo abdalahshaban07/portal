@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormGroupDirective } from '@angular/forms';
+import { DateAdapter } from '@angular/material/core';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { DynamicFormFieldModel } from './dynamic-form-field.model';
 
@@ -34,7 +35,12 @@ export class DynamicFormFieldComponent implements OnInit {
     ],
   };
 
-  constructor(private rootFormGroup: FormGroupDirective) {}
+  constructor(
+    private rootFormGroup: FormGroupDirective,
+    private dateAdapter: DateAdapter<Date>
+  ) {
+    this.dateAdapter.setLocale('en-GB');
+  }
 
   ngOnInit(): void {
     this.form = this.rootFormGroup.form;

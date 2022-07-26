@@ -62,6 +62,11 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'project',
+    loadChildren: () =>
+      import('@features/project/project.module').then((m) => m.ProjectModule),
+  },
+  {
     path: 'certificate',
     loadChildren: () =>
       import('@features/certificate/certificate.module').then(

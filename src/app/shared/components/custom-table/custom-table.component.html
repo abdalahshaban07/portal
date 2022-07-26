@@ -74,14 +74,14 @@
             <mat-header-cell
               *matHeaderCellDef
               mat-sort-header
-              fxFlex="85%"
+              [fxFlex]="column.header === 'ID' ? '10%' : '50%'"
               fxLayoutAlign="start center"
             >
               {{ column.header }}
             </mat-header-cell>
             <mat-cell
               *matCellDef="let row"
-              fxFlex="85%"
+              [fxFlex]="column.header === 'ID' ? '10%' : '50%'"
               fxLayoutAlign="start center"
             >
               <span *ngIf="!column.icon">

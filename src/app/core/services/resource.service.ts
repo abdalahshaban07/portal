@@ -3,7 +3,7 @@ import { Injectable, Injector } from '@angular/core';
 import { ApiListResponse, ResponseModel } from '@core/model/apiListResponse';
 import { environment } from '@env';
 import { paginatorForHttp } from '@shared/configs/paginator';
-import { map, Observable, tap } from 'rxjs';
+import { map, Observable, shareReplay, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -40,11 +40,13 @@ export abstract class ResourceService<T extends { id?: string | number }> {
     );
   }
 
-  get(id: string | number): Observable<ResponseModel<T>> {
+  get(id: string | number): Observable<ResponseModel> {
     let idParam =
-      this.getResourceUrl() === 'ClientUser' || 'Consultant' ? 'UserID' : 'id';
+      this.getResourceUrl() === ('ClientUser' || 'Consultant')
+        ? 'UserID'
+        : 'id';
     let params = new HttpParams().set(idParam, id.toString());
-    return this._http.get<ResponseModel<T>>(
+    return this._http.get<ResponseModel>(
       `${this.APIUrl}/GetById?${params.toString()}`
     );
   }

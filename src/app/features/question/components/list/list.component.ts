@@ -35,8 +35,8 @@ export class ListComponent
       columnDef: 'title',
       header: 'Title',
       cell: (element: IQuestion) =>
-        element.quesation1.length > 35
-          ? element.quesation1.substring(0, 35) + '...'
+        element.quesation1.length > 40
+          ? element.quesation1.substring(0, 40) + '...'
           : element.quesation1,
     },
     {
