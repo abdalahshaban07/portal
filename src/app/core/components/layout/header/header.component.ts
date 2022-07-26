@@ -4,6 +4,11 @@ import { NavigationEnd, Router } from '@angular/router';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { filter, Subscription } from 'rxjs';
 
+interface ILink {
+  name: string;
+  routerLink: string;
+  Active: string;
+}
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -14,6 +19,35 @@ export class HeaderComponent implements OnInit, OnDestroy {
   show: boolean = false;
   @ViewChild('sidenav', { static: true }) sidenav!: MatSidenav;
   private mediaSubscription!: Subscription;
+
+  linkes: ILink[] = [
+    {
+      name: 'Dashboard',
+      routerLink: '/dashboard',
+      Active: 'active-link',
+    },
+    {
+      name: 'Admin',
+      routerLink: '/admin',
+      Active: 'active-link',
+    },
+    {
+      name: 'Clients',
+      routerLink: '/client',
+      Active: 'active-link',
+    },
+    {
+      name: 'Certificate',
+      routerLink: '/certificate',
+      Active: 'active-link',
+    },
+    {
+      name: 'Questions',
+      routerLink: '/question',
+      Active: 'active-link',
+    },
+  ];
+
   constructor(private router: Router, private mediaObserver: MediaObserver) {}
 
   ngOnInit(): void {

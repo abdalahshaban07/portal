@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component } from '@angular/core';
 
-export interface ICategoryCard {
+interface ICategoryCard {
   name: string;
   description: string;
   prcentage: number;
@@ -40,7 +39,5 @@ export class CategoryCardComponent {
       routerLink: 'check-errors/list/configuration',
     },
   ];
-  constructor(private activeRoute: ActivatedRoute) {
-    console.log(activeRoute.url);
-  }
+  constructor() {}
 }

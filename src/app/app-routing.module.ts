@@ -16,15 +16,9 @@ const routes: Routes = [
         (m) => m.DashboardModule
       ),
   },
+
   {
-    path: 'customers',
-    loadChildren: () =>
-      import('@features/customer/customer.module').then(
-        (m) => m.CustomerModule
-      ),
-  },
-  {
-    path: 'questions',
+    path: 'question',
     loadChildren: () =>
       import('@features/question/question.module').then(
         (m) => m.QuestionModule
@@ -76,6 +70,12 @@ const routes: Routes = [
     data: {
       role: 'Admin',
     },
+  },
+
+  {
+    path: '**',
+    redirectTo: 'dashboard',
+    pathMatch: 'full',
   },
 ];
 

@@ -29,32 +29,24 @@
         fxHide.lt-md
         fxLayoutAlign="center center"
       >
-        <button
-          mat-button
-          routerLink="/dashboard"
-          routerLinkActive="active-link"
-        >
-          Dashboard
-        </button>
+        <ng-container *ngFor="let link of linkes">
+          <button
+            mat-button
+            [routerLink]="link.routerLink"
+            [routerLinkActive]="link.Active"
+          >
+            {{ link.name }}
+          </button>
+        </ng-container>
 
-        <button mat-button routerLink="/admin" routerLinkActive="active-link">
-          Admins
-        </button>
-        <button
-          mat-button
-          routerLink="/customers"
-          routerLinkActive="active-link"
-        >
-          Customers
-        </button>
-        <button
+        <!-- <button
           mat-button
           [matMenuTriggerFor]="PCI"
           #clickHoverMenuTrigger="matMenuTrigger"
         >
           PCI-DSS Requirment
-        </button>
-        <mat-menu #PCI="matMenu" yPosition="below" xPosition="before">
+        </button> -->
+        <!-- <mat-menu #PCI="matMenu" yPosition="below" xPosition="before">
           <button mat-menu-item routerLink="/questions/create">
             Add Question
           </button>
@@ -62,14 +54,7 @@
           <button mat-menu-item routerLink="/checkAnswer">Check Answer</button>
           <mat-divider></mat-divider>
           <button mat-menu-item routerLink="/questions">View Question</button>
-        </mat-menu>
-        <!-- <button
-          mat-button
-          routerLink="/question"
-          routerLinkActive="active-link"
-        >
-          Questions
-        </button> -->
+        </mat-menu> -->
       </div>
 
       <!-- search bar -->
@@ -155,18 +140,23 @@
       fxLayoutGap="30%"
     >
       <mat-nav-list class="linkss" fxLayout="column">
-        <button mat-button routerLink="/dashboard">Dashboard</button>
-
-        <button mat-button routerLink="/admin">Admins</button>
-        <button mat-button routerLink="/customers">Customers</button>
-        <button
+        <ng-container *ngFor="let link of linkes">
+          <button
+            mat-button
+            [routerLink]="link.routerLink"
+            [routerLinkActive]="link.Active"
+          >
+            {{ link.name }}
+          </button>
+        </ng-container>
+        <!-- <button
           mat-button
           [matMenuTriggerFor]="PCI"
           #clickHoverMenuTrigger="matMenuTrigger"
         >
           PCI-DSS Requirment
-        </button>
-        <mat-menu #PCI="matMenu" yPosition="below" xPosition="before">
+        </button> -->
+        <!-- <mat-menu #PCI="matMenu" yPosition="below" xPosition="before">
           <button mat-menu-item routerLink="/addQuestion">Add Question</button>
           <mat-divider></mat-divider>
           <button mat-menu-item routerLink="/checkAnswer">Check Answer</button>
@@ -174,8 +164,7 @@
           <button mat-menu-item routerLink="/viewQuestion">
             View Question
           </button>
-        </mat-menu>
-        <button mat-button routerLink="/question">Questions</button>
+        </mat-menu> -->
       </mat-nav-list>
 
       <!-- search bar -->
