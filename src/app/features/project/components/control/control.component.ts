@@ -1,15 +1,16 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ClientUserService } from '@features/client-user/services/client-user.service';
 import { IClientUser } from '@features/client-user/models/client-user';
+import { IProject } from '@features/project/models/project';
+import { ProjectService } from '@features/project/services/project.service';
 import {
   DynamicFormFieldModel,
   selectMenuOptions,
 } from '@shared/components/dynamic-form-field/dynamic-form-field.model';
 import { FormMode } from '@shared/Enums/formMode';
-import { ToastrService } from 'ngx-toastr';
 import { ListOfValuesService } from '@shared/services/list-of-values.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-control',
@@ -23,18 +24,16 @@ export class ControlComponent implements OnInit {
   id!: number | string;
   constructor(
     private fb: FormBuilder,
-    private clientUserService: ClientUserService,
+    private projectService: ProjectService,
     private listOfValuesService: ListOfValuesService,
     private activeRoute: ActivatedRoute,
     private toastr: ToastrService,
-    private router: Router,
-    private cdref: ChangeDetectorRef
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.getIdFromUrl();
     this.createForm();
-    this.tracCountryChange();
   }
 
   createDynamicFormFields() {
@@ -43,7 +42,7 @@ export class ControlComponent implements OnInit {
         id: 'clientId',
         label: 'Company',
         type: 'select',
-        selectMenuOptions: this.Client,
+        selectMenuOptions: this.Clients,
         defaultValue: {
           value: '',
           disabled: false,
@@ -51,59 +50,10 @@ export class ControlComponent implements OnInit {
         validators: [Validators.required],
       },
       {
-        id: 'name',
-        label: 'Name',
-        type: 'text',
-        defaultValue: {
-          value: '',
-          disabled: false,
-        },
-        validators: [Validators.required],
-      },
-      {
-        id: 'email',
-        label: 'Email',
-        type: 'text',
-        defaultValue: {
-          value: '',
-          disabled: false,
-        },
-        validators: [Validators.required, Validators.email],
-      },
-      {
-        id: 'username',
-        label: 'Username',
-        type: 'text',
-        defaultValue: {
-          value: '',
-          disabled: false,
-        },
-        validators: [Validators.required],
-      },
-      {
-        id: 'password',
-        label: 'Password',
-        type: 'password',
-        defaultValue: {
-          value: '',
-          disabled: false,
-        },
-        validators: [Validators.required],
-      },
-      {
-        id: 'phone',
-        label: 'Phone',
-        type: 'text',
-        defaultValue: {
-          value: '',
-          disabled: false,
-        },
-      },
-      {
-        id: 'genderId',
-        label: 'Gender',
+        id: 'certificateId',
+        label: 'Certificate',
         type: 'select',
-        selectMenuOptions: this.Gender,
+        selectMenuOptions: this.Certifcates,
         defaultValue: {
           value: '',
           disabled: false,
@@ -111,10 +61,21 @@ export class ControlComponent implements OnInit {
         validators: [Validators.required],
       },
       {
-        id: 'countryId',
-        label: 'Country',
+        id: 'projectConsultans',
+        label: 'Consultants',
         type: 'select',
-        selectMenuOptions: this.Country,
+        selectMenuOptions: this.Consultants,
+        defaultValue: {
+          value: '',
+          disabled: false,
+        },
+        validators: [Validators.required],
+        multiple: true,
+      },
+      {
+        id: 'description',
+        label: 'Description',
+        type: 'text',
         defaultValue: {
           value: '',
           disabled: false,
@@ -122,10 +83,29 @@ export class ControlComponent implements OnInit {
         validators: [Validators.required],
       },
       {
-        id: 'cityId',
-        label: 'City',
-        type: 'select',
-        selectMenuOptions: this.cities,
+        id: 'projectCode',
+        label: 'Project Code',
+        type: 'text',
+        defaultValue: {
+          value: '',
+          disabled: false,
+        },
+        validators: [Validators.required],
+      },
+      {
+        id: 'startDate',
+        label: 'Start Date',
+        type: 'date',
+        defaultValue: {
+          value: '',
+          disabled: false,
+        },
+        validators: [Validators.required],
+      },
+      {
+        id: 'endDate',
+        label: 'End Date',
+        type: 'date',
         defaultValue: {
           value: '',
           disabled: false,
@@ -133,13 +113,6 @@ export class ControlComponent implements OnInit {
         validators: [Validators.required],
       },
     ];
-
-    /* Filtering the password field from the dynamic form fields array if the form mode is edit. */
-    // if (FormMode.Edit === this.formMode) {
-    //   this.dynamicFormFields = this.dynamicFormFields.filter(
-    //     (field) => field.id !== 'password'
-    //   );
-    // }
   }
 
   getIdFromUrl() {
@@ -152,7 +125,7 @@ export class ControlComponent implements OnInit {
     }
   }
 
-  get Client() {
+  get Clients() {
     let clients: selectMenuOptions[] = [];
     this.listOfValuesService.getClients().subscribe((data) => {
       clients.push(...data);
@@ -160,36 +133,20 @@ export class ControlComponent implements OnInit {
     return clients;
   }
 
-  get Gender() {
-    let gender: selectMenuOptions[] = [];
-    this.listOfValuesService.getGender().subscribe((data) => {
-      gender.push(...data);
+  get Certifcates() {
+    let certifcates: selectMenuOptions[] = [];
+    this.listOfValuesService.getCertifcates().subscribe((data) => {
+      certifcates.push(...data);
     });
-    return gender;
+    return certifcates;
   }
 
-  get Country() {
-    let country: selectMenuOptions[] = [];
-    this.listOfValuesService.getCountries().subscribe((data) => {
-      country.push(...data);
+  get Consultants() {
+    let consultants: selectMenuOptions[] = [];
+    this.listOfValuesService.getConsultants().subscribe((data) => {
+      consultants.push(...data);
     });
-    return country;
-  }
-
-  tracCountryChange() {
-    this.myForm.get('countryId')?.valueChanges.subscribe((value) => {
-      this.myForm.get('cityId')?.setValue('');
-      this.cities.length = 0;
-      this.getCities(value);
-      this.cdref.detectChanges();
-    });
-  }
-  cities: selectMenuOptions[] = [];
-
-  getCities(countryId: string | number) {
-    this.listOfValuesService.getCities(countryId).subscribe((data) => {
-      this.cities.push(...data);
-    });
+    return consultants;
   }
 
   createForm() {
@@ -205,8 +162,9 @@ export class ControlComponent implements OnInit {
   }
 
   getItemById(id: number | string) {
-    this.clientUserService.get(id).subscribe((data) => {
-      this.myForm.patchValue(data.data as IClientUser);
+    this.projectService.get(id).subscribe((data) => {
+      console.log(data);
+      this.myForm.patchValue(data.data as IProject);
     });
   }
 
@@ -223,21 +181,20 @@ export class ControlComponent implements OnInit {
     }
   }
 
-  addCertificate(data: IClientUser) {
-    this.clientUserService.add(data).subscribe(() => {
+  addCertificate(data: IProject) {
+    this.projectService.add(data).subscribe(() => {
       this.actionAfterAddOrUpdate('added');
     });
   }
-
-  updateCertificate(data: IClientUser) {
-    this.clientUserService.update(data).subscribe(() => {
+  updateCertificate(data: IProject) {
+    this.projectService.update(data).subscribe(() => {
       this.actionAfterAddOrUpdate('updated');
     });
   }
 
   actionAfterAddOrUpdate(status: 'added' | 'updated') {
-    this.myForm.reset('', { emitEvent: false });
-    this.toastr.success(`User ${status} successfully`);
-    this.router.navigate(['/client-user']);
+    this.myForm.reset();
+    this.toastr.success(`Project ${status} successfully`);
+    this.router.navigate(['/project']);
   }
 }

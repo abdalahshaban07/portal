@@ -22,6 +22,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 // Components
 import { AvatarComponent } from './components/avatar/avatar.component';
@@ -58,6 +60,8 @@ const MaterialComponents = [
   MatChipsModule,
   MatSelectModule,
   MatButtonToggleModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
 ];
 
 @NgModule({
@@ -94,5 +98,6 @@ const MaterialComponents = [
     DynamicFormFieldComponent,
     PaginatorComponent,
   ],
+  providers: [MatDatepickerModule],
 })
 export class SharedModule {}

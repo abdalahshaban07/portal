@@ -4,8 +4,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CertificateService } from '@features/certificate/services/certificate.service';
 import { IQuestion } from '@features/question/models/question';
 import { QuesationService } from '@features/question/services/quesation.service';
-import { DynamicFormFieldModel } from '@shared/components/dynamic-form-field/dynamic-form-field.model';
+import {
+  DynamicFormFieldModel,
+  selectMenuOptions,
+} from '@shared/components/dynamic-form-field/dynamic-form-field.model';
 import { FormMode } from '@shared/Enums/formMode';
+import { ListOfValuesService } from '@shared/services/list-of-values.service';
 import { ToastrService } from 'ngx-toastr';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 
@@ -22,6 +26,7 @@ export class ControlComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private quesationService: QuesationService,
+    private listOfValuesService: ListOfValuesService,
     private activeRoute: ActivatedRoute,
     private toastr: ToastrService,
     private router: Router
@@ -53,24 +58,7 @@ export class ControlComponent implements OnInit {
         id: 'categoryId',
         label: 'Select Category',
         type: 'select',
-        selectMenuOptions: [
-          {
-            key: 1,
-            value: 'List of Documents',
-          },
-          {
-            key: 2,
-            value: 'List of Records',
-          },
-          {
-            key: 3,
-            value: 'List of Solutions',
-          },
-          {
-            key: 4,
-            value: 'Configuration Requirements',
-          },
-        ],
+        selectMenuOptions: this.Category,
         defaultValue: {
           value: '',
           disabled: false,
@@ -100,6 +88,14 @@ export class ControlComponent implements OnInit {
 
     this.createForm();
     this.getIdFromUrl();
+  }
+
+  get Category() {
+    let category: selectMenuOptions[] = [];
+    this.listOfValuesService.getClients().subscribe((data) => {
+      category.push(...data);
+    });
+    return category;
   }
 
   createForm() {
@@ -143,7 +139,7 @@ export class ControlComponent implements OnInit {
 
   addQuestion(data: IQuestion) {
     console.log(data);
-    return;
+    // return;
     this.quesationService.add(data).subscribe(() => {
       this.actionAfterAddOrUpdate('added');
     });

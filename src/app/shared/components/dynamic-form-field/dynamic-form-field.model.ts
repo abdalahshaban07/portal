@@ -11,7 +11,8 @@ export interface DynamicFormFieldModel {
     | 'textarea'
     | 'file'
     | 'editor'
-    | 'toggle';
+    | 'toggle'
+    | 'date';
 
   label?: string;
   // selectMenuOptions?: { [key: number | string]: string | boolean | number };

@@ -1,4 +1,4 @@
-export interface ApiListResponse<T> extends ResponseModel<T> {
+export interface ApiListResponse<T> extends ResponseModel {
   data: {
     pageIndex: number;
     pageCount: number;
@@ -7,10 +7,10 @@ export interface ApiListResponse<T> extends ResponseModel<T> {
   };
 }
 
-export interface ResponseModel<T> {
+export interface ResponseModel {
   isSuccess: boolean;
   successMessage: string;
-  data: string | object | T;
+  data: string | object | [];
   errorMessage: string;
   statusCode: number;
   errorCode: number;

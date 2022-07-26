@@ -39,8 +39,13 @@
 
         <!-- select -->
         <ng-container *ngSwitchCase="'select'">
-          <mat-select [formControlName]="formItem.id">
-            <mat-option [value]="null">Please Select</mat-option>
+          <mat-select
+            [formControlName]="formItem.id"
+            [multiple]="formItem.multiple"
+          >
+            <mat-option [value]="null" *ngIf="!formItem.multiple"
+              >Please Select</mat-option
+            >
             <mat-option
               [value]="menuOption.key"
               *ngFor="let menuOption of formItem.selectMenuOptions"
@@ -50,6 +55,20 @@
           </mat-select>
         </ng-container>
 
+        <!-- toggle -->
+        <ng-container *ngSwitchCase="'date'">
+          <input
+            matInput
+            [matDatepicker]="picker"
+            [formControlName]="formItem.id"
+          />
+          <mat-hint>DD/MM/YYYY</mat-hint>
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker touchUi #picker></mat-datepicker>
+        </ng-container>
         <!-- toggle -->
         <ng-container *ngSwitchCase="'toggle'">
           <input
