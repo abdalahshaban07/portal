@@ -8,6 +8,7 @@ interface ILink {
   name: string;
   routerLink: string;
   Active: string;
+  role: string;
 }
 @Component({
   selector: 'app-header',
@@ -25,26 +26,31 @@ export class HeaderComponent implements OnInit, OnDestroy {
       name: 'Dashboard',
       routerLink: '/dashboard',
       Active: 'active-link',
+      role: 'Admin',
     },
     {
       name: 'Admin',
       routerLink: '/admin',
       Active: 'active-link',
+      role: 'Admin',
     },
     {
       name: 'Clients',
       routerLink: '/client',
       Active: 'active-link',
+      role: 'Admin',
     },
     {
       name: 'Certificate',
       routerLink: '/certificate',
       Active: 'active-link',
+      role: 'Admin',
     },
     {
       name: 'Questions',
       routerLink: '/question',
       Active: 'active-link',
+      role: 'Admin',
     },
   ];
 

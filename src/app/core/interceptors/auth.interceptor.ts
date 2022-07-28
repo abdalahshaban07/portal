@@ -27,10 +27,12 @@ export class AuthInterceptor implements HttpInterceptor {
     this.loader.show();
     this.totalRequests++;
 
-    if (this.authService.token) {
+    let token = this.authService.getTokenValue();
+
+    if (token) {
       request = request.clone({
         setHeaders: {
-          authorization: `Bearer ${this.authService.token}`,
+          authorization: `${token}`,
         },
       });
     }

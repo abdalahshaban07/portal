@@ -1,7 +1,7 @@
 <div class="wrap">
   <!-- header -->
-  <!-- *ngIf="authService.isLoggedIn$ | async" -->
-  <header>
+  <!--  -->
+  <header *ngIf="authService.isLoggedIn$ | async">
     <app-header></app-header>
   </header>
   <!-- main -->
