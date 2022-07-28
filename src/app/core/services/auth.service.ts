@@ -50,6 +50,7 @@ export class AuthService {
       .pipe(
         map((response: ResponseModel) => {
           this._isLoggedIn$.next(true);
+          this._token$.next(response.data as string);
           localStorage.setItem(this.TOKEN_KEY, response.data as string);
           this.user = this.getUser(response.data as string) as User;
           return this.user;
