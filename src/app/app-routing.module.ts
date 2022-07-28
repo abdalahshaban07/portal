@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { HasRoleGuard } from '@core/guards/has-role.guard';
-import { IsAuthenticatedGuard } from '@core/guards/is-authenticated.guard';
+import { ExtraOptions, RouterModule, Routes } from '@angular/router';
+import { AuthenticatedGuard } from '@core/guards/authenticated.guard';
+import { HasRoleLoadGuard } from '@core/guards/has-role-load.guard';
+import { NonAuthenticatedGuard } from '@core/guards/non-authenticated.guard';
 
 const routes: Routes = [
   {
@@ -9,12 +10,20 @@ const routes: Routes = [
     redirectTo: 'dashboard',
     pathMatch: 'full',
   },
+
+  {
+    path: 'login',
+    loadChildren: () =>
+      import('@features/login/login.module').then((m) => m.LoginModule),
+  },
+
   {
     path: 'dashboard',
     loadChildren: () =>
       import('@features/dashboard/dashboard.module').then(
         (m) => m.DashboardModule
       ),
+    canLoad: [AuthenticatedGuard],
   },
 
   {
@@ -23,6 +32,7 @@ const routes: Routes = [
       import('@features/question/question.module').then(
         (m) => m.QuestionModule
       ),
+    canLoad: [AuthenticatedGuard],
   },
   {
     path: 'check-errors',
@@ -30,11 +40,13 @@ const routes: Routes = [
       import('@features/check-errors/check-errors.module').then(
         (m) => m.CheckErrorsModule
       ),
+    canLoad: [AuthenticatedGuard],
   },
   {
     path: 'admin',
     loadChildren: () =>
       import('@features/admin/admin.module').then((m) => m.AdminModule),
+    canLoad: [AuthenticatedGuard],
   },
   {
     path: 'category',
@@ -42,11 +54,13 @@ const routes: Routes = [
       import('@features/category/category.module').then(
         (m) => m.CategoryModule
       ),
+    canLoad: [AuthenticatedGuard],
   },
   {
     path: 'client',
     loadChildren: () =>
       import('@features/client/client.module').then((m) => m.ClientModule),
+    canLoad: [AuthenticatedGuard],
   },
   {
     path: 'client-user',
@@ -54,11 +68,13 @@ const routes: Routes = [
       import('@features/client-user/client-user.module').then(
         (m) => m.ClientUserModule
       ),
+    canLoad: [AuthenticatedGuard],
   },
   {
     path: 'project',
     loadChildren: () =>
       import('@features/project/project.module').then((m) => m.ProjectModule),
+    canLoad: [AuthenticatedGuard],
   },
   {
     path: 'certificate',
@@ -66,7 +82,7 @@ const routes: Routes = [
       import('@features/certificate/certificate.module').then(
         (m) => m.CertificateModule
       ),
-    canActivate: [HasRoleGuard],
+    canLoad: [AuthenticatedGuard, HasRoleLoadGuard],
     data: {
       role: 'Admin',
     },
@@ -79,8 +95,12 @@ const routes: Routes = [
   },
 ];
 
+const routerOptions: ExtraOptions = {
+  onSameUrlNavigation: 'reload',
+};
+
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, routerOptions)],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

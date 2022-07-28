@@ -1,10 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IAdmin } from '@features/admin/models/admin';
 import { AdminService } from '@features/admin/services/admin.service';
-import { DynamicFormFieldModel } from '@shared/components/dynamic-form-field/dynamic-form-field.model';
+import {
+  DynamicFormFieldModel,
+  selectMenuOptions,
+} from '@shared/components/dynamic-form-field/dynamic-form-field.model';
 import { FormMode } from '@shared/Enums/formMode';
+import { ListOfValuesService } from '@shared/services/list-of-values.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -20,14 +24,17 @@ export class ControlComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private adminService: AdminService,
+    private listOfValuesService: ListOfValuesService,
     private activeRoute: ActivatedRoute,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private cdref: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     this.getIdFromUrl();
     this.createForm();
+    this.tracCountryChange();
   }
 
   createDynamicFormFields() {
@@ -82,10 +89,10 @@ export class ControlComponent implements OnInit {
         },
       },
       {
-        id: 'gender',
+        id: 'genderId',
         label: 'Gender',
         type: 'select',
-        selectMenuOptions: this.getGenderIds(),
+        selectMenuOptions: this.Gender,
         defaultValue: {
           value: '',
           disabled: false,
@@ -93,10 +100,10 @@ export class ControlComponent implements OnInit {
         validators: [Validators.required],
       },
       {
-        id: 'country',
+        id: 'countryId',
         label: 'Country',
         type: 'select',
-        selectMenuOptions: this.getCountryIds(),
+        selectMenuOptions: this.Country,
         defaultValue: {
           value: '',
           disabled: false,
@@ -104,10 +111,10 @@ export class ControlComponent implements OnInit {
         validators: [Validators.required],
       },
       {
-        id: 'city',
+        id: 'cityId',
         label: 'City',
         type: 'select',
-        selectMenuOptions: this.getCityIds(),
+        selectMenuOptions: this.cities,
         defaultValue: {
           value: '',
           disabled: false,
@@ -118,12 +125,12 @@ export class ControlComponent implements OnInit {
         id: 'role',
         label: 'role',
         type: 'toggle',
-        selectMenuOptions: this.getPrmissions(),
+        selectMenuOptions: this.Roles,
         defaultValue: {
           value: '',
           disabled: false,
         },
-        multiple: false,
+        multiple: !!1,
         validators: [Validators.required],
       },
     ];
@@ -146,64 +153,44 @@ export class ControlComponent implements OnInit {
     }
   }
 
-  getCityIds() {
-    return [
-      {
-        key: 'Alex',
-        value: 'AlexV',
-      },
-      {
-        key: 2,
-        value: 'Cairo',
-      },
-    ];
+  get Gender() {
+    let gender: selectMenuOptions[] = [];
+    this.listOfValuesService.getGender().subscribe((data) => {
+      gender.push(...data);
+    });
+    return gender;
   }
 
-  getCountryIds() {
-    return [
-      {
-        key: 1,
-        value: 'Egypt',
-      },
-      {
-        key: 2,
-        value: 'KSA',
-      },
-    ];
+  get Country() {
+    let country: selectMenuOptions[] = [];
+    this.listOfValuesService.getCountries().subscribe((data) => {
+      country.push(...data);
+    });
+    return country;
   }
 
-  getGenderIds() {
-    return [
-      {
-        key: 1,
-        value: 'Male',
-      },
-      {
-        key: 2,
-        value: 'Female',
-      },
-    ];
+  tracCountryChange() {
+    this.myForm.get('countryId')?.valueChanges.subscribe((value) => {
+      this.myForm.get('cityId')?.setValue('');
+      this.cities.length = 0;
+      this.getCities(value);
+      this.cdref.detectChanges();
+    });
+  }
+  cities: selectMenuOptions[] = [];
+
+  getCities(countryId: string | number) {
+    this.listOfValuesService.getCities(countryId).subscribe((data) => {
+      this.cities.push(...data);
+    });
   }
 
-  getPrmissions() {
-    return [
-      {
-        key: 'Admin',
-        value: 'Admin',
-      },
-      {
-        key: 'Editor',
-        value: 'Editor',
-      },
-      {
-        key: 'Moderator',
-        value: 'Moderator',
-      },
-      {
-        key: 'Consultant',
-        value: 'Consultant',
-      },
-    ];
+  get Roles() {
+    let roles: selectMenuOptions[] = [];
+    this.listOfValuesService.getRoles().subscribe((data) => {
+      roles.push(...data);
+    });
+    return roles;
   }
 
   createForm() {

@@ -54,3 +54,7 @@ ngx-loading {
     height: 127% !important;
   }
 }
+
+.mat-button[disabled] {
+  background-color: #888888 !important;
+}

@@ -34,6 +34,7 @@
             mat-button
             [routerLink]="link.routerLink"
             [routerLinkActive]="link.Active"
+            *appHasRole="link.role"
           >
             {{ link.name }}
           </button>
@@ -93,7 +94,7 @@
         <app-avatar
           [avatar]="'https://picsum.photos/seed/picsum/300/300'"
         ></app-avatar>
-        <app-profile [name]="'ahmed'"></app-profile>
+        <app-profile></app-profile>
       </div>
 
       <div class="menu" fxHide fxShow.lt-md>
@@ -190,7 +191,7 @@
         <app-avatar
           [avatar]="'https://picsum.photos/seed/picsum/300/300'"
         ></app-avatar>
-        <app-profile [name]="'ahmed'"></app-profile>
+        <app-profile></app-profile>
       </div>
     </mat-sidenav>
   </mat-sidenav-container>
