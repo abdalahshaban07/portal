@@ -206,7 +206,7 @@ export class ControlComponent implements OnInit {
 
   getItemById(id: number | string) {
     this.clientUserService.get(id).subscribe((data) => {
-      this.myForm.patchValue(data.data as IClientUser);
+      this.myForm.patchValue(data as IClientUser);
     });
   }
 

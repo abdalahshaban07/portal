@@ -6,5 +6,6 @@
   (page)="onPageChange($event)"
   [showFirstLastButtons]="true"
   aria-label="Select page"
+  *ngIf="totalPage > 0"
 >
 </mat-paginator>

@@ -9,7 +9,7 @@ import { map, Observable, shareReplay, tap } from 'rxjs';
   providedIn: 'root',
 })
 export abstract class ResourceService<T extends { id?: string | number }> {
-  private readonly APIUrl = environment.APIUrl + this.getResourceUrl();
+  protected readonly APIUrl = environment.APIUrl + this.getResourceUrl();
 
   private _http!: HttpClient;
 
@@ -27,28 +27,31 @@ export abstract class ResourceService<T extends { id?: string | number }> {
     return json;
   }
 
+  pageNum = paginatorForHttp.pageNumber;
+  pageSize = paginatorForHttp.pageSize;
+
   getList(
-    pageNum: number = paginatorForHttp.pageNumber,
-    pagSize: number = paginatorForHttp.pageSize
+    pageNum = this.pageNum,
+    pageSize = this.pageSize
   ): Observable<ApiListResponse<T>> {
     let params = new HttpParams()
       .set('pageNum', pageNum.toString())
-      .set('pagSize', pagSize.toString());
+      .set('pagSize', pageSize.toString());
 
     return this._http.get<ApiListResponse<T>>(
       `${this.APIUrl}/GetList?${params.toString()}`
     );
   }
 
-  get(id: string | number): Observable<ResponseModel> {
+  get(id: string | number): Observable<T> {
     let idParam =
       this.getResourceUrl() === ('ClientUser' || 'Consultant')
         ? 'UserID'
         : 'id';
     let params = new HttpParams().set(idParam, id.toString());
-    return this._http.get<ResponseModel>(
-      `${this.APIUrl}/GetById?${params.toString()}`
-    );
+    return this._http
+      .get<ResponseModel>(`${this.APIUrl}/GetById?${params.toString()}`)
+      .pipe(map((response) => response.data as T));
   }
 
   add(resource: T): Observable<any> {

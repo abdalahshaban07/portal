@@ -8,7 +8,7 @@
         mat-button
         type="button"
         (click)="saveData()"
-        [disabled]="myForm.invalid"
+        [disabled]="myForm.invalid || myForm.pristine"
       >
         {{ formMode }}
       </button>

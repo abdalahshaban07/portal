@@ -10,5 +10,6 @@ import { ReplyComponent } from './components/reply/reply.component';
 @NgModule({
   declarations: [ListComponent, ControlComponent, ReplyComponent],
   imports: [CommonModule, QuestionRoutingModule, SharedModule],
+  exports: [ListComponent],
 })
 export class QuestionModule {}

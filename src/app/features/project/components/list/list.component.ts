@@ -1,13 +1,14 @@
 import { DatePipe } from '@angular/common';
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, Injector, Input, OnInit } from '@angular/core';
 import { IProject } from '@features/project/models/project';
 import { ProjectService } from '@features/project/services/project.service';
+import { TableConsts } from '@shared/components/custom-table/consts/table';
 import { CustomTableComponent } from '@shared/components/custom-table/custom-table.component';
 import { ListTableService } from '@shared/components/custom-table/list-table.service';
 import { TableColumn } from '@shared/models/tableColumn';
 
 @Component({
-  selector: 'app-list',
+  selector: 'app-list-project',
   templateUrl:
     '../../../../shared/components/custom-table/custom-table.component.html',
 
@@ -26,6 +27,17 @@ export class ListComponent
   extends CustomTableComponent<IProject>
   implements OnInit
 {
+  _hasCreateButton: boolean = true;
+
+  @Input() set hasCreateButtonIn(value: boolean) {
+    this._hasCreateButton = value;
+  }
+
+  _id!: number | string;
+
+  @Input() set idIn(value: number | string) {
+    this._id = value;
+  }
   override columns: TableColumn[] = [
     {
       columnDef: 'projectCode',
@@ -72,7 +84,10 @@ export class ListComponent
 
   ngOnInit(): void {
     this.haveActions = true;
-    this.hasCreateButton = true;
+    this.hasCreateButton = this._hasCreateButton;
+    this.id = this._id;
+    this.id ? (this.hasName = true) : false;
+    this.actionsBtn.push(TableConsts.actionButton.view);
     this.name = 'Project';
     super.ngOnInitC();
   }

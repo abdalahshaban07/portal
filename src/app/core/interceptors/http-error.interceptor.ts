@@ -9,10 +9,14 @@ import {
 } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '@core/services/auth.service';
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
-  constructor(private toastr: ToastrService) {}
+  constructor(
+    private toastr: ToastrService,
+    private authService: AuthService
+  ) {}
 
   intercept(
     request: HttpRequest<unknown>,
@@ -30,6 +34,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             switch (error.status) {
               case 401: // Unautorized
                 this.toastr.error(`${error.statusText}`, 'Authorization Error');
+                this.authService.logout();
                 break;
               case 403: // Forbidden
                 this.toastr.error(`${error.statusText}`, 'Access Error');
@@ -49,6 +54,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           console.log('An error occurred');
         }
 
+        this.toastr.warning(error.statusText);
         return throwError(() => new Error(error.statusText));
       })
     );

@@ -1,9 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
 import { ApiListResponse, ResponseModel } from '@core/model/apiListResponse';
 import { ResourceService } from '@core/services/resource.service';
 import { environment } from '@env';
 import { selectMenuOptions } from '@shared/components/dynamic-form-field/dynamic-form-field.model';
+import { paginatorForHttp } from '@shared/configs/paginator';
 import { map, Observable, tap } from 'rxjs';
 import { IProject } from '../models/project';
 
@@ -28,5 +29,21 @@ export class ProjectService extends ResourceService<IProject> {
 
   AcceptProjectQuesation() {
     // /Project/AcceptProjectQuesation?projectId=1&quesationId=10
+  }
+
+  getItemBy(
+    pageNum: number = paginatorForHttp.pageNumber,
+    pagSize: number = paginatorForHttp.pageSize,
+    id: number | string
+  ): Observable<ApiListResponse<IProject>> {
+    let params = new HttpParams()
+      .set('id', id.toString())
+      .set('pageNum', pageNum.toString())
+      .set('pagSize', pagSize.toString());
+    return this.injector
+      .get(HttpClient)
+      .get<ApiListResponse<IProject>>(
+        `${this.APIUrl}/GetListByCertifcate?${params.toString()}`
+      );
   }
 }

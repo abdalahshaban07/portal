@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { ResponseModel } from '@core/model/apiListResponse';
 import { User } from '@core/model/user';
 import { environment } from '@env';
@@ -20,7 +21,7 @@ export class AuthService {
 
   user!: User;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
     this.checkToken();
   }
 
@@ -63,6 +64,7 @@ export class AuthService {
     this._token$.next('');
     this._isLoggedIn$.next(false);
     this.user = {} as User;
+    this.router.navigate(['login']);
   }
 
   private getUser(token: string): User | null {

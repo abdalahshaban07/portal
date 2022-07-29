@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  // APIUrl: 'http://mahmoud11prosmar-001-site1.itempurl.com/api/',
-  APIUrl: 'http://igrc2.konbrand.com/api/',
+  APIUrl: 'http://mahmoud11prosmar-001-site1.itempurl.com/api/',
+  // APIUrl: 'http://igrc2.konbrand.com/api/',
 };
 
 /*

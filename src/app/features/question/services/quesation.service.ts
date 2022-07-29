@@ -1,5 +1,9 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
+import { ApiListResponse } from '@core/model/apiListResponse';
 import { ResourceService } from '@core/services/resource.service';
+import { paginatorForHttp } from '@shared/configs/paginator';
+import { Observable, of } from 'rxjs';
 import { IQuestion } from '../models/question';
 
 @Injectable({
@@ -11,5 +15,21 @@ export class QuesationService extends ResourceService<IQuestion> {
   }
   constructor(private injector: Injector) {
     super(injector);
+  }
+
+  getItemBy(
+    pageNum: number = paginatorForHttp.pageNumber,
+    pagSize: number = paginatorForHttp.pageSize,
+    id: number | string
+  ): Observable<ApiListResponse<IQuestion>> {
+    let params = new HttpParams()
+      .set('id', id.toString())
+      .set('pageNum', pageNum.toString())
+      .set('pagSize', pagSize.toString());
+    return this.injector
+      .get(HttpClient)
+      .get<ApiListResponse<IQuestion>>(
+        `${this.APIUrl}/GetListByCertifcate?${params.toString()}`
+      );
   }
 }
