@@ -41,6 +41,8 @@ export class CustomTableComponent<T> {
     TableConsts.actionButton.edit,
   ];
 
+  id!: number | string;
+
   @ViewChild(MatSort, { static: true }) sort!: MatSort; // sort
 
   selection = new SelectionModel<any>(true, []);
@@ -70,7 +72,11 @@ export class CustomTableComponent<T> {
 
     this.dataSource.sort = this.sort;
 
-    this.paginator();
+    if (this.id) {
+      this.getItemBy();
+    } else {
+      this.paginator();
+    }
   }
 
   onTableAction(event: TableButtonAction): void {
@@ -81,6 +87,9 @@ export class CustomTableComponent<T> {
       case 'delete':
         this.onDeleteClick(event);
         break;
+      case 'view':
+        this.onViewClick(event.value);
+        break;
     }
   }
 
@@ -89,11 +98,18 @@ export class CustomTableComponent<T> {
     this.router.navigate(['edit/', item.id], { relativeTo: this.route });
   }
 
+  onViewClick(item: any) {
+    console.log('view');
+    this.router.navigate(['view/', item.id], { relativeTo: this.route });
+  }
+
   createPage() {
+    console.log('create');
     this.router.navigate(['create'], { relativeTo: this.route });
   }
 
   onDeleteClick(event: TableButtonAction) {
+    console.log('delete');
     const id = event.value?.id;
 
     // this.dataSource.data = this.dataSource.data.filter(
@@ -138,12 +154,21 @@ export class CustomTableComponent<T> {
     this.paginator(event.pageNumber, event.pageSize);
   }
 
-  paginator(
-    current_page = paginatorForHttp.pageNumber,
-    per_page_items = paginatorForHttp.pageSize
-  ) {
+  current_page = paginatorForHttp.pageNumber;
+  pageSize = paginatorForHttp.pageSize;
+
+  paginator(current_page = this.current_page, per_page_items = this.pageSize) {
     this.listTableService
       .getList(current_page, per_page_items)
+      .subscribe(({ data: { totalCount, dataList } }) => {
+        this.length = totalCount;
+        this.dataSource.data = dataList as [];
+      });
+  }
+
+  getItemBy(current_page = this.current_page, per_page_items = this.pageSize) {
+    this.listTableService
+      .getItemBy(current_page, per_page_items, this.id)
       .subscribe(({ data: { totalCount, dataList } }) => {
         this.length = totalCount;
         this.dataSource.data = dataList as [];

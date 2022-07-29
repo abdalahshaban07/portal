@@ -1,4 +1,4 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, Injector, Input, OnInit } from '@angular/core';
 import { ICertificate } from '@features/certificate/models/certificate.model';
 import { CertificateService } from '@features/certificate/services/certificate.service';
 import { TableConsts } from '@shared/components/custom-table/consts/table';
@@ -25,6 +25,11 @@ export class ListComponent
   extends CustomTableComponent<ICertificate>
   implements OnInit
 {
+  _hasCreateButton: boolean = true;
+
+  @Input() set hasCreateButtonIn(value: boolean) {
+    this._hasCreateButton = value;
+  }
   override columns: TableColumn[] = [
     {
       columnDef: 'id',
@@ -56,8 +61,9 @@ export class ListComponent
 
   ngOnInit(): void {
     this.haveActions = true;
-    this.hasCreateButton = true;
+    this.hasCreateButton = this._hasCreateButton;
     this.name = 'Certificate';
+    this.actionsBtn.push(TableConsts.actionButton.view);
     super.ngOnInitC();
   }
 }

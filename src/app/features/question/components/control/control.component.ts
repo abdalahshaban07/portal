@@ -121,8 +121,8 @@ export class ControlComponent implements OnInit {
 
   getItemById(id: number | string) {
     this.quesationService.get(id).subscribe((data) => {
-      console.log(data.data);
-      let question = data.data as IQuestion;
+      console.log(data);
+      let question = data as IQuestion;
       this.myForm.patchValue(question);
     });
   }

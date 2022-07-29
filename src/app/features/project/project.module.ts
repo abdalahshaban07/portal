@@ -9,5 +9,6 @@ import { SharedModule } from '@shared/shared.module';
 @NgModule({
   declarations: [ListComponent, ControlComponent],
   imports: [CommonModule, ProjectRoutingModule, SharedModule],
+  exports: [ListComponent],
 })
 export class ProjectModule {}

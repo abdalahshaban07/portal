@@ -16,6 +16,16 @@ export class ListTableService {
     return of();
   }
 
+  getItemBy(
+    page: number = paginatorForHttp.pageNumber,
+    limit: number = paginatorForHttp.pageSize,
+    id: number | string
+  ) {
+    console.log('getItemBy in ListTableService');
+
+    return of();
+  }
+
   delete(id: number) {
     return of();
   }

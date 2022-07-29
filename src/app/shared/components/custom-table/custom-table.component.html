@@ -38,12 +38,7 @@
 
       <!-- Table -->
       <div class="table-data">
-        <mat-table
-          [dataSource]="dataSource"
-          matSort
-          recycleRows
-          fxLayout="column"
-        >
+        <mat-table [dataSource]="dataSource" matSort fxLayout="column">
           <!-- Checkbox Column -->
           <ng-container matColumnDef="select" *ngIf="haveSelect">
             <mat-header-cell *matHeaderCellDef fxFlex="10%">
@@ -74,14 +69,18 @@
             <mat-header-cell
               *matHeaderCellDef
               mat-sort-header
-              [fxFlex]="column.header === 'ID' ? '10%' : '50%'"
+              [fxFlex]="
+                column.header === ('ID' || 'projectCode') ? '10%' : '50%'
+              "
               fxLayoutAlign="start center"
             >
               {{ column.header }}
             </mat-header-cell>
             <mat-cell
               *matCellDef="let row"
-              [fxFlex]="column.header === 'ID' ? '10%' : '50%'"
+              [fxFlex]="
+                column.header === ('ID' || 'projectCode') ? '10%' : '50%'
+              "
               fxLayoutAlign="start center"
             >
               <span *ngIf="!column.icon">
@@ -124,7 +123,7 @@
         <!-- No Data Column -->
         <table class="no-record">
           <tr *ngIf="!dataSource.data.length">
-            <td style="text-align: center">No Records Found!</td>
+            <td style="text-align: center">No {{ name }} Found!</td>
           </tr>
         </table>
       </div>

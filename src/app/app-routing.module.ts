@@ -96,6 +96,8 @@ const routes: Routes = [
 ];
 
 const routerOptions: ExtraOptions = {
+  scrollPositionRestoration: 'enabled',
+  anchorScrolling: 'enabled',
   onSameUrlNavigation: 'reload',
 };
 
