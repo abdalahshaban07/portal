@@ -18,5 +18,6 @@ import { ProjectModule } from '@features/project/project.module';
     QuestionModule,
     ProjectModule,
   ],
+  exports: [ListComponent],
 })
 export class CertificateModule {}

@@ -1,6 +1,5 @@
 export interface IQuestion {
   id: number | string;
-  quesation1: string;
   quesation: string;
   description: string;
   categoryId: number;

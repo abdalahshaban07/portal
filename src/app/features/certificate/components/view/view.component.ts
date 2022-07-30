@@ -3,13 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GetTotalSummary } from '@features/certificate/models/get-total-summary';
 import { CertificateService } from '@features/certificate/services/certificate.service';
+import { Info } from '@shared/models/infor-card';
 
-interface Info {
-  name: string;
-  description: string;
-  routerLink?: string;
-  scroll?: string;
-}
+
 
 @Component({
   selector: 'app-view',

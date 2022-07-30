@@ -6,9 +6,15 @@ import { ListComponent } from './components/list/list.component';
 import { ControlComponent } from './components/control/control.component';
 import { SharedModule } from '@shared/shared.module';
 import { ReplyComponent } from './components/reply/reply.component';
+import { ViewComponent } from './components/view/view.component';
 
 @NgModule({
-  declarations: [ListComponent, ControlComponent, ReplyComponent],
+  declarations: [
+    ListComponent,
+    ControlComponent,
+    ReplyComponent,
+    ViewComponent,
+  ],
   imports: [CommonModule, QuestionRoutingModule, SharedModule],
   exports: [ListComponent],
 })

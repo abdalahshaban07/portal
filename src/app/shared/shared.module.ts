@@ -39,6 +39,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DynamicFormFieldComponent } from './components/dynamic-form-field/dynamic-form-field.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { ListTableComponent } from './components/list-table/list-table.component';
+import { AppLoaderDirective } from './directives/app-loader.directive';
 
 const MaterialComponents = [
   MatToolbarModule,
@@ -74,6 +76,8 @@ const MaterialComponents = [
     QuestionComponent,
     DynamicFormFieldComponent,
     PaginatorComponent,
+    ListTableComponent,
+    AppLoaderDirective,
   ],
   imports: [
     CommonModule,
@@ -97,6 +101,8 @@ const MaterialComponents = [
     ReactiveFormsModule,
     DynamicFormFieldComponent,
     PaginatorComponent,
+    ListTableComponent,
+    AppLoaderDirective
   ],
   providers: [MatDatepickerModule],
 })
