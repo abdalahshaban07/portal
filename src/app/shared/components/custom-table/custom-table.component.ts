@@ -31,7 +31,7 @@ export class CustomTableComponent<T> {
   haveSelect: boolean = false;
   haveActions: boolean = false;
   hasName: boolean = false;
-  hasCreateButton: boolean = false;
+  hasCreateButton: boolean = true;
   hasSearch: boolean = false;
   width: string = '100%';
   height: string = '100vh';
@@ -42,6 +42,7 @@ export class CustomTableComponent<T> {
   ];
 
   id!: number | string;
+  routerName!: string;
 
   @ViewChild(MatSort, { static: true }) sort!: MatSort; // sort
 
@@ -73,6 +74,7 @@ export class CustomTableComponent<T> {
     this.dataSource.sort = this.sort;
 
     if (this.id) {
+      this.hasCreateButton = false;
       this.getItemBy();
     } else {
       this.paginator();
@@ -100,7 +102,9 @@ export class CustomTableComponent<T> {
 
   onViewClick(item: any) {
     console.log('view');
-    this.router.navigate(['view/', item.id], { relativeTo: this.route });
+    this.id
+      ? this.router.navigate([`${this.routerName}/view`, item.id])
+      : this.router.navigate(['view/', item.id], { relativeTo: this.route });
   }
 
   createPage() {

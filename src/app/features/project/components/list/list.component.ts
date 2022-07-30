@@ -23,21 +23,10 @@ import { TableColumn } from '@shared/models/tableColumn';
     },
   ],
 })
-export class ListComponent
+export class ListProjectComponent
   extends CustomTableComponent<IProject>
   implements OnInit
 {
-  _hasCreateButton: boolean = true;
-
-  @Input() set hasCreateButtonIn(value: boolean) {
-    this._hasCreateButton = value;
-  }
-
-  _id!: number | string;
-
-  @Input() set idIn(value: number | string) {
-    this._id = value;
-  }
   override columns: TableColumn[] = [
     {
       columnDef: 'projectCode',
@@ -84,8 +73,7 @@ export class ListComponent
 
   ngOnInit(): void {
     this.haveActions = true;
-    this.hasCreateButton = this._hasCreateButton;
-    this.id = this._id;
+    this.hasCreateButton = true;
     this.id ? (this.hasName = true) : false;
     this.actionsBtn.push(TableConsts.actionButton.view);
     this.name = 'Project';

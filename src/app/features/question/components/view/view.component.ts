@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ListCertificateComponent } from '@features/certificate/components/list/list.component';
 import { QuesationService } from '@features/question/services/quesation.service';
+import { AppLoaderDirective } from '@shared/directives/app-loader.directive';
 import { Info } from '@shared/models/infor-card';
 
 @Component({
@@ -21,7 +23,9 @@ export class ViewComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // debugger;
     this.getIdFromUrl();
+    this.loadCerticateComponent();
   }
 
   getIdFromUrl() {
@@ -37,5 +41,16 @@ export class ViewComponent implements OnInit {
       this.name = data.quesation;
       this.description = data.description;
     });
+  }
+
+  @ViewChild(AppLoaderDirective, { static: true, read: ViewContainerRef })
+  dynamicChild!: ViewContainerRef;
+
+  private loadCerticateComponent() {
+    const certificateRef = this.dynamicChild.createComponent(
+      ListCertificateComponent
+    );
+    certificateRef.instance.id = this.id;
+    certificateRef.instance.routerName = 'certificate';
   }
 }

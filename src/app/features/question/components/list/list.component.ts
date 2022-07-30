@@ -1,4 +1,5 @@
 import { Component, Injector, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { IQuestion } from '@features/question/models/question';
 import { QuesationService } from '@features/question/services/quesation.service';
 import { TableConsts } from '@shared/components/custom-table/consts/table';
@@ -21,22 +22,10 @@ import { TableColumn } from '@shared/models/tableColumn';
     },
   ],
 })
-export class ListComponent
+export class listQuestionComponent
   extends CustomTableComponent<IQuestion>
   implements OnInit
 {
-  _hasCreateButton: boolean = true;
-
-  @Input() set hasCreateButtonIn(value: boolean) {
-    this._hasCreateButton = value;
-  }
-
-  _id!: number | string;
-
-  @Input() set idIn(value: number | string) {
-    this._id = value;
-  }
-
   override columns: TableColumn[] = [
     {
       columnDef: 'id',
@@ -79,11 +68,14 @@ export class ListComponent
 
   ngOnInit(): void {
     this.haveActions = true;
-    this.hasCreateButton = this._hasCreateButton;
+    this.hasCreateButton = true;
     this.name = 'Quesation';
-    this.id = this._id;
     this.id ? (this.hasName = true) : false;
     this.actionsBtn.push(TableConsts.actionButton.view);
     super.ngOnInitC();
+  }
+
+  override onViewClick(item: any): void {
+    this.injector.get(Router).navigate(['/question/view', item.id]);
   }
 }
