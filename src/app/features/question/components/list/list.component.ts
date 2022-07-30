@@ -74,8 +74,4 @@ export class listQuestionComponent
     this.actionsBtn.push(TableConsts.actionButton.view);
     super.ngOnInitC();
   }
-
-  override onViewClick(item: any): void {
-    this.injector.get(Router).navigate(['/question/view', item.id]);
-  }
 }
