@@ -31,10 +31,12 @@ export class ProjectService extends ResourceService<IProject> {
     // /Project/AcceptProjectQuesation?projectId=1&quesationId=10
   }
 
+  // GetListByCertifcate
   getItemBy(
     pageNum: number = paginatorForHttp.pageNumber,
     pagSize: number = paginatorForHttp.pageSize,
-    id: number | string
+    id: number | string,
+    api: string
   ): Observable<ApiListResponse<IProject>> {
     let params = new HttpParams()
       .set('id', id.toString())
@@ -43,7 +45,7 @@ export class ProjectService extends ResourceService<IProject> {
     return this.injector
       .get(HttpClient)
       .get<ApiListResponse<IProject>>(
-        `${this.APIUrl}/GetListByCertifcate?${params.toString()}`
+        `${this.APIUrl}/${api}?${params.toString()}`
       );
   }
 }

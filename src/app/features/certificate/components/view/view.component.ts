@@ -1,15 +1,12 @@
 import { ViewportScroller } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GetTotalSummary } from '@features/certificate/models/get-total-summary';
 import { CertificateService } from '@features/certificate/services/certificate.service';
-
-interface Info {
-  name: string;
-  description: string;
-  routerLink?: string;
-  scroll?: string;
-}
+import { ListProjectComponent } from '@features/project/components/list/list.component';
+import { listQuestionComponent } from '@features/question/components/list/list.component';
+import { AppLoaderDirective } from '@shared/directives/app-loader.directive';
+import { Info } from '@shared/models/infor-card';
 
 @Component({
   selector: 'app-view',
@@ -31,6 +28,8 @@ export class ViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.getIdFromUrl();
+    this.loadQuestionComponent();
+    this.loadProjectComponent();
   }
 
   scroll(id: string | undefined) {
@@ -77,5 +76,24 @@ export class ViewComponent implements OnInit {
         scroll: 'client',
       },
     ];
+  }
+
+  @ViewChild(AppLoaderDirective, { static: true, read: ViewContainerRef })
+  dynamicChild!: ViewContainerRef;
+
+  private loadQuestionComponent() {
+    const questionRef = this.dynamicChild.createComponent(
+      listQuestionComponent
+    );
+    questionRef.instance.id = this.id;
+    questionRef.instance.routerName = 'question';
+    questionRef.instance.apiToGetListById = 'GetListByCertifcate';
+  }
+
+  private loadProjectComponent() {
+    const projectRef = this.dynamicChild.createComponent(ListProjectComponent);
+    projectRef.instance.id = this.id;
+    projectRef.instance.routerName = 'project';
+    projectRef.instance.apiToGetListById = 'GetListByCertifcate';
   }
 }

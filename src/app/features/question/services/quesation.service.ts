@@ -16,11 +16,12 @@ export class QuesationService extends ResourceService<IQuestion> {
   constructor(private injector: Injector) {
     super(injector);
   }
-
+  // GetListByCertifcate
   getItemBy(
     pageNum: number = paginatorForHttp.pageNumber,
     pagSize: number = paginatorForHttp.pageSize,
-    id: number | string
+    id: number | string,
+    api: string
   ): Observable<ApiListResponse<IQuestion>> {
     let params = new HttpParams()
       .set('id', id.toString())
@@ -29,7 +30,7 @@ export class QuesationService extends ResourceService<IQuestion> {
     return this.injector
       .get(HttpClient)
       .get<ApiListResponse<IQuestion>>(
-        `${this.APIUrl}/GetListByCertifcate?${params.toString()}`
+        `${this.APIUrl}/${api}?${params.toString()}`
       );
   }
 }

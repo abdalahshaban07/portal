@@ -1,7 +1,7 @@
 <div class="wrap" fxLayout="column" fxLayoutAlign="start">
   <div class="header">
     <div class="content" fxLayout="column">
-      <p class="title">{{ name || "certificate Name" }}</p>
+      <p class="title">{{ name || "question Name" }}</p>
       <div fxLayout="row">
         <span fxFlex="60%">
           {{ description || "description" }}
@@ -21,7 +21,7 @@
     >
       <mat-card-subtitle>{{ item.name }}</mat-card-subtitle>
       <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">
-        <button mat-button class="disabled-btn" (click)="scroll(item.scroll)">
+        <button mat-button class="disabled-btn">
           {{ item.description }}
         </button>
         <!-- <button mat-button class="continue" [routerLink]="item.routerLink">
@@ -31,11 +31,7 @@
     </mat-card>
   </div>
 
-  <div id="question">
-    <ng-template appLoader></ng-template>
-  </div>
-
-  <div id="project">
+  <div id="certificate">
     <ng-template appLoader></ng-template>
   </div>
 </div>

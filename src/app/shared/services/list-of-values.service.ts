@@ -61,4 +61,10 @@ export class ListOfValuesService {
       .get<ResponseModel>(`${this.API}/GetRoleListOfValues`)
       .pipe(map((res) => this.transform(res)));
   }
+
+  getCategories(): Observable<selectMenuOptions[]> {
+    return this.http
+      .get<ResponseModel>(`${this.API}/GetCategoryListOfValues`)
+      .pipe(map((res) => this.transform(res)));
+  }
 }

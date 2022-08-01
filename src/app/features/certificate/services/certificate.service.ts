@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
 import { ApiListResponse, ResponseModel } from '@core/model/apiListResponse';
 import { ResourceService } from '@core/services/resource.service';
+import { paginatorForHttp } from '@shared/configs/paginator';
 import { map, Observable, of } from 'rxjs';
 import { ICertificate } from '../models/certificate.model';
 import { GetTotalSummary } from '../models/get-total-summary';
@@ -25,5 +26,21 @@ export class CertificateService extends ResourceService<ICertificate> {
     return this.http
       .get<ResponseModel>(`${this.APIUrl}/GetTotalSummary?id=${id}`)
       .pipe(map((res: ResponseModel) => this.transform(res)));
+  }
+
+  getItemBy(
+    pageNum: number = paginatorForHttp.pageNumber,
+    pagSize: number = paginatorForHttp.pageSize,
+    id: number | string
+  ): Observable<ApiListResponse<ICertificate>> {
+    let params = new HttpParams()
+      .set('id', id.toString())
+      .set('pageNum', pageNum.toString())
+      .set('pagSize', pagSize.toString());
+    return this.injector
+      .get(HttpClient)
+      .get<ApiListResponse<ICertificate>>(
+        `${this.APIUrl}/GetListByQuesation?${params.toString()}`
+      );
   }
 }

@@ -27,14 +27,6 @@ const routes: Routes = [
   },
 
   {
-    path: 'question',
-    loadChildren: () =>
-      import('@features/question/question.module').then(
-        (m) => m.QuestionModule
-      ),
-    canLoad: [AuthenticatedGuard],
-  },
-  {
     path: 'check-errors',
     loadChildren: () =>
       import('@features/check-errors/check-errors.module').then(
@@ -70,12 +62,7 @@ const routes: Routes = [
       ),
     canLoad: [AuthenticatedGuard],
   },
-  {
-    path: 'project',
-    loadChildren: () =>
-      import('@features/project/project.module').then((m) => m.ProjectModule),
-    canLoad: [AuthenticatedGuard],
-  },
+
   {
     path: 'certificate',
     loadChildren: () =>
@@ -86,6 +73,21 @@ const routes: Routes = [
     data: {
       role: 'Admin',
     },
+  },
+  {
+    path: 'project',
+    loadChildren: () =>
+      import('@features/project/project.module').then((m) => m.ProjectModule),
+    canLoad: [AuthenticatedGuard],
+  },
+
+  {
+    path: 'question',
+    loadChildren: () =>
+      import('@features/question/question.module').then(
+        (m) => m.QuestionModule
+      ),
+    canLoad: [AuthenticatedGuard],
   },
 
   {

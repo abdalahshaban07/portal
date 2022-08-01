@@ -21,15 +21,10 @@ import { TableColumn } from '@shared/models/tableColumn';
     },
   ],
 })
-export class ListComponent
+export class ListCertificateComponent
   extends CustomTableComponent<ICertificate>
   implements OnInit
 {
-  _hasCreateButton: boolean = true;
-
-  @Input() set hasCreateButtonIn(value: boolean) {
-    this._hasCreateButton = value;
-  }
   override columns: TableColumn[] = [
     {
       columnDef: 'id',
@@ -61,8 +56,8 @@ export class ListComponent
 
   ngOnInit(): void {
     this.haveActions = true;
-    this.hasCreateButton = this._hasCreateButton;
     this.name = 'Certificate';
+    this.id ? (this.hasName = true) : false;
     this.actionsBtn.push(TableConsts.actionButton.view);
     super.ngOnInitC();
   }

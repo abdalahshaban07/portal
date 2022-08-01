@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ControlComponent } from './components/control/control.component';
-import { ListComponent } from './components/list/list.component';
+import { listQuestionComponent } from './components/list/list.component';
 import { ReplyComponent } from './components/reply/reply.component';
+import { ViewComponent } from './components/view/view.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ListComponent,
+    component: listQuestionComponent,
   },
   {
     path: 'create',
@@ -20,6 +21,10 @@ const routes: Routes = [
   {
     path: 'reply/:id',
     component: ReplyComponent,
+  },
+  {
+    path: 'view/:id',
+    component: ViewComponent,
   },
 ];
 
