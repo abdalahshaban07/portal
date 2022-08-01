@@ -43,6 +43,7 @@ export class CustomTableComponent<T> {
 
   id!: number | string;
   routerName!: string;
+  apiToGetListById!: string;
 
   @ViewChild(MatSort, { static: true }) sort!: MatSort; // sort
 
@@ -172,7 +173,7 @@ export class CustomTableComponent<T> {
 
   getItemBy(current_page = this.current_page, per_page_items = this.pageSize) {
     this.listTableService
-      .getItemBy(current_page, per_page_items, this.id)
+      .getItemBy(current_page, per_page_items, this.id, this.apiToGetListById)
       .subscribe(({ data: { totalCount, dataList } }) => {
         this.length = totalCount;
         this.dataSource.data = dataList as [];

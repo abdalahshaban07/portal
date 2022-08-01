@@ -7,7 +7,6 @@ import { ControlComponent } from './components/control/control.component';
 import { SharedModule } from '@shared/shared.module';
 import { ViewComponent } from './components/view/view.component';
 
-
 @NgModule({
   declarations: [ListCertificateComponent, ControlComponent, ViewComponent],
   imports: [CommonModule, CertificateRoutingModule, SharedModule],

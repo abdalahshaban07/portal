@@ -87,11 +87,13 @@ export class ViewComponent implements OnInit {
     );
     questionRef.instance.id = this.id;
     questionRef.instance.routerName = 'question';
+    questionRef.instance.apiToGetListById = 'GetListByCertifcate';
   }
 
   private loadProjectComponent() {
     const projectRef = this.dynamicChild.createComponent(ListProjectComponent);
     projectRef.instance.id = this.id;
     projectRef.instance.routerName = 'project';
+    projectRef.instance.apiToGetListById = 'GetListByCertifcate';
   }
 }

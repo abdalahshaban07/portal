@@ -66,23 +66,35 @@ export class ControlComponent implements OnInit {
         validators: [Validators.required],
       },
       {
+        id: 'certificateId',
+        label: 'Select Certificate',
+        type: 'select',
+        selectMenuOptions: this.Certificate,
+        defaultValue: {
+          value: '',
+          disabled: false,
+        },
+        validators: [Validators.required],
+      },
+      {
         id: 'isActive',
         label: 'Is Active',
         type: 'select',
         selectMenuOptions: [
           {
-            key: true,
-            value: 'True',
+            key: 'true',
+            value: true,
           },
           {
-            key: false,
-            value: 'False',
+            key: 'false',
+            value: false,
           },
         ],
         defaultValue: {
           value: '',
           disabled: false,
         },
+        validators: [Validators.required],
       },
     ];
 
@@ -92,10 +104,17 @@ export class ControlComponent implements OnInit {
 
   get Category() {
     let category: selectMenuOptions[] = [];
-    this.listOfValuesService.getClients().subscribe((data) => {
+    this.listOfValuesService.getCategories().subscribe((data) => {
       category.push(...data);
     });
     return category;
+  }
+  get Certificate() {
+    let certificate: selectMenuOptions[] = [];
+    this.listOfValuesService.getCertifcates().subscribe((data) => {
+      certificate.push(...data);
+    });
+    return certificate;
   }
 
   createForm() {

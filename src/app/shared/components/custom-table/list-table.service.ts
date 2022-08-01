@@ -19,7 +19,8 @@ export class ListTableService {
   getItemBy(
     page: number = paginatorForHttp.pageNumber,
     limit: number = paginatorForHttp.pageSize,
-    id: number | string
+    id: number | string,
+    api: string
   ) {
     console.log('getItemBy in ListTableService');
 
