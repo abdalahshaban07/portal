@@ -130,7 +130,7 @@ export class ControlComponent implements OnInit {
           value: '',
           disabled: false,
         },
-        multiple: !!1,
+        multiple: false,
         validators: [Validators.required],
       },
     ];

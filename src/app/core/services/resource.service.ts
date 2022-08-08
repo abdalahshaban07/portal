@@ -44,10 +44,18 @@ export abstract class ResourceService<T extends { id?: string | number }> {
   }
 
   get(id: string | number): Observable<T> {
-    let idParam =
-      this.getResourceUrl() === ('ClientUser' || 'Consultant')
-        ? 'UserID'
-        : 'id';
+    let idParam;
+    switch (this.getResourceUrl()) {
+      case 'ClientUser':
+        idParam = 'UserID';
+        break;
+      case 'Consultant':
+        idParam = 'UserID';
+        break;
+      default:
+        idParam = 'id';
+    }
+
     let params = new HttpParams().set(idParam, id.toString());
     return this._http
       .get<ResponseModel>(`${this.APIUrl}/GetById?${params.toString()}`)

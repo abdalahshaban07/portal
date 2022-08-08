@@ -66,7 +66,7 @@ export class ControlComponent implements OnInit {
         validators: [Validators.required],
       },
       {
-        id: 'certificateId',
+        id: 'certficationList',
         label: 'Select Certificate',
         type: 'select',
         selectMenuOptions: this.Certificate,
@@ -75,6 +75,7 @@ export class ControlComponent implements OnInit {
           disabled: false,
         },
         validators: [Validators.required],
+        multiple: true,
       },
       {
         id: 'isActive',
@@ -158,7 +159,7 @@ export class ControlComponent implements OnInit {
 
   addQuestion(data: IQuestion) {
     console.log(data);
-    // return;
+    // return;<font face="Arial">rr</font>
     this.quesationService.add(data).subscribe(() => {
       this.actionAfterAddOrUpdate('added');
     });
@@ -171,7 +172,7 @@ export class ControlComponent implements OnInit {
 
   actionAfterAddOrUpdate(status: 'added' | 'updated') {
     this.myForm.reset();
-    this.toastr.success(`Certificate ${status} successfully`);
-    this.router.navigate(['/questions']);
+    this.toastr.success(`Question ${status} successfully`);
+    this.router.navigate(['/question']);
   }
 }

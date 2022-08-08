@@ -20,7 +20,7 @@ import { TableColumn } from '@shared/models/tableColumn';
     },
   ],
 })
-export class ListComponent
+export class ListClientUserComponent
   extends CustomTableComponent<IClientUser>
   implements OnInit
 {
