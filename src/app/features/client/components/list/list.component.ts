@@ -71,15 +71,13 @@ export class ListComponent
     super(injector);
   }
 
-  override actionsBtn = [
-    TableConsts.actionButton.delete,
-    TableConsts.actionButton.edit,
-  ];
-
   ngOnInit(): void {
     this.haveActions = true;
     this.hasCreateButton = true;
     this.name = 'Client';
+    this.hasSearch = true;
+    this.actionsBtn.push(TableConsts.actionButton.view);
+
     super.ngOnInitC();
   }
 }

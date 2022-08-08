@@ -44,9 +44,9 @@ export class listQuestionComponent
       columnDef: 'description',
       header: 'Description',
       cell: (element: IQuestion) =>
-        element.description.length > 35
-          ? element.description.substring(0, 35) + '...'
-          : element.description || 'description',
+        element.description.length > 30
+          ? element.description.substring(0, 30).replace(/<[^>]*>/g, '') + '...'
+          : element.description.replace(/<[^>]*>/g, '') || 'description',
     },
     {
       columnDef: 'category',

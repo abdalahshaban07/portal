@@ -1,10 +1,10 @@
 import { ViewportScroller } from '@angular/common';
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { GetTotalSummary } from '@features/certificate/models/get-total-summary';
-import { CertificateService } from '@features/certificate/services/certificate.service';
+import { ListClientUserComponent } from '@features/client-user/components/list/list.component';
+import { GetTotalSummary } from '@features/client/models/get.total';
+import { ClientService } from '@features/client/services/client.service';
 import { ListProjectComponent } from '@features/project/components/list/list.component';
-import { listQuestionComponent } from '@features/question/components/list/list.component';
 import { AppLoaderDirective } from '@shared/directives/app-loader.directive';
 import { Info } from '@shared/models/infor-card';
 
@@ -16,19 +16,19 @@ import { Info } from '@shared/models/infor-card';
 export class ViewComponent implements OnInit {
   id!: number | string;
   name!: string;
-  description!: string;
+  address!: string;
 
   info!: Info[];
 
   constructor(
     private activeRoute: ActivatedRoute,
-    private certificateService: CertificateService,
+    private clientService: ClientService,
     private scroller: ViewportScroller
   ) {}
 
   ngOnInit(): void {
     this.getIdFromUrl();
-    this.loadQuestionComponent();
+    this.loadClientUserComponent();
     this.loadProjectComponent();
   }
 
@@ -45,15 +45,15 @@ export class ViewComponent implements OnInit {
   }
 
   getDetails() {
-    this.certificateService.get(this.id).subscribe((data) => {
+    this.clientService.get(this.id).subscribe((data) => {
       console.log(data, 'data');
       this.name = data.name;
-      this.description = data.description;
+      this.address = data.address;
     });
   }
 
   getTolalSummaries() {
-    this.certificateService.getTotal(this.id).subscribe((data) => {
+    this.clientService.getTotal(this.id).subscribe((data) => {
       this.prepareInfo(data);
     });
   }
@@ -61,19 +61,14 @@ export class ViewComponent implements OnInit {
   prepareInfo(data: GetTotalSummary) {
     this.info = [
       {
-        name: 'Questions',
-        description: `${data.totalQues} questions`,
-        scroll: 'question',
+        name: 'Userss',
+        description: `${data.totalClientUsers} users`,
+        scroll: 'users',
       },
       {
         name: 'Projects',
         description: `${data.totalProjects} projects`,
-        scroll: 'project',
-      },
-      {
-        name: 'Clients',
-        description: `${data.totalClients} clients`,
-        scroll: 'client',
+        scroll: 'projects',
       },
     ];
   }
@@ -81,20 +76,19 @@ export class ViewComponent implements OnInit {
   @ViewChild(AppLoaderDirective, { static: true, read: ViewContainerRef })
   dynamicChild!: ViewContainerRef;
 
-  private loadQuestionComponent() {
+  private loadClientUserComponent() {
     const questionRef = this.dynamicChild.createComponent(
-      listQuestionComponent
+      ListClientUserComponent
     );
     questionRef.instance.id = this.id;
-    questionRef.instance.routerName = 'question';
-    questionRef.instance.apiToGetListById = 'GetListByCertifcate';
-    // questionRef.instance.hasSearch = true;
+    questionRef.instance.routerName = 'client-user';
+    questionRef.instance.apiToGetListById = 'GetListByClient';
   }
 
   private loadProjectComponent() {
     const projectRef = this.dynamicChild.createComponent(ListProjectComponent);
     projectRef.instance.id = this.id;
     projectRef.instance.routerName = 'project';
-    projectRef.instance.apiToGetListById = 'GetListByCertifcate';
+    projectRef.instance.apiToGetListById = 'GetListByClient';
   }
 }

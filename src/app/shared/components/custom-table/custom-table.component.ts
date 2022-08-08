@@ -98,7 +98,10 @@ export class CustomTableComponent<T> {
 
   onEditClick(item: any) {
     console.log('edit');
-    this.router.navigate(['edit/', item.id], { relativeTo: this.route });
+
+    this.id
+      ? this.router.navigate([`${this.routerName}/edit`, item.id])
+      : this.router.navigate(['edit/', item.id], { relativeTo: this.route });
   }
 
   onViewClick(item: any) {
@@ -143,6 +146,7 @@ export class CustomTableComponent<T> {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
+    console.log(filterValue);
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 

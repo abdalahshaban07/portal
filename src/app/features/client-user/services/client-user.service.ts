@@ -1,9 +1,12 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
+import { ApiListResponse } from '@core/model/apiListResponse';
 import { ResourceService } from '@core/services/resource.service';
 import { IClient } from '@features/client/models/client';
 import { ClientService } from '@features/client/services/client.service';
 import { selectMenuOptions } from '@shared/components/dynamic-form-field/dynamic-form-field.model';
-import { map } from 'rxjs';
+import { paginatorForHttp } from '@shared/configs/paginator';
+import { map, Observable } from 'rxjs';
 import { IClientUser } from '../models/client-user';
 
 @Injectable({
@@ -34,6 +37,22 @@ export class ClientUserService extends ResourceService<IClientUser> {
         map((clients) =>
           clients.data.dataList.map((client) => this.transform(client))
         )
+      );
+  }
+
+  getItemBy(
+    pageNum: number = paginatorForHttp.pageNumber,
+    pagSize: number = paginatorForHttp.pageSize,
+    id: number | string
+  ): Observable<ApiListResponse<IClientUser>> {
+    let params = new HttpParams()
+      .set('id', id.toString())
+      .set('pageNum', pageNum.toString())
+      .set('pagSize', pagSize.toString());
+    return this.injector
+      .get(HttpClient)
+      .get<ApiListResponse<IClientUser>>(
+        `${this.APIUrl}/GetListByClient?${params.toString()}`
       );
   }
 }
