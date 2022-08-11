@@ -19,6 +19,7 @@ export class ViewComponent implements OnInit {
   address!: string;
 
   info!: Info[];
+  componentId!: string;
 
   constructor(
     private activeRoute: ActivatedRoute,
@@ -28,8 +29,6 @@ export class ViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.getIdFromUrl();
-    this.loadClientUserComponent();
-    this.loadProjectComponent();
   }
 
   scroll(id: string | undefined) {
@@ -41,6 +40,8 @@ export class ViewComponent implements OnInit {
     if (this.id) {
       this.getDetails();
       this.getTolalSummaries();
+      this.componentId = 'user';
+      this.loadComponet();
     }
   }
 
@@ -61,12 +62,12 @@ export class ViewComponent implements OnInit {
   prepareInfo(data: GetTotalSummary) {
     this.info = [
       {
-        name: 'Userss',
+        name: 'User',
         description: `${data.totalClientUsers} users`,
         scroll: 'users',
       },
       {
-        name: 'Projects',
+        name: 'Project',
         description: `${data.totalProjects} projects`,
         scroll: 'projects',
       },
@@ -75,6 +76,28 @@ export class ViewComponent implements OnInit {
 
   @ViewChild(AppLoaderDirective, { static: true, read: ViewContainerRef })
   dynamicChild!: ViewContainerRef;
+
+  loadComponet(componenName?: string) {
+    // dont load component if it is already loaded
+    if (this.componentId === componenName?.toLowerCase()) {
+      return;
+    }
+
+    this.dynamicChild.clear();
+    switch (componenName) {
+      case 'User':
+        this.componentId = 'user';
+        this.loadClientUserComponent();
+        break;
+      case 'Project':
+        this.componentId = 'project';
+        this.loadProjectComponent();
+        break;
+      default:
+        this.loadClientUserComponent();
+        break;
+    }
+  }
 
   private loadClientUserComponent() {
     const questionRef = this.dynamicChild.createComponent(

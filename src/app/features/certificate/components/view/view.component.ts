@@ -1,3 +1,4 @@
+import { ComponentType } from '@angular/cdk/portal';
 import { ViewportScroller } from '@angular/common';
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -20,6 +21,8 @@ export class ViewComponent implements OnInit {
 
   info!: Info[];
 
+  componentId!: string;
+
   constructor(
     private activeRoute: ActivatedRoute,
     private certificateService: CertificateService,
@@ -28,8 +31,6 @@ export class ViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.getIdFromUrl();
-    this.loadQuestionComponent();
-    this.loadProjectComponent();
   }
 
   scroll(id: string | undefined) {
@@ -41,6 +42,8 @@ export class ViewComponent implements OnInit {
     if (this.id) {
       this.getDetails();
       this.getTolalSummaries();
+      this.componentId = 'question';
+      this.loadComponet();
     }
   }
 
@@ -61,17 +64,17 @@ export class ViewComponent implements OnInit {
   prepareInfo(data: GetTotalSummary) {
     this.info = [
       {
-        name: 'Questions',
+        name: 'Question',
         description: `${data.totalQues} questions`,
         scroll: 'question',
       },
       {
-        name: 'Projects',
+        name: 'Project',
         description: `${data.totalProjects} projects`,
         scroll: 'project',
       },
       {
-        name: 'Clients',
+        name: 'Client',
         description: `${data.totalClients} clients`,
         scroll: 'client',
       },
@@ -81,6 +84,27 @@ export class ViewComponent implements OnInit {
   @ViewChild(AppLoaderDirective, { static: true, read: ViewContainerRef })
   dynamicChild!: ViewContainerRef;
 
+  loadComponet(componenName?: string) {
+    // dont load component if it is already loaded
+    if (this.componentId === componenName?.toLowerCase()) {
+      return;
+    }
+
+    this.dynamicChild.clear();
+    switch (componenName) {
+      case 'Question':
+        this.componentId = 'question';
+        this.loadQuestionComponent();
+        break;
+      case 'Project':
+        this.componentId = 'project';
+        this.loadProjectComponent();
+        break;
+      default:
+        this.loadQuestionComponent();
+        break;
+    }
+  }
   private loadQuestionComponent() {
     const questionRef = this.dynamicChild.createComponent(
       listQuestionComponent
