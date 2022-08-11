@@ -1,21 +1,12 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import {
-  Component,
-  EventEmitter,
-  Injector,
-  Input,
-  OnInit,
-  Output,
-  ViewChild,
-} from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { Component, Injector, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
-import { MatCell, MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { paginatorForHttp } from '@shared/configs/paginator';
 import { TableButtonAction } from '@shared/models/tableButtonAction';
 import { TableColumn } from '@shared/models/tableColumn';
-import { debounceTime, finalize, shareReplay, of, delay } from 'rxjs';
+import { finalize } from 'rxjs';
 import { TableConsts } from './consts/table';
 import { ListTableService } from './list-table.service';
 
@@ -155,31 +146,32 @@ export class CustomTableComponent<T> {
       : this.dataSource.data.forEach((row) => this.selection.select(row));
   }
 
+  timeout!: any;
   applyFilter(event?: Event) {
     this.filterValue =
       (event && (event?.target as HTMLInputElement).value) || '';
+    let self = this;
 
-    of(this.filterValue)
-      .pipe(delay(700))
-      .subscribe(() => this.makeSearch());
+    clearTimeout(this.timeout);
+    this.timeout = setTimeout(function () {
+      self.makeSearch();
+    }, 700);
   }
 
   makeSearch() {
-    if (!this.filterValue) {
-      this.paginator();
-    } else {
+    !this.filterValue && !this.id && this.paginator();
+    this.id && !this.filterValue && this.getItemBy();
+    this.filterValue &&
       this.listTableService
         .search(
           this.filterValue,
           this.pageEvent.pageNumber,
           this.pageEvent.pageSize
         )
-        .pipe(shareReplay())
         .subscribe(({ data: { totalCount, dataList } }) => {
           this.length = totalCount;
           this.dataSource.data = dataList as [];
         });
-    }
   }
 
   checkboxLabel(row?: any): string {

@@ -3,7 +3,7 @@ import { Injectable, Injector } from '@angular/core';
 import { ApiListResponse, ResponseModel } from '@core/model/apiListResponse';
 import { environment } from '@env';
 import { paginatorForHttp } from '@shared/configs/paginator';
-import { map, Observable, shareReplay, tap } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
