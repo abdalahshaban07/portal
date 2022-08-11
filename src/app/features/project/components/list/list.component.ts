@@ -29,6 +29,11 @@ export class ListProjectComponent
 {
   override columns: TableColumn[] = [
     {
+      columnDef: 'id',
+      header: 'Id',
+      cell: (element: IProject) => `${element.id}`,
+    },
+    {
       columnDef: 'projectCode',
       header: 'Code',
       cell: (element: IProject) => `${element.projectCode || 'code'}`,
@@ -75,7 +80,7 @@ export class ListProjectComponent
     this.haveActions = true;
     this.hasCreateButton = true;
     this.id ? (this.hasName = true) : false;
-    // this.actionsBtn.push(TableConsts.actionButton.view);
+    this.actionsBtn.push(TableConsts.actionButton.view);
     this.name = 'Project';
     super.ngOnInitC();
   }

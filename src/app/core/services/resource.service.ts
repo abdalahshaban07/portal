@@ -9,7 +9,7 @@ import { map, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export abstract class ResourceService<T extends { id?: string | number }> {
-  protected readonly APIUrl = environment.APIUrl + this.getResourceUrl();
+  APIUrl = environment.APIUrl + this.getResourceUrl();
 
   private _http!: HttpClient;
 
@@ -17,7 +17,7 @@ export abstract class ResourceService<T extends { id?: string | number }> {
     this._http = injector.get(HttpClient);
   }
 
-  abstract getResourceUrl(): string;
+  abstract getResourceUrl(getResourceUrl?: string): string;
 
   toServer(entity: T): any {
     return entity;

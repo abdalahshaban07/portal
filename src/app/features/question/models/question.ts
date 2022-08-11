@@ -4,6 +4,7 @@ export interface IQuestion {
   description: string;
   categoryId: number;
   category: string;
+  status: string;
   creationDate: string;
   createBy: number;
   isActive: boolean;

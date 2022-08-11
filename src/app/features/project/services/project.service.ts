@@ -31,7 +31,6 @@ export class ProjectService extends ResourceService<IProject> {
     // /Project/AcceptProjectQuesation?projectId=1&quesationId=10
   }
 
-  // GetListByCertifcate
   getItemBy(
     pageNum: number = paginatorForHttp.pageNumber,
     pagSize: number = paginatorForHttp.pageSize,

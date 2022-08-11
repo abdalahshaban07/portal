@@ -61,14 +61,14 @@ export class listQuestionComponent
         element.isActive ? 'active' : 'not_active',
     },
   ];
-
+  public quesationService!: QuesationService;
   constructor(private injector: Injector) {
     super(injector);
+    this.quesationService = this.injector.get(QuesationService);
   }
 
   ngOnInit(): void {
     this.haveActions = true;
-    this.hasCreateButton = true;
     this.name = 'Quesation';
     this.id ? (this.hasName = true) : false;
     this.actionsBtn.push(TableConsts.actionButton.view);

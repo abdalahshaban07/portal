@@ -3,7 +3,7 @@ import { Injectable, Injector } from '@angular/core';
 import { ApiListResponse } from '@core/model/apiListResponse';
 import { ResourceService } from '@core/services/resource.service';
 import { paginatorForHttp } from '@shared/configs/paginator';
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { IQuestion } from '../models/question';
 
 @Injectable({
@@ -13,6 +13,7 @@ export class QuesationService extends ResourceService<IQuestion> {
   getResourceUrl(): string {
     return 'Quesation';
   }
+
   constructor(private injector: Injector) {
     super(injector);
   }
