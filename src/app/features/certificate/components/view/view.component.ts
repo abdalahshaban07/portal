@@ -88,7 +88,6 @@ export class ViewComponent implements OnInit {
     questionRef.instance.id = this.id;
     questionRef.instance.routerName = 'question';
     questionRef.instance.apiToGetListById = 'GetListByCertifcate';
-    // questionRef.instance.hasSearch = true;
   }
 
   private loadProjectComponent() {

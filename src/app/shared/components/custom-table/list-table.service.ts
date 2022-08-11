@@ -30,4 +30,12 @@ export class ListTableService {
   delete(id: number) {
     return of();
   }
+
+  search(
+    search: string,
+    page: number = paginatorForHttp.pageNumber,
+    limit: number = paginatorForHttp.pageSize
+  ) {
+    return of();
+  }
 }

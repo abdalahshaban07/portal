@@ -70,6 +70,7 @@ export class ListClientUserComponent
     this.haveActions = true;
     this.hasCreateButton = true;
     this.name = 'ClientUser';
+    this.id ? (this.hasName = true) : false;
     super.ngOnInitC();
   }
 }

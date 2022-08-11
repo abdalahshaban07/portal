@@ -41,6 +41,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
       role: 'Admin',
     },
     {
+      name: 'Users',
+      routerLink: '/client-user',
+      Active: 'active-link',
+      role: 'Admin',
+    },
+    {
       name: 'Certificate',
       routerLink: '/certificate',
       Active: 'active-link',
@@ -50,6 +56,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
       name: 'Questions',
       routerLink: '/question',
       Active: 'active-link',
+      role: 'Admin',
+    },
+    {
+      name: 'Projects',
+      routerLink: '/project',
+      Active: 'active-link',
+      role: 'Admin',
+    },
+    {
+      name: 'Category',
+      routerLink: '/category',
+      Active: 'active-link',
+      // role: 'Client User',
       role: 'Admin',
     },
   ];

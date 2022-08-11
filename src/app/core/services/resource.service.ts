@@ -73,4 +73,18 @@ export abstract class ResourceService<T extends { id?: string | number }> {
   update(resource: T) {
     return this._http.post(`${this.APIUrl}/Update`, resource);
   }
+
+  search(
+    search: string,
+    pageNum = this.pageNum,
+    pageSize = this.pageSize
+  ): Observable<ApiListResponse<T>> {
+    let params = new HttpParams()
+      .set('search', search)
+      .set('pageNum', pageNum.toString())
+      .set('pagSize', pageSize.toString());
+    return this._http.get<ApiListResponse<T>>(
+      `${this.APIUrl}/GetListSearch?${params.toString()}`
+    );
+  }
 }

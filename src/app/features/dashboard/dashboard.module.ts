@@ -5,9 +5,10 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { WelcomeComponent } from '../../shared/components/welcome/welcome.component';
 import { SharedModule } from '@shared/shared.module';
+import { JoinedCountComponent } from './components/joined-count/joined-count.component';
 
 @NgModule({
-  declarations: [DashboardComponent, WelcomeComponent],
+  declarations: [DashboardComponent, WelcomeComponent, JoinedCountComponent],
   imports: [CommonModule, DashboardRoutingModule, SharedModule],
 })
 export class DashboardModule {}

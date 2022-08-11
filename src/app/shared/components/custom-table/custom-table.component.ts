@@ -15,7 +15,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { paginatorForHttp } from '@shared/configs/paginator';
 import { TableButtonAction } from '@shared/models/tableButtonAction';
 import { TableColumn } from '@shared/models/tableColumn';
-import { finalize } from 'rxjs';
+import { debounceTime, finalize, shareReplay, of, delay } from 'rxjs';
 import { TableConsts } from './consts/table';
 import { ListTableService } from './list-table.service';
 
@@ -32,7 +32,8 @@ export class CustomTableComponent<T> {
   haveActions: boolean = false;
   hasName: boolean = false;
   hasCreateButton: boolean = true;
-  hasSearch: boolean = false;
+  hasSearch: boolean = true;
+  filterValue!: string;
   width: string = '100%';
   height: string = '100vh';
   name!: string;
@@ -44,6 +45,14 @@ export class CustomTableComponent<T> {
   id!: number | string;
   routerName!: string;
   apiToGetListById!: string;
+
+  current_page = paginatorForHttp.pageNumber;
+  pageSize = paginatorForHttp.pageSize;
+
+  pageEvent = {
+    pageNumber: this.current_page,
+    pageSize: this.pageSize,
+  };
 
   @ViewChild(MatSort, { static: true }) sort!: MatSort; // sort
 
@@ -113,7 +122,9 @@ export class CustomTableComponent<T> {
 
   createPage() {
     console.log('create');
-    this.router.navigate(['create'], { relativeTo: this.route });
+    this.id
+      ? this.router.navigate([`${this.routerName}/create`])
+      : this.router.navigate(['create'], { relativeTo: this.route });
   }
 
   onDeleteClick(event: TableButtonAction) {
@@ -144,10 +155,31 @@ export class CustomTableComponent<T> {
       : this.dataSource.data.forEach((row) => this.selection.select(row));
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    console.log(filterValue);
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  applyFilter(event?: Event) {
+    this.filterValue =
+      (event && (event?.target as HTMLInputElement).value) || '';
+
+    of(this.filterValue)
+      .pipe(delay(700))
+      .subscribe(() => this.makeSearch());
+  }
+
+  makeSearch() {
+    if (!this.filterValue) {
+      this.paginator();
+    } else {
+      this.listTableService
+        .search(
+          this.filterValue,
+          this.pageEvent.pageNumber,
+          this.pageEvent.pageSize
+        )
+        .pipe(shareReplay())
+        .subscribe(({ data: { totalCount, dataList } }) => {
+          this.length = totalCount;
+          this.dataSource.data = dataList as [];
+        });
+    }
   }
 
   checkboxLabel(row?: any): string {
@@ -160,11 +192,13 @@ export class CustomTableComponent<T> {
   }
 
   onPageChange(event: { pageNumber: number; pageSize: number }): void {
-    this.paginator(event.pageNumber, event.pageSize);
+    this.pageEvent = event;
+    if (this.filterValue) {
+      this.applyFilter();
+    } else {
+      this.paginator(event.pageNumber, event.pageSize);
+    }
   }
-
-  current_page = paginatorForHttp.pageNumber;
-  pageSize = paginatorForHttp.pageSize;
 
   paginator(current_page = this.current_page, per_page_items = this.pageSize) {
     this.listTableService
