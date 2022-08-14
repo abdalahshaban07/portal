@@ -7,10 +7,9 @@ import { authInterceptorProviders } from './interceptors/auth.interceptor';
 import { httpErrorInterceptorProviders } from './interceptors/http-error.interceptor';
 import { retryInterceptorProviders } from './interceptors/retry.interceptor';
 import { ToastrModule } from 'ngx-toastr';
-import { HasRoleDirective } from './directives/has-role.directive';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, HasRoleDirective],
+  declarations: [HeaderComponent, FooterComponent],
   imports: [CommonModule, SharedModule, ToastrModule.forRoot()],
   exports: [HeaderComponent, FooterComponent],
   providers: [

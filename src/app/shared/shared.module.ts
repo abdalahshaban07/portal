@@ -41,6 +41,7 @@ import { PaginatorComponent } from './components/paginator/paginator.component';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { ListTableComponent } from './components/list-table/list-table.component';
 import { AppLoaderDirective } from './directives/app-loader.directive';
+import { HasRoleDirective } from './directives/has-role.directive';
 
 const MaterialComponents = [
   MatToolbarModule,
@@ -78,6 +79,7 @@ const MaterialComponents = [
     PaginatorComponent,
     ListTableComponent,
     AppLoaderDirective,
+    HasRoleDirective
   ],
   imports: [
     CommonModule,
@@ -102,7 +104,8 @@ const MaterialComponents = [
     DynamicFormFieldComponent,
     PaginatorComponent,
     ListTableComponent,
-    AppLoaderDirective
+    AppLoaderDirective,
+    HasRoleDirective
   ],
   providers: [MatDatepickerModule],
 })

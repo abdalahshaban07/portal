@@ -3,12 +3,13 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { NavigationEnd, Router } from '@angular/router';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { filter, Subscription } from 'rxjs';
+import { Roles } from '@shared/Enums/roles';
 
 interface ILink {
   name: string;
   routerLink: string;
   Active: string;
-  role: string;
+  role: Roles;
 }
 @Component({
   selector: 'app-header',
@@ -26,50 +27,50 @@ export class HeaderComponent implements OnInit, OnDestroy {
       name: 'Dashboard',
       routerLink: '/dashboard',
       Active: 'active-link',
-      role: 'Admin',
+      role: Roles.Admin,
     },
     {
       name: 'Admin',
       routerLink: '/admin',
       Active: 'active-link',
-      role: 'Admin',
+      role: Roles.Admin,
     },
     {
       name: 'Clients',
       routerLink: '/client',
       Active: 'active-link',
-      role: 'Admin',
+      role: Roles.Admin,
     },
     {
       name: 'Users',
       routerLink: '/client-user',
       Active: 'active-link',
-      role: 'Admin',
+      role: Roles.Admin,
     },
     {
       name: 'Certificate',
       routerLink: '/certificate',
       Active: 'active-link',
-      role: 'Admin',
+      role: Roles.Admin,
     },
     {
       name: 'Questions',
       routerLink: '/question',
       Active: 'active-link',
-      role: 'Admin',
+      role: Roles.Admin,
     },
     {
       name: 'Projects',
       routerLink: '/project',
       Active: 'active-link',
-      role: 'Admin',
+      role: Roles.Admin,
     },
     {
       name: 'Category',
       routerLink: '/category',
       Active: 'active-link',
       // role: 'Client User',
-      role: 'Admin',
+      role: Roles.Admin,
     },
   ];
 
