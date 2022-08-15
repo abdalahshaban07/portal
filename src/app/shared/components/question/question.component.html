@@ -1,18 +1,10 @@
 <div class="wrap">
   <div class="question-title">
-    <p>
-      {{ question.title }}
-    </p>
+    <p>-{{ question.quesation }}</p>
   </div>
   <div class="question-note">
     <p>
-      {{ question.note }}
+      {{ question.description || "No description" }}
     </p>
-    <div
-      class="question-content"
-      *ngFor="let item of question.content; index as i"
-    >
-      <p>{{ numToSSColumnLetter(i) }} - {{ item }}</p>
-    </div>
   </div>
 </div>

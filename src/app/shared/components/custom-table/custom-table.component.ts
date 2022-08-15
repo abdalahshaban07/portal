@@ -93,6 +93,9 @@ export class CustomTableComponent<T> {
       case 'view':
         this.onViewClick(event.value);
         break;
+      case 'details':
+        this.onDetailsClick(event.value);
+        break;
     }
   }
 
@@ -109,6 +112,17 @@ export class CustomTableComponent<T> {
     this.id
       ? this.router.navigate([`${this.routerName}/view`, item.id])
       : this.router.navigate(['view/', item.id], { relativeTo: this.route });
+  }
+
+  onDetailsClick(item: any) {
+    console.log('onDetailsClick');
+    this.id
+      ? this.router.navigate([`${this.routerName}/details`, item.id], {
+          queryParams: {
+            quesation: item?.quesationId,
+          },
+        })
+      : null;
   }
 
   createPage() {
@@ -187,6 +201,8 @@ export class CustomTableComponent<T> {
     this.pageEvent = event;
     if (this.filterValue) {
       this.applyFilter();
+    } else if (this.id) {
+      this.getItemBy(event.pageNumber, event.pageSize);
     } else {
       this.paginator(event.pageNumber, event.pageSize);
     }

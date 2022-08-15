@@ -4,4 +4,5 @@ export interface TableColumn {
   cell: (row: any) => string;
   icon?: boolean;
   hasAvatar?: boolean;
+  date?: boolean;
 }

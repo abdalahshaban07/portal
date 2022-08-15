@@ -38,7 +38,7 @@ export class listQuestionComponent
       cell: (element: IQuestion) =>
         element.quesation.length > 35
           ? element.quesation.substring(0, 35) + '...'
-          : element.quesation,
+          : element?.quesation,
     },
     {
       columnDef: 'description',
@@ -46,7 +46,7 @@ export class listQuestionComponent
       cell: (element: IQuestion) =>
         element.description.length > 30
           ? element.description.substring(0, 30).replace(/<[^>]*>/g, '') + '...'
-          : element.description.replace(/<[^>]*>/g, '') || 'description',
+          : element.description?.replace(/<[^>]*>/g, '') || 'description',
     },
     {
       columnDef: 'category',
@@ -65,6 +65,17 @@ export class listQuestionComponent
   constructor(private injector: Injector) {
     super(injector);
     this.quesationService = this.injector.get(QuesationService);
+  }
+
+  override onViewClick(item: any) {
+    if (this.actionsBtn.includes(TableConsts.actionButton.details)) {
+      console.log('view');
+      this.injector
+        .get(Router)
+        .navigate([`${this.routerName}/view`, item.quesationId]);
+    } else {
+      super.onViewClick(item);
+    }
   }
 
   ngOnInit(): void {

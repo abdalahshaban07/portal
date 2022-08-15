@@ -1,3 +1,4 @@
+import { TableConsts } from '@shared/components/custom-table/consts/table';
 import { TableColumn } from '@shared/models/tableColumn';
 import { listQuestionComponent } from '@features/question/components/list/list.component';
 import { ProjectService } from '@features/project/services/project.service';
@@ -49,29 +50,28 @@ export class ViewComponent implements OnInit {
   }
 
   getTolalSummaries() {
-    this.prepareInfo();
-    // this.projectService.getTotal(this.id).subscribe((data) => {
-    //   this.prepareInfo(data);
-    // });
+    this.projectService.getTotal(this.id).subscribe((data) => {
+      this.prepareInfo(data);
+    });
   }
 
   prepareInfo(data?: GetTotalSummary) {
     this.info = [
       {
-        name: 'all',
-        description: `${data?.totalQuestions || 0}`,
-      },
-      {
         name: 'rejected',
-        description: `${data?.totalRejectedQuestions || 0} `,
-      },
-      {
-        name: 'accepted',
-        description: `${data?.totalAcceptedQuestions || 0}`,
+        description: `${data?.rejectCout || 0} `,
       },
       {
         name: 'waitingReview',
-        description: `${data?.totalQuestions || 0}`,
+        description: `${data?.underReviewCount || 0}`,
+      },
+      {
+        name: 'accepted',
+        description: `${data?.acceptCount || 0}`,
+      },
+      {
+        name: 'new',
+        description: `${data?.newCount || 0}`,
       },
     ];
   }
@@ -81,6 +81,7 @@ export class ViewComponent implements OnInit {
 
   apiToGetListById = {
     all: 'GetProjectQuesationList',
+    new: 'GetProjectNewQuesations',
     rejected: 'GetProjectRejectedQuesations',
     accepted: 'GetProjectAcceptedQuesations',
     waitingReview: 'GetProjectWaitingRevQuesations',
@@ -111,8 +112,12 @@ export class ViewComponent implements OnInit {
         this.componentId = 'all';
         this.loadQuestionsComponent(this.apiToGetListById.all);
         break;
+      case 'new':
+        this.componentId = 'new';
+        this.loadQuestionsComponent(this.apiToGetListById.new);
+        break;
       default:
-        this.loadQuestionsComponent(this.apiToGetListById.all);
+        this.loadQuestionsComponent(this.apiToGetListById.rejected);
         break;
     }
   }
@@ -127,17 +132,17 @@ export class ViewComponent implements OnInit {
       columnDef: 'quesation',
       header: 'Question',
       cell: (element: IQuestion) =>
-        element.quesation.length > 35
-          ? element.quesation.substring(0, 35) + '...'
-          : element.quesation,
+        element.quesation?.length > 35
+          ? element.quesation?.substring(0, 35) + '...'
+          : element?.quesation || 'question TEMP',
     },
     {
       columnDef: 'description',
       header: 'Description',
       cell: (element: IQuestion) =>
-        element.description.length > 30
+        element.description?.length > 30
           ? element.description.substring(0, 30).replace(/<[^>]*>/g, '') + '...'
-          : element.description.replace(/<[^>]*>/g, '') || 'description',
+          : element.description?.replace(/<[^>]*>/g, '') || 'description TEMP',
     },
     {
       columnDef: 'category',
@@ -159,6 +164,7 @@ export class ViewComponent implements OnInit {
     questionRef.instance.routerName = 'question';
     questionRef.instance.columns = this.columns;
     questionRef.instance.apiToGetListById = apiToGetListById;
+    questionRef.instance.actionsBtn.push(TableConsts.actionButton.details);
 
     const apiUrl = questionRef.instance.quesationService.APIUrl.split('/');
     apiUrl.pop();

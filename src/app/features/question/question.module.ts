@@ -7,6 +7,9 @@ import { ControlComponent } from './components/control/control.component';
 import { SharedModule } from '@shared/shared.module';
 import { ReplyComponent } from './components/reply/reply.component';
 import { ViewComponent } from './components/view/view.component';
+import { DetailsComponent } from './components/details/details.component';
+import { AcceptanceHistoryComponent } from './components/acceptance-history/acceptance-history.component';
+import { AddCommentComponent } from './components/add-comment/add-comment.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +17,9 @@ import { ViewComponent } from './components/view/view.component';
     ControlComponent,
     ReplyComponent,
     ViewComponent,
+    DetailsComponent,
+    AcceptanceHistoryComponent,
+    AddCommentComponent
   ],
   imports: [CommonModule, QuestionRoutingModule, SharedModule],
 })

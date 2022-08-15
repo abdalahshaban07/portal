@@ -28,6 +28,14 @@
     *ngIf="actions?.includes('view')"
   >
     <mat-icon>visibility</mat-icon>
-    <span>View Details</span>
+    <span>View</span>
+  </button>
+  <button
+    mat-menu-item
+    (click)="onDetailsClick()"
+    *ngIf="actions?.includes('details')"
+  >
+    <mat-icon>details</mat-icon>
+    <span>Details</span>
   </button>
 </mat-menu>

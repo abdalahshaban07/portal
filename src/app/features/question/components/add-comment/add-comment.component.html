@@ -1,6 +1,6 @@
-<ng-container>
+<div class="wrap">
   <div class="form-wrap" *ngIf="addComment">
-    <form [formGroup]="form" fxLayout="column" >
+    <form [formGroup]="form" fxLayout="column">
       <mat-form-field appearance="fill">
         <textarea
           formControlName="comment"
@@ -77,4 +77,4 @@
       Confirm
     </button>
   </div>
-</ng-container>
+</div>

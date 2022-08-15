@@ -1,28 +1,27 @@
 <div class="container wrap">
   <!-- List Name -->
   <div class="list-name">
-    <span>{{ list }}</span>
+    <!-- <span>{{ list }}</span> -->
   </div>
 
   <!-- questions -->
-  <div
-    class="question"
-    *ngFor="let question of questions.data; trackBy: trackByFn"
-    fxLayout="column"
-  >
+  <div class="question" fxLayout="column">
     <!-- question details -->
-    <ng-container>
+    <ng-container *ngIf="question">
       <app-question [question]="question"></app-question>
     </ng-container>
 
     <!-- question comments history -->
     <ng-container>
-      <app-acceptance-history></app-acceptance-history>
+      <app-acceptance-history [historyId]="id"></app-acceptance-history>
     </ng-container>
 
     <!-- question add comment for not accept answer -->
-    <ng-container>
-      <app-add-comment [questionId]="question.id"></app-add-comment>
+    <ng-container *ngIf="question">
+      <app-add-comment
+        [questionId]="questionId"
+        [lineId]="id"
+      ></app-add-comment>
     </ng-container>
   </div>
 </div>

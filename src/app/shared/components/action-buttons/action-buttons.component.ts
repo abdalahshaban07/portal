@@ -36,4 +36,10 @@ export class ActionButtonsComponent implements OnInit {
       value: this.value,
     });
   }
+  onDetailsClick() {
+    this.buttonAction.emit({
+      name: TableConsts.actionButton.details,
+      value: this.value,
+    });
+  }
 }
