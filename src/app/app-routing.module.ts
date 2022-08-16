@@ -18,7 +18,6 @@ const routes: Routes = [
     data: {
       role: [Roles.User, Roles.Admin],
     },
-    // canLoad: [HasRoleLoadGuard],
   },
 
   {
@@ -80,7 +79,7 @@ const routes: Routes = [
         (m) => m.ClientUserModule
       ),
     data: {
-      role: [Roles.Admin],
+      role: [Roles.User, Roles.Admin],
     },
     canLoad: [AuthenticatedGuard, HasRoleLoadGuard],
   },

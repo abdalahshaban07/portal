@@ -1,10 +1,12 @@
 import { Component, Injector, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '@core/services/auth.service';
 import { IQuestion } from '@features/question/models/question';
 import { QuesationService } from '@features/question/services/quesation.service';
 import { TableConsts } from '@shared/components/custom-table/consts/table';
 import { CustomTableComponent } from '@shared/components/custom-table/custom-table.component';
 import { ListTableService } from '@shared/components/custom-table/list-table.service';
+import { Roles } from '@shared/Enums/roles';
 import { TableColumn, typeColumn } from '@shared/models/tableColumn';
 
 @Component({
@@ -81,7 +83,14 @@ export class listQuestionComponent
   ngOnInit(): void {
     this.haveActions = true;
     this.name = 'Quesation';
-    this.actionsBtn.push(TableConsts.actionButton.view);
+    let cond = this.injector.get(AuthService).hasRole([Roles.User]);
+    if (cond) {
+      // remove view button for user
+      let index = this.actionsBtn.indexOf(TableConsts.actionButton.view);
+      this.actionsBtn.splice(index, 1);
+    } else {
+      this.actionsBtn.push(TableConsts.actionButton.view);
+    }
     super.ngOnInitC();
   }
 }

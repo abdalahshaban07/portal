@@ -148,6 +148,7 @@
             mat-button
             [routerLink]="link.routerLink"
             [routerLinkActive]="link.Active"
+            *appHasRole="link.role"
           >
             {{ link.name }}
           </button>
@@ -171,7 +172,7 @@
       </mat-nav-list>
 
       <!-- search bar -->
-      <div class="search" fxLayoutAlign="center center" fxHide.sm>
+      <!-- <div class="search" fxLayoutAlign="center center" fxHide.sm>
         <mat-form-field>
           <input matInput type="text" />
           <button
@@ -183,7 +184,7 @@
             <mat-icon>search</mat-icon>
           </button>
         </mat-form-field>
-      </div>
+      </div> -->
 
       <!-- user -->
       <div class="user" fxShow fxLayoutAlign="center center">
