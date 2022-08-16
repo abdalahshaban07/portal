@@ -1,3 +1,5 @@
+import { AuthService } from '@core/services/auth.service';
+import { Roles } from '@shared/Enums/roles';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, Injector, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
@@ -5,7 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { paginatorForHttp } from '@shared/configs/paginator';
 import { TableButtonAction } from '@shared/models/tableButtonAction';
-import { TableColumn } from '@shared/models/tableColumn';
+import { TableColumn, typeColumn } from '@shared/models/tableColumn';
 import { finalize } from 'rxjs';
 import { TableConsts } from './consts/table';
 import { ListTableService } from './list-table.service';
@@ -23,14 +25,14 @@ export class CustomTableComponent<T> {
   haveActions: boolean = false;
   hasName: boolean = false;
   hasCreateButton: boolean = true;
+  hasIconAdd: boolean = true;
   hasSearch: boolean = true;
   filterValue!: string;
   width: string = '100%';
   height: string = '100vh';
   name!: string;
   actionsBtn: string[] = [
-    TableConsts.actionButton.delete,
-    TableConsts.actionButton.edit,
+    TableConsts.actionButton.view,
   ];
 
   id!: number | string;
@@ -53,14 +55,19 @@ export class CustomTableComponent<T> {
 
   length!: number;
 
+  typeColumn = typeColumn;
+  Roles = Roles;
+
   private router!: Router;
   private route!: ActivatedRoute;
   private listTableService!: ListTableService;
+  private authService!: AuthService;
 
   constructor(injector: Injector) {
     this.router = injector.get(Router);
     this.route = injector.get(ActivatedRoute);
     this.listTableService = injector.get(ListTableService);
+    this.authService = injector.get(AuthService);
   }
 
   ngOnInitC(): void {
@@ -69,6 +76,14 @@ export class CustomTableComponent<T> {
     this.displayedColumns = this.displayedColumns.concat(
       this.columns.map((x) => x.columnDef)
     );
+
+    if (this.authService.hasRole([Roles.Admin])) {
+      this.actionsBtn = [
+        ...this.actionsBtn,
+        TableConsts.actionButton.delete,
+        TableConsts.actionButton.edit,
+      ];
+    }
 
     this.haveActions && this.displayedColumns.push('action');
 

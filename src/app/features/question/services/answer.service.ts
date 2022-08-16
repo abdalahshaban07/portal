@@ -27,9 +27,11 @@ export class AnswerService extends ResourceService<IComment> {
     for (let i = 0; i < dataRes.length; i++) {
       const answerDocs = dataRes[i].answerDocs;
 
-      for (let i = 0; i < answerDocs.length; i++) {
-        answerDocs[i].answer = dataRes[i].answer;
-        dataList.push(answerDocs[i]);
+      for (let j = 0; j < answerDocs.length; j++) {
+        answerDocs[j].answer = dataRes[i].answer;
+        answerDocs[j].clientUserCreateBy = dataRes[i].clientUserCreateBy;
+        answerDocs[j].consultentCreateBy = dataRes[i].consultentCreateBy;
+        dataList.push(answerDocs[j]);
       }
     }
 
@@ -57,8 +59,6 @@ export class AnswerService extends ResourceService<IComment> {
         `${this.APIUrl}/${api}?${params.toString()}`
       )
       .pipe(
-        tap((res: ApiListResponse<IComment>) => console.log(res.data)),
-
         map(
           (res: ApiListResponse<IComment>) =>
             this.transform(res) as unknown as ApiListResponse<IComment>

@@ -141,7 +141,6 @@ export class ControlComponent implements OnInit {
 
   getItemById(id: number | string) {
     this.quesationService.get(id).subscribe((data) => {
-      console.log(data);
       let question = data as IQuestion;
       this.myForm.patchValue(question);
     });
@@ -158,8 +157,6 @@ export class ControlComponent implements OnInit {
   }
 
   addQuestion(data: IQuestion) {
-    console.log(data);
-    // return;<font face="Arial">rr</font>
     this.quesationService.add(data).subscribe(() => {
       this.actionAfterAddOrUpdate('added');
     });

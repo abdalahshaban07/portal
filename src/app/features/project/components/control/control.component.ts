@@ -163,7 +163,6 @@ export class ControlComponent implements OnInit {
 
   getItemById(id: number | string) {
     this.projectService.get(id).subscribe((data) => {
-      console.log(data);
       this.myForm.patchValue(data as IProject);
     });
   }

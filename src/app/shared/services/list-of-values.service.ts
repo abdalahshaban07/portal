@@ -22,6 +22,12 @@ export class ListOfValuesService {
       .pipe(map((res) => this.transform(res)));
   }
 
+  getProjects(): Observable<selectMenuOptions[]> {
+    return this.http
+      .get<ResponseModel>(`${this.API}/GetProjectListOfValues`)
+      .pipe(map((res) => this.transform(res)));
+  }
+
   getClients(): Observable<selectMenuOptions[]> {
     return this.http
       .get<ResponseModel>(`${this.API}/GetClientListOfValues`)

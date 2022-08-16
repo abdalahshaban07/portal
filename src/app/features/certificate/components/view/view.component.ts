@@ -49,7 +49,6 @@ export class ViewComponent implements OnInit {
 
   getDetails() {
     this.certificateService.get(this.id).subscribe((data) => {
-      console.log(data, 'data');
       this.name = data.name;
       this.description = data.description;
     });

@@ -1,6 +1,6 @@
 <div class="wrap" fxLayout="column" fxLayoutAlign="start">
-  <div class="create-btn" *ngIf="hasCreateButton">
-    <button mat-button (click)="createPage()">
+  <div class="create-btn" *appHasRole="[Roles.Admin]">
+    <button mat-button (click)="createPage()" *ngIf="hasCreateButton">
       <mat-icon>create_new_folder</mat-icon>
       Create New {{ name }}
     </button>
@@ -14,7 +14,9 @@
     >
       <span class="table-name" *ngIf="hasName"
         >{{ name }}
-        <mat-icon (click)="createPage()">add</mat-icon>
+        <span *appHasRole="[Roles.Admin]">
+          <mat-icon (click)="createPage()" *ngIf="hasIconAdd">add</mat-icon>
+        </span>
       </span>
       <!-- Action Bar -->
       <div class="table-actionbar">
@@ -75,14 +77,34 @@
               "
               fxLayoutAlign="start center"
             >
-              <span *ngIf="!column.icon">
-                <span *ngIf="column.hasAvatar">
+              <span [ngSwitch]="column.type">
+                <span *ngSwitchCase="typeColumn.icon">
+                  <span [class]="column.cell(row)">
+                    <mat-icon>circle</mat-icon>
+                  </span>
+                </span>
+                <span *ngSwitchCase="typeColumn.avatar">
                   <app-avatar [avatar]="row?.avatar"></app-avatar>
                 </span>
-                {{ column.cell(row) }}
-              </span>
-              <span *ngIf="column.icon" [class]="column.cell(row)">
-                <mat-icon>circle</mat-icon>
+                <span *ngSwitchCase="typeColumn.file">
+                  <a
+                    [href]="
+                      'http://mahmoud11prosmar-001-site1.itempurl.com' +
+                      column.cell(row)
+                    "
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <!-- <mat-icon>insert_drive_file</mat-icon> -->
+                    <mat-icon>attach_file</mat-icon>
+                  </a>
+                </span>
+                <span *ngSwitchCase="typeColumn.date">
+                  {{ column.cell(row) | date: "dd/MMM/yyyy" }}
+                </span>
+                <span *ngSwitchDefault>
+                  {{ column.cell(row) }}
+                </span>
               </span>
             </mat-cell>
           </ng-container>

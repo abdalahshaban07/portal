@@ -1,6 +1,10 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
-import { ApiListResponse, ResponseModel } from '@core/model/apiListResponse';
+import {
+  ApiListResponse,
+  ResponseModel,
+  ResponseModelWithGeneric,
+} from '@core/model/apiListResponse';
 import { ResourceService } from '@core/services/resource.service';
 import { environment } from '@env';
 import { selectMenuOptions } from '@shared/components/dynamic-form-field/dynamic-form-field.model';
@@ -8,6 +12,7 @@ import { paginatorForHttp } from '@shared/configs/paginator';
 import { map, Observable, tap } from 'rxjs';
 import { GetTotalSummary } from '../models/get-total';
 import { IProject } from '../models/project';
+import { IProjectPercentage } from '../models/projectPercentage';
 
 @Injectable({
   providedIn: 'root',
@@ -18,18 +23,6 @@ export class ProjectService extends ResourceService<IProject> {
   }
   constructor(private injector: Injector, private http: HttpClient) {
     super(injector);
-  }
-
-  GetProjectQuesationList() {
-    // /Project/GetProjectQuesationList?projectId=1&pageNum=1&pagSize=10
-  }
-
-  GetProjectQuesationWithPercentageList() {
-    // /Project/GetProjectQuesationWithPercentageList?pageNum=1&pagSize=10
-  }
-
-  AcceptProjectQuesation() {
-    // /Project/AcceptProjectQuesation?projectId=1&quesationId=10
   }
 
   getItemBy(
@@ -60,10 +53,17 @@ export class ProjectService extends ResourceService<IProject> {
   }
 
   acceptQuestion(id: number | string): Observable<any> {
-    console.log(id);
     return this.http.post<any>(
       `${this.APIUrl}/AcceptProjectQuesation?id=${id}`,
       id
+    );
+  }
+
+  getCategoryWithPercentageByProjectId(
+    id: number | string
+  ): Observable<ResponseModelWithGeneric<IProjectPercentage>> {
+    return this.http.get<ResponseModelWithGeneric<IProjectPercentage>>(
+      `${this.APIUrl}/GetProjectCategoryTotalSummary?id=${id}`
     );
   }
 }

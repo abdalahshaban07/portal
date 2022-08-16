@@ -10,8 +10,12 @@ export interface ApiListResponse<T> extends ResponseModel {
 export interface ResponseModel {
   isSuccess: boolean;
   successMessage: string;
-  data: string | object;
+  data: string | object | any;
   errorMessage: string;
   statusCode: number;
   errorCode: number;
+}
+
+export interface ResponseModelWithGeneric<T> extends ResponseModel {
+  data: T;
 }

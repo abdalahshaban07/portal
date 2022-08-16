@@ -43,14 +43,16 @@
   </div>
 
   <div class="acceptance-btn-actions" fxLayout="row" fxLayoutGap="20px">
-    <button
-      mat-button
-      class="btn-accept"
-      *ngIf="!addComment"
-      (click)="acceptQuestion()"
-    >
-      Accept
-    </button>
+    <span *appHasRole="[Roles.Admin]">
+      <button
+        mat-button
+        class="btn-accept"
+        *ngIf="!addComment"
+        (click)="acceptQuestion()"
+      >
+        Accept
+      </button>
+    </span>
     <button
       mat-button
       class="btn-add-comment"
@@ -69,7 +71,7 @@
     </button>
     <button
       mat-button
-      [disabled]="!form.valid"
+      [disabled]="form.invalid"
       class="btn-confirm"
       *ngIf="addComment"
       (click)="confirmComment()"

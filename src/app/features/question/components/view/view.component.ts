@@ -41,7 +41,6 @@ export class ViewComponent implements OnInit {
 
   getDetails() {
     this.quesationService.get(this.id).subscribe((data) => {
-      console.log(data, 'data');
       this.name = data.quesation;
       this.description = data.description;
     });

@@ -22,8 +22,6 @@ export class ListTableService {
     id: number | string,
     api: string
   ) {
-    console.log('getItemBy in ListTableService');
-
     return of();
   }
 

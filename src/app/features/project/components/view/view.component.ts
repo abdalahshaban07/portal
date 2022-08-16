@@ -43,7 +43,6 @@ export class ViewComponent implements OnInit {
 
   getDetails() {
     this.projectService.get(this.id).subscribe((data) => {
-      console.log(data, 'data');
       this.projectCode = data.projectCode;
       this.description = data.description;
     });
@@ -93,8 +92,6 @@ export class ViewComponent implements OnInit {
       return;
     }
     this.dynamicChild.clear();
-    console.log(componenName, 'componenName');
-
     switch (componenName) {
       case 'waitingReview':
         this.componentId = 'waitingReview';
@@ -165,6 +162,7 @@ export class ViewComponent implements OnInit {
     questionRef.instance.columns = this.columns;
     questionRef.instance.apiToGetListById = apiToGetListById;
     questionRef.instance.actionsBtn.push(TableConsts.actionButton.details);
+    questionRef.instance.hasSearch = false;
 
     const apiUrl = questionRef.instance.quesationService.APIUrl.split('/');
     apiUrl.pop();

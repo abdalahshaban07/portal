@@ -1,3 +1,4 @@
+import { Roles } from '@shared/Enums/roles';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -34,11 +35,12 @@ export class AuthService {
     return this._token$.value;
   }
 
-  hasRole(role: string): boolean {
-    return this.user?.role === role;
+  hasRole(role: Roles[]): boolean {
+    return [this.user?.role].some((item) => role.includes(item));
   }
 
   get token() {
+    debugger;
     return localStorage.getItem(this.TOKEN_KEY);
   }
 

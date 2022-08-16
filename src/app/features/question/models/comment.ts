@@ -5,6 +5,8 @@ export interface IComment {
   quesationId: number;
   answer: string;
   answerDocs: IAnswerDocs[];
+  clientUserCreateBy: string;
+  consultentCreateBy: string;
 }
 
 export interface IAnswerDocs {
@@ -18,6 +20,8 @@ export interface IAnswerDocs {
   description: string;
   uploadDate: string;
   answer: string;
+  clientUserCreateBy: string;
+  consultentCreateBy: string;
 }
 
 export interface IAnswerTable {

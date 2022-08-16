@@ -5,7 +5,7 @@ import { QuesationService } from '@features/question/services/quesation.service'
 import { TableConsts } from '@shared/components/custom-table/consts/table';
 import { CustomTableComponent } from '@shared/components/custom-table/custom-table.component';
 import { ListTableService } from '@shared/components/custom-table/list-table.service';
-import { TableColumn } from '@shared/models/tableColumn';
+import { TableColumn, typeColumn } from '@shared/models/tableColumn';
 
 @Component({
   selector: 'app-list-question',
@@ -56,11 +56,12 @@ export class listQuestionComponent
     {
       columnDef: 'is Active',
       header: 'Is Active',
-      icon: true,
+      type: typeColumn.icon,
       cell: (element: IQuestion) =>
         element.isActive ? 'active' : 'not_active',
     },
   ];
+
   public quesationService!: QuesationService;
   constructor(private injector: Injector) {
     super(injector);
@@ -69,7 +70,6 @@ export class listQuestionComponent
 
   override onViewClick(item: any) {
     if (this.actionsBtn.includes(TableConsts.actionButton.details)) {
-      console.log('view');
       this.injector
         .get(Router)
         .navigate([`${this.routerName}/view`, item.quesationId]);
@@ -81,7 +81,6 @@ export class listQuestionComponent
   ngOnInit(): void {
     this.haveActions = true;
     this.name = 'Quesation';
-    this.id ? (this.hasName = true) : false;
     this.actionsBtn.push(TableConsts.actionButton.view);
     super.ngOnInitC();
   }

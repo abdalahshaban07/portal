@@ -1,5 +1,6 @@
 export interface IQuestion {
   id: number | string;
+  projectId?: number | string;
   quesation: string;
   description: string;
   categoryId: number;
@@ -10,4 +11,6 @@ export interface IQuestion {
   isActive: boolean;
   lastUpdateDate: string;
   lastUpdateBy: number;
+  clientLastUpdateDate?: string;
+  consultantLastUpdateDate?: string;
 }

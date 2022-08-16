@@ -4,7 +4,7 @@ import { CertificateService } from '@features/certificate/services/certificate.s
 import { TableConsts } from '@shared/components/custom-table/consts/table';
 import { CustomTableComponent } from '@shared/components/custom-table/custom-table.component';
 import { ListTableService } from '@shared/components/custom-table/list-table.service';
-import { TableColumn } from '@shared/models/tableColumn';
+import { TableColumn, typeColumn } from '@shared/models/tableColumn';
 
 @Component({
   selector: 'app-list',
@@ -44,7 +44,7 @@ export class ListCertificateComponent
     {
       columnDef: 'is Active',
       header: 'Is Active',
-      icon: true,
+      type: typeColumn.icon,
       cell: (element: ICertificate) =>
         element.isActive ? 'active' : 'not_active',
     },

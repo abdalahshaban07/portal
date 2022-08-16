@@ -22,6 +22,7 @@ export class DetailsComponent implements OnInit {
   }
 
   getIdFromUrl() {
+    debugger
     const apiUrl = this.quesationService.APIUrl.split('/');
     apiUrl.pop();
     apiUrl.push('Quesation');
@@ -37,7 +38,6 @@ export class DetailsComponent implements OnInit {
 
   getQuestionDetails() {
     this.quesationService.get(this.questionId).subscribe((data) => {
-      console.log(data, 'data');
       this.question = data;
     });
   }

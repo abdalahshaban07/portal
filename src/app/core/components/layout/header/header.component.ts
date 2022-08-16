@@ -1,15 +1,16 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
-import { NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { filter, Subscription } from 'rxjs';
 import { Roles } from '@shared/Enums/roles';
+import { ShareObsService } from '@shared/services/share-obs.service';
 
 interface ILink {
   name: string;
   routerLink: string;
   Active: string;
-  role: Roles;
+  role: Roles[];
 }
 @Component({
   selector: 'app-header',
@@ -27,58 +28,67 @@ export class HeaderComponent implements OnInit, OnDestroy {
       name: 'Dashboard',
       routerLink: '/dashboard',
       Active: 'active-link',
-      role: Roles.Admin,
+      role: [Roles.User, Roles.Admin],
     },
     {
       name: 'Admin',
       routerLink: '/admin',
       Active: 'active-link',
-      role: Roles.Admin,
+      role: [Roles.Admin],
     },
     {
       name: 'Clients',
       routerLink: '/client',
       Active: 'active-link',
-      role: Roles.Admin,
+      role: [Roles.Admin],
     },
     {
       name: 'Users',
       routerLink: '/client-user',
       Active: 'active-link',
-      role: Roles.Admin,
+      role: [Roles.Admin],
     },
     {
       name: 'Certificate',
       routerLink: '/certificate',
       Active: 'active-link',
-      role: Roles.Admin,
+      role: [Roles.Admin],
     },
     {
       name: 'Questions',
       routerLink: '/question',
       Active: 'active-link',
-      role: Roles.Admin,
+      role: [Roles.Admin],
     },
     {
       name: 'Projects',
       routerLink: '/project',
       Active: 'active-link',
-      role: Roles.Admin,
+      role: [Roles.User, Roles.Admin],
     },
     {
       name: 'Category',
       routerLink: '/category',
       Active: 'active-link',
       // role: 'Client User',
-      role: Roles.Admin,
+      role: [Roles.Admin],
     },
   ];
 
-  constructor(private router: Router, private mediaObserver: MediaObserver) {}
+  projectId!: string | number;
+  constructor(
+    private router: Router,
+    private mediaObserver: MediaObserver,
+    private activeRoute: ActivatedRoute,
+    public shareObsService: ShareObsService
+  ) {}
 
   ngOnInit(): void {
+    this.projectId = this.activeRoute.snapshot.queryParamMap.get(
+      'projectId'
+    ) as string;
     this.checkBreakpoint();
-    this.showCategorys();
+    // this.showCategorys();
   }
 
   close() {
@@ -86,17 +96,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   showCategorys() {
-    let showRouterLinks = [
-      '/check-errors',
-      '/check-errors/list/documents',
-      '/check-errors/list/records',
-      '/check-errors/list/solutions',
-      '/check-errors/list/configuration',
-    ];
+    let showRouterLinks = '/check-errors/list';
     this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationEnd) {
         this.close();
-        showRouterLinks.includes(this.router.url)
+        this.router.url.indexOf(showRouterLinks) > -1
           ? (this.showCategory = true)
           : (this.showCategory = false);
       }

@@ -1,3 +1,4 @@
+import { Roles } from './../Enums/roles';
 import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 import { AuthService } from '@core/services/auth.service';
 
@@ -5,7 +6,7 @@ import { AuthService } from '@core/services/auth.service';
   selector: '[appHasRole]',
 })
 export class HasRoleDirective {
-  @Input() set appHasRole(role: string) {
+  @Input() set appHasRole(role: Roles[]) {
     if (this.authService.hasRole(role)) {
       this.viewContainerRef.createEmbeddedView(this.templateRef);
     } else {

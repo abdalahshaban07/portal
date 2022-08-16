@@ -110,15 +110,17 @@
 
     <!-- second toolbar -->
     <!-- Category -->
-    <mat-toolbar-row
+    <!-- <mat-toolbar-row
       class="second-row"
-      *ngIf="showCategory"
+      *ngIf="showCategory && shareObsService.projectId"
       [fxHide]="sidenav.opened"
     >
       <div class="wrap-category">
-        <app-category-card></app-category-card>
+        <app-category-card
+          [id]="shareObsService.projectId || projectId"
+        ></app-category-card>
       </div>
-    </mat-toolbar-row>
+    </mat-toolbar-row> -->
   </mat-toolbar>
 
   <!-- sidenav in small screens -->

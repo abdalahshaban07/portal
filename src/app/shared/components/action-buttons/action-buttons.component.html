@@ -6,30 +6,36 @@
   <mat-icon>more_vert</mat-icon>
 </button>
 <mat-menu #menu="matMenu">
-  <button
-    mat-menu-item
-    (click)="onDeleteClick()"
-    *ngIf="actions?.includes('delete')"
-  >
-    <mat-icon>delete</mat-icon>
-    <span>Delete</span>
-  </button>
-  <button
-    mat-menu-item
-    (click)="onEditClick()"
-    *ngIf="actions?.includes('edit')"
-  >
-    <mat-icon>edit</mat-icon>
-    <span>Edit</span>
-  </button>
-  <button
-    mat-menu-item
-    (click)="onViewClick()"
-    *ngIf="actions?.includes('view')"
-  >
-    <mat-icon>visibility</mat-icon>
-    <span>View</span>
-  </button>
+  <span>
+    <button
+      mat-menu-item
+      (click)="onDeleteClick()"
+      *ngIf="actions?.includes('delete')"
+    >
+      <mat-icon>delete</mat-icon>
+      <span>Delete</span>
+    </button>
+  </span>
+  <span>
+    <button
+      mat-menu-item
+      (click)="onEditClick()"
+      *ngIf="actions?.includes('edit')"
+    >
+      <mat-icon>edit</mat-icon>
+      <span>Edit</span>
+    </button>
+  </span>
+  <span>
+    <button
+      mat-menu-item
+      (click)="onViewClick()"
+      *ngIf="actions?.includes('view')"
+    >
+      <mat-icon>visibility</mat-icon>
+      <span>View</span>
+    </button>
+  </span>
   <button
     mat-menu-item
     (click)="onDetailsClick()"

@@ -7,6 +7,8 @@ import { CoreModule } from './core/core.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { ngxLoadingAnimationTypes, NgxLoadingModule } from 'ngx-loading';
+import { AngularFireModule } from '@angular/fire/compat';
+import { environment } from '@env';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,6 +21,7 @@ import { ngxLoadingAnimationTypes, NgxLoadingModule } from 'ngx-loading';
     NgxLoadingModule.forRoot({
       animationType: ngxLoadingAnimationTypes.circleSwish,
     }),
+    AngularFireModule.initializeApp(environment.firebase),
   ],
   providers: [],
   bootstrap: [AppComponent],

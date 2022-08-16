@@ -27,4 +27,5 @@ type DefaultValue = { value: string; disabled: boolean };
 export type selectMenuOptions = {
   key: number | string | boolean;
   value: string | boolean | number;
+  disabled?: boolean;
 };

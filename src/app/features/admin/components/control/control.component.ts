@@ -207,7 +207,6 @@ export class ControlComponent implements OnInit {
 
   getItemById(id: number | string) {
     this.adminService.get(id).subscribe((data) => {
-      console.log(data);
       this.myForm.patchValue(data as IAdmin);
     });
   }

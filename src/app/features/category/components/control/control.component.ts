@@ -96,7 +96,6 @@ export class ControlComponent implements OnInit {
 
   getItemById(id: number | string) {
     this.categoryService.get(id).subscribe((data) => {
-      console.log(data);
       this.myForm.patchValue(data as ICategory);
     });
   }

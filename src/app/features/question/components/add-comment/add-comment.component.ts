@@ -2,8 +2,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ProjectService } from './../../../project/services/project.service';
 import { QuesationService } from '@features/question/services/quesation.service';
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
+import { Roles } from '@shared/Enums/roles';
 
 @Component({
   selector: 'app-add-comment',
@@ -13,10 +14,11 @@ import { Location } from '@angular/common';
 })
 export class AddCommentComponent implements OnInit {
   form!: FormGroup;
-  selectedFile!: any[];
+  selectedFile!: File[];
   addComment: boolean = false;
   @Input() questionId!: number | string;
   @Input() lineId!: number | string;
+  Roles = Roles;
   constructor(
     private fb: FormBuilder,
     private projectService: ProjectService,
@@ -32,8 +34,8 @@ export class AddCommentComponent implements OnInit {
 
   createForm(): void {
     this.form = this.fb.group({
-      comment: [''],
-      file: [''],
+      comment: ['', [Validators.required]],
+      file: ['', [Validators.required]],
     });
   }
 
@@ -41,7 +43,8 @@ export class AddCommentComponent implements OnInit {
     let files = e.target.files;
 
     if (files && files.length > 0) {
-      this.selectedFile = [...files];
+      this.selectedFile = files;
+      this.form.get('file')?.setValue(this.selectedFile);
     }
   }
 
@@ -55,14 +58,13 @@ export class AddCommentComponent implements OnInit {
 
   acceptQuestion(): void {
     this.projectService.acceptQuestion(this.lineId).subscribe((data) => {
-      console.log(data, 'data');
       this.goBack();
     });
   }
 
   confirmComment(): void {
+    if (this.form.invalid) return;
     this.addComment = false;
-
     // send comment and files to server with questionId
     let comment = {
       id: this.lineId,
@@ -70,7 +72,6 @@ export class AddCommentComponent implements OnInit {
       Attachments: this.selectedFile,
     };
     this.quesationService.addCommentToQuestion(comment).subscribe((data) => {
-      console.log(data, 'data');
       this.reloadPage();
     });
   }

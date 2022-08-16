@@ -4,7 +4,7 @@ import { Injectable, Injector } from '@angular/core';
 import { ApiListResponse } from '@core/model/apiListResponse';
 import { ResourceService } from '@core/services/resource.service';
 import { paginatorForHttp } from '@shared/configs/paginator';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { IQuestion } from '../models/question';
 
 @Injectable({
@@ -47,12 +47,13 @@ export class QuesationService extends ResourceService<IQuestion> {
     headers.set('Accept', 'multipart/form-data');
 
     const formData: FormData = new FormData();
-    for (let i = 0; i < comment.Attachments.length; i++) {
-      formData.append(
-        'fileArray',
-        comment.Attachments[i],
-        comment.Attachments[i].name
-      );
+
+    if (comment.Attachments) {
+      Array.from(comment.Attachments).forEach((file) => {
+        formData.append('Attachments', file, file.name);
+      });
+    } else {
+      formData.append('Attachments', null as any);
     }
     formData.append('id', comment.id as any);
     formData.append('Answer', comment.Answer);
@@ -61,6 +62,19 @@ export class QuesationService extends ResourceService<IQuestion> {
       .get(HttpClient)
       .post(`${environment.APIUrl}QuesationAnswer/Create`, formData, {
         headers,
+        reportProgress: true,
+        observe: 'events',
       });
   }
+
+  // getQuestionByCategoryId(
+  //   id: number | string
+  // ): Observable<ApiListResponse<IQuestion>> {
+  //   let params = new HttpParams().set('id', id.toString());
+  //   return this.injector
+  //     .get(HttpClient)
+  //     .get<ApiListResponse<IQuestion>>(
+  //       `${this.APIUrl}/GetByCategoryId?${params.toString()}`
+  //     );
+  // }
 }

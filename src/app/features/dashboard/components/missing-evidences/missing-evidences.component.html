@@ -1,0 +1,26 @@
+<div class="wrap">
+  <div fxLayout="column">
+    <div class="dropDown">
+      <form
+        class="form"
+        [formGroup]="myForm"
+        fxLayout="column"
+        fxLayoutGap="0px"
+      >
+        <ng-container *ngFor="let formItem of dynamicFormFields">
+          <app-dynamic-form-field
+            [formItem]="formItem"
+          ></app-dynamic-form-field>
+        </ng-container>
+      </form>
+    </div>
+    <!-- category Card -->
+    <div class="categoryCard" *ngIf="shareObsService.projectId">
+      <app-category-card [id]="shareObsService.projectId"></app-category-card>
+    </div>
+    <!-- miss evidence table -->
+    <div class="miss-evidence-table">
+      <ng-template appLoader></ng-template>
+    </div>
+  </div>
+</div>

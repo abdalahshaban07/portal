@@ -38,12 +38,12 @@ export class JoinedCountComponent implements OnInit {
         icon: 'list',
         iconRouter: '/project',
       },
-      {
-        title: 'user online test',
-        count: 70,
-        img: 'assets/images/users.png',
-        icon: 'list',
-      },
+      // {
+      //   title: 'user online test',
+      //   count: 70,
+      //   img: 'assets/images/users.png',
+      //   icon: 'list',
+      // },
     ];
   }
 }
