@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
+import { Page404Component } from '@core/components/page404/page404.component';
 import { AuthenticatedGuard } from '@core/guards/authenticated.guard';
 import { HasRoleLoadGuard } from '@core/guards/has-role-load.guard';
 import { Roles } from '@shared/Enums/roles';
@@ -29,7 +30,7 @@ const routes: Routes = [
     data: {
       role: [Roles.User, Roles.Admin],
     },
-    canLoad: [AuthenticatedGuard, HasRoleLoadGuard],
+    canLoad: [AuthenticatedGuard],
   },
 
   {
@@ -119,8 +120,7 @@ const routes: Routes = [
 
   {
     path: '**',
-    redirectTo: 'dashboard',
-    pathMatch: 'full',
+    component: Page404Component,
   },
 ];
 

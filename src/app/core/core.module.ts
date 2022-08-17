@@ -7,9 +7,10 @@ import { authInterceptorProviders } from './interceptors/auth.interceptor';
 import { httpErrorInterceptorProviders } from './interceptors/http-error.interceptor';
 import { retryInterceptorProviders } from './interceptors/retry.interceptor';
 import { ToastrModule } from 'ngx-toastr';
+import { Page404Component } from './components/page404/page404.component';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent],
+  declarations: [HeaderComponent, FooterComponent, Page404Component],
   imports: [CommonModule, SharedModule, ToastrModule.forRoot()],
   exports: [HeaderComponent, FooterComponent],
   providers: [

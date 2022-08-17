@@ -40,7 +40,6 @@ export class AuthService {
   }
 
   get token() {
-    debugger;
     return localStorage.getItem(this.TOKEN_KEY);
   }
 
