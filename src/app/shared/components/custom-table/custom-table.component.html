@@ -76,6 +76,8 @@
                 column.header === ('ID' || 'projectCode') ? '10%' : '50%'
               "
               fxLayoutAlign="start center"
+              (click)="rowClicked ? getRecord(row) : null"
+              [ngStyle]="{ cursor: rowClicked ? 'pointer' : 'default' }"
             >
               <span [ngSwitch]="column.type">
                 <span *ngSwitchCase="typeColumn.icon">
@@ -86,6 +88,22 @@
                 <span *ngSwitchCase="typeColumn.avatar">
                   <app-avatar [avatar]="row?.avatar"></app-avatar>
                 </span>
+
+                <!--  show multiple files in same row -->
+                <span *ngSwitchCase="typeColumn.fileArray">
+                  <span *ngFor="let file of column.cell(row)">
+                    <a
+                      [href]="
+                        'http://mahmoud11prosmar-001-site1.itempurl.com' + file
+                      "
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <mat-icon>attach_file</mat-icon>
+                    </a>
+                    <!-- <br /> -->
+                  </span>
+                </span>
                 <span *ngSwitchCase="typeColumn.file">
                   <a
                     [href]="
@@ -95,12 +113,12 @@
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <!-- <mat-icon>insert_drive_file</mat-icon> -->
                     <mat-icon>attach_file</mat-icon>
                   </a>
+                  <!-- <br /> -->
                 </span>
                 <span *ngSwitchCase="typeColumn.date">
-                  {{ column.cell(row) | date: "dd/MMM/yyyy" }}
+                  {{ column.cell(row) | date: "d/M/yy, h:mm a" }}
                 </span>
                 <span *ngSwitchDefault>
                   {{ column.cell(row) }}

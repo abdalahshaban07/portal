@@ -31,9 +31,7 @@ export class CustomTableComponent<T> {
   width: string = '100%';
   height: string = '100vh';
   name!: string;
-  actionsBtn: string[] = [
-    TableConsts.actionButton.view,
-  ];
+  actionsBtn: string[] = [TableConsts.actionButton.view];
 
   id!: number | string;
   routerName!: string;
@@ -239,5 +237,10 @@ export class CustomTableComponent<T> {
         this.length = totalCount;
         this.dataSource.data = dataList as [];
       });
+  }
+
+  rowClicked: boolean = false;
+  getRecord(row: any) {
+    this.onDetailsClick(row);
   }
 }

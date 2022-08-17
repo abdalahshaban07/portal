@@ -170,6 +170,18 @@ export class ControlComponent implements OnInit {
   saveData() {
     if (this.myForm.invalid) return;
 
+    let consultant = this.myForm.get('projectConsultans')?.value as []; //[]
+    let formConsultants = consultant.map((item) => {
+      return {
+        id: item,
+        name: '',
+      };
+    });
+
+    console.log(formConsultants, '');
+
+    this.myForm.get('projectConsultans')?.setValue(formConsultants);
+
     let data = this.myForm.value;
 
     if (this.formMode === FormMode.Add) {

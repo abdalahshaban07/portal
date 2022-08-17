@@ -87,6 +87,10 @@
   background: white;
 }
 
+::ng-deep .mat-cell {
+  cursor: pointer;
+}
+
 .active {
   color: $staus-color-green;
 }

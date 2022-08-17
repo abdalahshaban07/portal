@@ -71,6 +71,8 @@ export class AddCommentComponent implements OnInit {
       Answer: this.form.value.comment,
       Attachments: this.selectedFile,
     };
+
+    this.selectedFile[0].size;
     this.quesationService.addCommentToQuestion(comment).subscribe((data) => {
       this.reloadPage();
     });

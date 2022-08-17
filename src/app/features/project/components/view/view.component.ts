@@ -163,7 +163,10 @@ export class ViewComponent implements OnInit {
     questionRef.instance.apiToGetListById = apiToGetListById;
     questionRef.instance.actionsBtn.push(TableConsts.actionButton.details);
     questionRef.instance.hasSearch = false;
-
+    questionRef.instance.rowClicked = true;
+    questionRef.instance.getRecord = (row: any) => {
+      console.log(row, 'row');
+    };
     const apiUrl = questionRef.instance.quesationService.APIUrl.split('/');
     apiUrl.pop();
     apiUrl.push('Project');

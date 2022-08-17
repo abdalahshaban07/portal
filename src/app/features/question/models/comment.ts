@@ -1,27 +1,22 @@
 export interface IComment {
   id: number;
+  answer: string;
+  answerDocs: IAnswerDocs[];
   projectId: number;
   projectLineId: number;
   quesationId: number;
-  answer: string;
-  answerDocs: IAnswerDocs[];
   clientUserCreateBy: string;
   consultentCreateBy: string;
 }
 
 export interface IAnswerDocs {
   id: number;
-  clientId: number;
-  projectQuesAnswerId: number;
-  projectLineId: number;
-  quesationId: number;
-  documentName: string;
-  imagePath: string;
-  description: string;
-  uploadDate: string;
+  projectId: number;
   answer: string;
   clientUserCreateBy: string;
   consultentCreateBy: string;
+  documentName: string[];
+  imagePath: string[];
 }
 
 export interface IAnswerTable {

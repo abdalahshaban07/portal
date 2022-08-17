@@ -24,16 +24,22 @@ export class AnswerService extends ResourceService<IComment> {
     let totalCount = data.data.totalCount;
     let dataList: IAnswerDocs[] = [];
 
-    for (let i = 0; i < dataRes.length; i++) {
-      const answerDocs = dataRes[i].answerDocs;
-
-      for (let j = 0; j < answerDocs.length; j++) {
-        answerDocs[j].answer = dataRes[i].answer;
-        answerDocs[j].clientUserCreateBy = dataRes[i].clientUserCreateBy;
-        answerDocs[j].consultentCreateBy = dataRes[i].consultentCreateBy;
-        dataList.push(answerDocs[j]);
-      }
-    }
+    dataRes.forEach((item: IComment) => {
+      let dataItem: IAnswerDocs = {
+        id: item.id,
+        projectId: item.projectId,
+        answer: item.answer,
+        clientUserCreateBy: item.clientUserCreateBy,
+        consultentCreateBy: item.consultentCreateBy,
+        documentName: item.answerDocs
+          .map((doc: IAnswerDocs) => doc.documentName)
+          .flatMap((doc: string[]) => doc),
+        imagePath: item.answerDocs
+          .map((doc: IAnswerDocs) => doc.imagePath)
+          .flatMap((doc: string[]) => doc),
+      };
+      dataList.push(dataItem);
+    });
 
     return {
       data: {

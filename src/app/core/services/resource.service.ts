@@ -49,14 +49,11 @@ export abstract class ResourceService<T extends { id?: string | number }> {
       case 'ClientUser':
         idParam = 'UserID';
         break;
-      case 'Consultant':
-        idParam = 'UserID';
-        break;
       default:
         idParam = 'id';
     }
 
-    let params = new HttpParams().set(idParam, id.toString());
+    let params = new HttpParams().set(idParam, id);
     return this._http
       .get<ResponseModel>(`${this.APIUrl}/GetById?${params.toString()}`)
       .pipe(map((response) => response.data as T));

@@ -22,7 +22,6 @@ export class DetailsComponent implements OnInit {
   }
 
   getIdFromUrl() {
-    debugger
     const apiUrl = this.quesationService.APIUrl.split('/');
     apiUrl.pop();
     apiUrl.push('Quesation');

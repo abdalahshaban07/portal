@@ -16,7 +16,6 @@ import { IAnswerDocs } from '@features/question/models/comment';
     '../../../../shared/components/custom-table/custom-table.component.scss',
   ],
   providers: [
-    DatePipe,
     {
       provide: ListTableService,
       useExisting: AnswerService,
@@ -38,6 +37,11 @@ export class AcceptanceHistoryComponent
       header: 'ID',
       cell: (element: IAnswerDocs) => `${element.id}`,
     },
+    // {
+    //   columnDef: 'projectId',
+    //   header: 'Project ID',
+    //   cell: (element: IAnswerDocs) => `${element.projectId}`,
+    // },
     {
       columnDef: 'answer',
       header: 'Answer',
@@ -53,42 +57,27 @@ export class AcceptanceHistoryComponent
       header: 'Consultent',
       cell: (element: IAnswerDocs) => `${element.consultentCreateBy || ''}`,
     },
-    // {
-    //   columnDef: 'quesationId',
-    //   header: 'Quesation ID',
-    //   cell: (element: IAnswerDocs) => `${element.quesationId}`,
-    // },
-    {
-      columnDef: 'uploadDate',
-      header: 'Upload Date',
-      cell: (element: IAnswerDocs) =>
-        this.datePipe.transform(element.uploadDate, 'dd/MMM/yyyy') as string,
-    },
-    {
-      columnDef: 'description',
-      header: 'Description',
-      cell: (element: IAnswerDocs) =>
-        `${element.description || 'No description'}`,
-    },
+
     {
       columnDef: 'imagePath',
       header: 'File Path',
-      type: typeColumn.file,
-      cell: (element: IAnswerDocs) => `${element.imagePath}`,
+      type: typeColumn.fileArray,
+      cell: (element: IAnswerDocs) =>
+        element.imagePath.map((file) => file).flatMap((file) => file),
     },
     {
       columnDef: 'documentName',
       header: 'Document Name',
       cell: (element: IAnswerDocs) =>
-        `${
-          element.documentName.split('.')[0].substring(30) +
-          '.' +
-          element.documentName.split('.')[1]
-        }`,
+        element.documentName.map(
+          (doc: string) =>
+            `[${doc.split('.')[0].substring(30) + '.' + doc.split('.')[1]}]` +
+            '\n'
+        ),
     },
   ];
 
-  constructor(private injector: Injector, private datePipe: DatePipe) {
+  constructor(private injector: Injector) {
     super(injector);
     this.quesationService = this.injector.get(QuesationService);
   }

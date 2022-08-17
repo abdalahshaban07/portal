@@ -18,13 +18,13 @@
       fxLayout="column"
       fxLayoutAlign="space-between start"
       *ngFor="let item of info"
+      (click)="loadComponet(item.name)"
     >
       <mat-card-subtitle>{{ item.name }}</mat-card-subtitle>
       <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">
         <button
           mat-button
           class="disabled-btn"
-          (click)="loadComponet(item.name)"
         >
           {{ item.description }}
         </button>

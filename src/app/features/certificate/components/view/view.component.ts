@@ -111,6 +111,15 @@ export class ViewComponent implements OnInit {
     questionRef.instance.id = this.id;
     questionRef.instance.routerName = 'question';
     questionRef.instance.apiToGetListById = 'GetListByCertifcate';
+
+    const apiUrl = questionRef.instance.quesationService.APIUrl.split('/');
+    apiUrl.pop();
+    apiUrl.push('Quesation');
+    questionRef.instance.quesationService.APIUrl = apiUrl.join('/');
+
+    questionRef.instance.applyFilter = (event: Event) => {
+      console.log(event, 'from  certificate view component');
+    };
   }
 
   private loadProjectComponent() {
