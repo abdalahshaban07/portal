@@ -3,6 +3,7 @@
   <!--  -->
   <header *ngIf="authService.isLoggedIn$ | async">
     <app-header></app-header>
+    <app-breadcrumb></app-breadcrumb>
   </header>
   <!-- main -->
   <section class="main">

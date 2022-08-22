@@ -2,7 +2,7 @@ import { Roles } from '@shared/Enums/roles';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ControlComponent } from './components/control/control.component';
-import { DetailsComponent } from './components/details/details.component';
+import { DetailsComponent } from '../project/components/details/details.component';
 import { listQuestionComponent } from './components/list/list.component';
 import { ReplyComponent } from './components/reply/reply.component';
 import { ViewComponent } from './components/view/view.component';
@@ -47,14 +47,6 @@ const routes: Routes = [
     canActivate: [HasRoleaCtiveGuard],
     data: {
       role: [Roles.Admin],
-    },
-  },
-  {
-    path: 'details/:id',
-    component: DetailsComponent,
-    canActivate: [HasRoleaCtiveGuard],
-    data: {
-      role: [Roles.User, Roles.Admin],
     },
   },
 ];

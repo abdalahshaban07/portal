@@ -1,13 +1,23 @@
+import { QuesationService } from './../../../question/services/quesation.service';
 import { TableConsts } from '@shared/components/custom-table/consts/table';
 import { TableColumn } from '@shared/models/tableColumn';
 import { listQuestionComponent } from '@features/question/components/list/list.component';
 import { ProjectService } from '@features/project/services/project.service';
 import { ActivatedRoute } from '@angular/router';
 import { Info } from '@shared/models/infor-card';
-import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import {
+  Component,
+  inject,
+  Injector,
+  OnInit,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
 import { GetTotalSummary } from '@features/project/models/get-total';
 import { AppLoaderDirective } from '@shared/directives/app-loader.directive';
 import { IQuestion } from '@features/question/models/question';
+import { BreadcrumbService } from 'xng-breadcrumb';
+import { ListTableService } from '@shared/components/custom-table/list-table.service';
 
 @Component({
   selector: 'app-view',
@@ -24,7 +34,9 @@ export class ViewComponent implements OnInit {
 
   constructor(
     private activeRoute: ActivatedRoute,
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    private breadcrumbService: BreadcrumbService,
+    private injector: Injector
   ) {}
 
   ngOnInit(): void {
@@ -45,6 +57,10 @@ export class ViewComponent implements OnInit {
     this.projectService.get(this.id).subscribe((data) => {
       this.projectCode = data.projectCode;
       this.description = data.description;
+      this.breadcrumbService.set(
+        '@View',
+        data.certificate + ' - ' + data.projectCode
+      );
     });
   }
 
@@ -154,22 +170,28 @@ export class ViewComponent implements OnInit {
   ];
 
   private loadQuestionsComponent(apiToGetListById: string) {
+    const elementInjector = Injector.create({
+      providers: [
+        {
+          provide: QuesationService,
+          useExisting: ProjectService,
+        },
+      ],
+      parent: this.injector,
+    });
+
     const questionRef = this.dynamicChild.createComponent(
-      listQuestionComponent
+      listQuestionComponent,
+      {
+        injector: elementInjector,
+      }
     );
     questionRef.instance.id = this.id;
-    questionRef.instance.routerName = 'question';
+    questionRef.instance.routerName = 'project';
     questionRef.instance.columns = this.columns;
     questionRef.instance.apiToGetListById = apiToGetListById;
     questionRef.instance.actionsBtn.push(TableConsts.actionButton.details);
     questionRef.instance.hasSearch = false;
     questionRef.instance.rowClicked = true;
-    questionRef.instance.getRecord = (row: any) => {
-      console.log(row, 'row');
-    };
-    const apiUrl = questionRef.instance.quesationService.APIUrl.split('/');
-    apiUrl.pop();
-    apiUrl.push('Project');
-    questionRef.instance.quesationService.APIUrl = apiUrl.join('/');
   }
 }

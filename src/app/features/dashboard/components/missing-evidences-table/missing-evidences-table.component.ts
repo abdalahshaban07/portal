@@ -105,12 +105,9 @@ export class MissingEvidencesTableComponent
     this.hasIconAdd = false;
     this.hasCreateButton = false;
     this.haveActions = true;
-    this.hasName = false;
+    this.hasName = true;
+    this.name = 'Missing Evidences';
 
-    const apiUrl = this.quesationService.APIUrl.split('/');
-    apiUrl.pop();
-    apiUrl.push('Project');
-    this.quesationService.APIUrl = apiUrl.join('/');
     super.ngOnInitC();
   }
 }

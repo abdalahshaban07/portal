@@ -1,3 +1,5 @@
+import { ReloadComponentService } from '../../../../shared/services/reload-component.service';
+import { BreadcrumbService } from 'xng-breadcrumb';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IQuestion } from '@features/question/models/question';
@@ -14,7 +16,8 @@ export class DetailsComponent implements OnInit {
   question!: IQuestion;
   constructor(
     private activeRoute: ActivatedRoute,
-    private quesationService: QuesationService
+    private quesationService: QuesationService,
+    private breadcrumbService: BreadcrumbService
   ) {}
 
   ngOnInit(): void {
@@ -22,10 +25,6 @@ export class DetailsComponent implements OnInit {
   }
 
   getIdFromUrl() {
-    const apiUrl = this.quesationService.APIUrl.split('/');
-    apiUrl.pop();
-    apiUrl.push('Quesation');
-    this.quesationService.APIUrl = apiUrl.join('/');
     this.id = this.activeRoute.snapshot.paramMap.get('id') as string;
     this.questionId = this.activeRoute.snapshot.queryParamMap.get(
       'quesation'
@@ -38,6 +37,7 @@ export class DetailsComponent implements OnInit {
   getQuestionDetails() {
     this.quesationService.get(this.questionId).subscribe((data) => {
       this.question = data;
+      this.breadcrumbService.set('@details', data.quesation);
     });
   }
 }

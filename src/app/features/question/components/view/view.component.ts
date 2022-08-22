@@ -28,10 +28,6 @@ export class ViewComponent implements OnInit {
   }
 
   getIdFromUrl() {
-    const apiUrl = this.quesationService.APIUrl.split('/');
-    apiUrl.pop();
-    apiUrl.push('Quesation');
-    this.quesationService.APIUrl = apiUrl.join('/');
     this.id = this.activeRoute.snapshot.paramMap.get('id') as string;
     if (this.id) {
       this.getDetails();

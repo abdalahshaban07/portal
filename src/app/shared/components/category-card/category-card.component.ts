@@ -73,9 +73,5 @@ export class CategoryCardComponent implements OnInit {
         projectId: this.shareObsService.projectId,
       },
     });
-    const apiUrl = this.quesationService.APIUrl.split('/');
-    apiUrl.pop();
-    apiUrl.push('Quesation');
-    this.quesationService.APIUrl = apiUrl.join('/');
   }
 }

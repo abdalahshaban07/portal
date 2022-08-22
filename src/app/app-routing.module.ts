@@ -29,6 +29,9 @@ const routes: Routes = [
       ),
     data: {
       role: [Roles.User, Roles.Admin],
+      breadcrumb: {
+        info: { myData: { icon: 'home', iconType: 'material' } },
+      },
     },
     canLoad: [AuthenticatedGuard],
   },
@@ -41,6 +44,9 @@ const routes: Routes = [
       ),
     data: {
       role: [Roles.User],
+      breadcrumb: {
+        alias: 'check-errors',
+      },
     },
     canLoad: [AuthenticatedGuard, HasRoleLoadGuard],
   },
@@ -50,6 +56,9 @@ const routes: Routes = [
       import('@features/admin/admin.module').then((m) => m.AdminModule),
     data: {
       role: [Roles.Admin],
+      breadcrumb: {
+        alias: 'admin',
+      },
     },
     canLoad: [AuthenticatedGuard, HasRoleLoadGuard],
   },
@@ -61,6 +70,9 @@ const routes: Routes = [
       ),
     data: {
       role: [Roles.Admin],
+      breadcrumb: {
+        alias: 'category',
+      },
     },
     canLoad: [AuthenticatedGuard, HasRoleLoadGuard],
   },
@@ -70,6 +82,9 @@ const routes: Routes = [
       import('@features/client/client.module').then((m) => m.ClientModule),
     data: {
       role: [Roles.Admin],
+      breadcrumb: {
+        alias: 'client',
+      },
     },
     canLoad: [AuthenticatedGuard, HasRoleLoadGuard],
   },
@@ -114,6 +129,9 @@ const routes: Routes = [
       ),
     data: {
       role: [Roles.User, Roles.Admin],
+      breadcrumb: {
+        label: 'question',
+      },
     },
     canLoad: [AuthenticatedGuard, HasRoleLoadGuard],
   },

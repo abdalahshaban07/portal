@@ -129,13 +129,20 @@ export class CustomTableComponent<T> {
 
   onDetailsClick(item: any) {
     console.log('onDetailsClick');
-    this.id
-      ? this.router.navigate([`${this.routerName}/details`, item.id], {
-          queryParams: {
-            quesation: item?.quesationId,
-          },
-        })
-      : null;
+    this.id &&
+      this.router.navigate([`details`, item.id], {
+        relativeTo: this.route,
+        queryParams: {
+          quesation: item?.quesationId,
+        },
+      });
+    // this.id
+    //   ? this.router.navigate([`${this.routerName}/details`, item.id], {
+    //       queryParams: {
+    //         quesation: item?.quesationId,
+    //       },
+    //     })
+    //   : null;
   }
 
   createPage() {

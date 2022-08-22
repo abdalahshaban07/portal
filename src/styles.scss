@@ -38,6 +38,7 @@ $portal-theme: mat.define-light-theme(
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~ngx-toastr/toastr";
 // @import "~ngx-toastr/toastr-bs4-alert";
+@import "variables.scss";
 
 html,
 body {
@@ -57,4 +58,17 @@ ngx-loading {
 
 .mat-button[disabled] {
   background-color: #888888;
+}
+
+.xng-breadcrumb-root {
+  background-color: $primary-2 !important;
+  color: white !important;
+  .xng-breadcrumb-list {
+    width: 90% !important;
+    margin: auto !important;
+    padding-block: 8px;
+  }
+  .xng-breadcrumb-trail {
+    color: white !important;
+  }
 }

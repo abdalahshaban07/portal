@@ -58,11 +58,5 @@ export class ListComponent implements OnInit {
     questionRef.instance.hasName = false;
     questionRef.instance.hasSearch = false;
     questionRef.instance.actionsBtn.push(TableConsts.actionButton.details);
-    // questionRef.instance.actionsBtn.push(TableConsts.actionButton.details);
-
-    // const apiUrl = questionRef.instance.quesationService.APIUrl.split('/');
-    // apiUrl.pop();
-    // apiUrl.push('Project');
-    // questionRef.instance.quesationService.APIUrl = apiUrl.join('/');
   }
 }

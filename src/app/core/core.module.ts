@@ -8,15 +8,29 @@ import { httpErrorInterceptorProviders } from './interceptors/http-error.interce
 import { retryInterceptorProviders } from './interceptors/retry.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { Page404Component } from './components/page404/page404.component';
+import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
+import { BreadcrumbModule } from 'xng-breadcrumb';
+import { BreadcrumbService } from 'xng-breadcrumb';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent, Page404Component],
-  imports: [CommonModule, SharedModule, ToastrModule.forRoot()],
-  exports: [HeaderComponent, FooterComponent],
+  declarations: [
+    HeaderComponent,
+    FooterComponent,
+    Page404Component,
+    BreadcrumbComponent,
+  ],
+  imports: [
+    CommonModule,
+    SharedModule,
+    ToastrModule.forRoot(),
+    BreadcrumbModule,
+  ],
+  exports: [HeaderComponent, FooterComponent, BreadcrumbComponent],
   providers: [
     authInterceptorProviders,
     httpErrorInterceptorProviders,
     retryInterceptorProviders,
+    BreadcrumbService,
   ],
 })
 export class CoreModule {

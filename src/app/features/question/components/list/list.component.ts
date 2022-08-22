@@ -91,6 +91,7 @@ export class listQuestionComponent
     } else {
       this.actionsBtn.push(TableConsts.actionButton.view);
     }
+
     super.ngOnInitC();
   }
 }

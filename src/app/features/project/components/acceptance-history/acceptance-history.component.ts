@@ -1,4 +1,4 @@
-import { AnswerService } from './../../services/answer.service';
+import { AnswerService } from '../../../question/services/answer.service';
 import { CustomTableComponent } from '@shared/components/custom-table/custom-table.component';
 import { QuesationService } from '@features/question/services/quesation.service';
 import { ListTableService } from '@shared/components/custom-table/list-table.service';
@@ -27,9 +27,12 @@ export class AcceptanceHistoryComponent
   implements OnInit
 {
   public quesationService!: QuesationService;
+
   @Input() set historyId(id: number | string) {
     this.id = id;
   }
+
+  @Input() inputId!: number | string;
 
   override columns: TableColumn[] = [
     {

@@ -1,10 +1,11 @@
 import { Router, ActivatedRoute } from '@angular/router';
-import { ProjectService } from './../../../project/services/project.service';
+import { ProjectService } from '../../services/project.service';
 import { QuesationService } from '@features/question/services/quesation.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { Roles } from '@shared/Enums/roles';
+import { ReloadComponentService } from '@shared/services/reload-component.service';
 
 @Component({
   selector: 'app-add-comment',
@@ -25,7 +26,8 @@ export class AddCommentComponent implements OnInit {
     private quesationService: QuesationService,
     private router: Router,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private reloadComponentService: ReloadComponentService
   ) {}
 
   ngOnInit(): void {
@@ -38,18 +40,17 @@ export class AddCommentComponent implements OnInit {
       file: ['', [Validators.required]],
     });
   }
-
   onFileSelected(e: any) {
     let files = e.target.files;
 
     if (files && files.length > 0) {
-      this.selectedFile = files;
-      this.form.get('file')?.setValue(this.selectedFile);
+      this.selectedFile = [...files];
+      this.form.get('file')?.setValue(files);
     }
   }
 
-  removeFileByIndex(index: number): void {
-    this.selectedFile.splice(index, 1);
+  removeFileByIndex(i: number): void {
+    this.selectedFile.splice(i, 1);
   }
 
   addCommentToggle(): void {
@@ -64,18 +65,18 @@ export class AddCommentComponent implements OnInit {
 
   confirmComment(): void {
     if (this.form.invalid) return;
+
     this.addComment = false;
-    // send comment and files to server with questionId
+
     let comment = {
       id: this.lineId,
       Answer: this.form.value.comment,
       Attachments: this.selectedFile,
     };
 
-    this.selectedFile[0].size;
-    this.quesationService.addCommentToQuestion(comment).subscribe((data) => {
-      this.reloadPage();
-    });
+    this.quesationService
+      .addCommentToQuestion(comment)
+      .subscribe((data) => this.reloadPage());
   }
 
   cancelConfirm(): void {
@@ -89,6 +90,7 @@ export class AddCommentComponent implements OnInit {
     this.router.navigate(['./'], {
       relativeTo: this.route,
       queryParamsHandling: 'preserve',
+      skipLocationChange: true,
     });
   }
 

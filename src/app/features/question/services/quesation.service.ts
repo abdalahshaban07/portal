@@ -6,6 +6,7 @@ import { ResourceService } from '@core/services/resource.service';
 import { paginatorForHttp } from '@shared/configs/paginator';
 import { Observable, of } from 'rxjs';
 import { IQuestion } from '../models/question';
+import { toFormData } from '@shared/services/toFormData';
 
 @Injectable({
   providedIn: 'root',
@@ -42,21 +43,11 @@ export class QuesationService extends ResourceService<IQuestion> {
     Attachments: File[];
   }): Observable<any> {
     let headers = new HttpHeaders();
-    //this is the important step. You need to set content type as null
+
     headers.set('Content-Type', null as any);
     headers.set('Accept', 'multipart/form-data');
 
-    const formData: FormData = new FormData();
-
-    if (comment.Attachments) {
-      Array.from(comment.Attachments).forEach((file) => {
-        formData.append('Attachments', file, file.name);
-      });
-    } else {
-      formData.append('Attachments', null as any);
-    }
-    formData.append('id', comment.id as any);
-    formData.append('Answer', comment.Answer);
+    const formData = toFormData(comment);
 
     return this.injector
       .get(HttpClient)
@@ -66,15 +57,4 @@ export class QuesationService extends ResourceService<IQuestion> {
         observe: 'events',
       });
   }
-
-  // getQuestionByCategoryId(
-  //   id: number | string
-  // ): Observable<ApiListResponse<IQuestion>> {
-  //   let params = new HttpParams().set('id', id.toString());
-  //   return this.injector
-  //     .get(HttpClient)
-  //     .get<ApiListResponse<IQuestion>>(
-  //       `${this.APIUrl}/GetByCategoryId?${params.toString()}`
-  //     );
-  // }
 }
