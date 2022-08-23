@@ -1,4 +1,4 @@
-import { AnswerService } from '../../../question/services/answer.service';
+import { AnswerService } from '../../../../../question/services/answer.service';
 import { CustomTableComponent } from '@shared/components/custom-table/custom-table.component';
 import { QuesationService } from '@features/question/services/quesation.service';
 import { ListTableService } from '@shared/components/custom-table/list-table.service';
@@ -10,10 +10,10 @@ import { IAnswerDocs } from '@features/question/models/comment';
 @Component({
   selector: 'app-acceptance-history',
   templateUrl:
-    '../../../../shared/components/custom-table/custom-table.component.html',
+    '../../../../../../shared/components/custom-table/custom-table.component.html',
 
   styleUrls: [
-    '../../../../shared/components/custom-table/custom-table.component.scss',
+    '../../../../../../shared/components/custom-table/custom-table.component.scss',
   ],
   providers: [
     {

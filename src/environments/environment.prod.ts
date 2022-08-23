@@ -1,6 +1,7 @@
 export const environment = {
   production: true,
-  APIUrl: 'http://mahmoud11prosmar-001-site1.itempurl.com/api/',
+  APIUrl:
+    'https://cors-anywhere.herokuapp.com/http://mahmoud11prosmar-001-site1.itempurl.com/api/',
   firebase: {
     apiKey: 'AIzaSyA2bZX8dNmAzV7m72Ge4fQcgtF8scUSJyM',
     authDomain: 'portal-edc4e.firebaseapp.com',

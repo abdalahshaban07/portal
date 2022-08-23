@@ -136,13 +136,6 @@ export class CustomTableComponent<T> {
           quesation: item?.quesationId,
         },
       });
-    // this.id
-    //   ? this.router.navigate([`${this.routerName}/details`, item.id], {
-    //       queryParams: {
-    //         quesation: item?.quesationId,
-    //       },
-    //     })
-    //   : null;
   }
 
   createPage() {

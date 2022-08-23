@@ -1,4 +1,3 @@
-import { QuesationService } from './../../../question/services/quesation.service';
 import { TableConsts } from '@shared/components/custom-table/consts/table';
 import { TableColumn } from '@shared/models/tableColumn';
 import { listQuestionComponent } from '@features/question/components/list/list.component';
@@ -17,7 +16,7 @@ import { GetTotalSummary } from '@features/project/models/get-total';
 import { AppLoaderDirective } from '@shared/directives/app-loader.directive';
 import { IQuestion } from '@features/question/models/question';
 import { BreadcrumbService } from 'xng-breadcrumb';
-import { ListTableService } from '@shared/components/custom-table/list-table.service';
+import { QuesationService } from '@features/question/services/quesation.service';
 
 @Component({
   selector: 'app-view',

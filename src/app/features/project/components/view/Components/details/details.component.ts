@@ -1,4 +1,4 @@
-import { ReloadComponentService } from '../../../../shared/services/reload-component.service';
+import { ReloadComponentService } from '../../../../../../shared/services/reload-component.service';
 import { BreadcrumbService } from 'xng-breadcrumb';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';

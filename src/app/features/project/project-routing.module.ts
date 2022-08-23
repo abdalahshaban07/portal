@@ -3,9 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { HasRoleaCtiveGuard } from '@core/guards/has-rolea-ctive.guard';
 import { Roles } from '@shared/Enums/roles';
 import { ControlComponent } from './components/control/control.component';
-import { DetailsComponent } from './components/details/details.component';
+import { DetailsComponent } from './components/view/Components/details/details.component';
 import { ListProjectComponent } from './components/list/list.component';
-import { ViewComponent } from './components/view/view.component';
 
 const routes: Routes = [
   {
@@ -37,21 +36,11 @@ const routes: Routes = [
   },
   {
     path: 'view/:id',
-    component: ViewComponent,
+    loadChildren: () =>
+      import('./components/view/view.module').then((m) => m.ViewModule),
     data: {
       breadcrumb: {
         alias: 'View',
-      },
-    },
-  },
-  {
-    path: 'view/:idd/details/:id',
-    component: DetailsComponent,
-    canActivate: [HasRoleaCtiveGuard],
-    data: {
-      role: [Roles.User, Roles.Admin],
-      breadcrumb: {
-        alias: 'details',
       },
     },
   },
