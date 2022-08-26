@@ -146,6 +146,7 @@ const routerOptions: ExtraOptions = {
   scrollPositionRestoration: 'enabled',
   anchorScrolling: 'enabled',
   onSameUrlNavigation: 'reload',
+  useHash: true,
 };
 
 @NgModule({
