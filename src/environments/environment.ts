@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  // APIUrl: 'http://mahmoud11prosmar-001-site1.itempurl.com/api/',
-  APIUrl: 'http://igrc2.konbrand.com/api/',
+  APIUrl: 'http://igrctesting-001-site3.etempurl.com/api/',
+  // APIUrl: 'http://igrc2.konbrand.com/api/',
   firebase: {
     apiKey: 'AIzaSyA2bZX8dNmAzV7m72Ge4fQcgtF8scUSJyM',
     authDomain: 'portal-edc4e.firebaseapp.com',
