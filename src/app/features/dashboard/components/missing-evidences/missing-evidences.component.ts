@@ -1,5 +1,4 @@
 import { ShareObsService } from './../../../../shared/services/share-obs.service';
-import { BehaviorSubject } from 'rxjs';
 import {
   Component,
   OnInit,
@@ -8,16 +7,12 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { ICategoryCard } from '@shared/components/category-card/category-card.component';
 import {
   DynamicFormFieldModel,
   selectMenuOptions,
 } from '@shared/components/dynamic-form-field/dynamic-form-field.model';
 import { ListOfValuesService } from '@shared/services/list-of-values.service';
 import { AppLoaderDirective } from '@shared/directives/app-loader.directive';
-import { listQuestionComponent } from '@features/question/components/list/list.component';
-import { IQuestion } from '@features/question/models/question';
-import { TableColumn, typeColumn } from '@shared/models/tableColumn';
 import { MissingEvidencesTableComponent } from '../missing-evidences-table/missing-evidences-table.component';
 
 @Component({
@@ -37,6 +32,7 @@ export class MissingEvidencesComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
+    this.getProjects();
     this.tracProjectChange();
   }
 
@@ -46,7 +42,7 @@ export class MissingEvidencesComponent implements OnInit {
         id: 'projectId',
         label: 'Select Project',
         type: 'select',
-        selectMenuOptions: this.Projects,
+        selectMenuOptions: this.projects,
         defaultValue: {
           value: '',
           disabled: false,
@@ -68,6 +64,13 @@ export class MissingEvidencesComponent implements OnInit {
     });
   }
 
+  checkIfProjectIdExist() {
+    if (this.shareObsService.projectId) {
+      this.myForm.get('projectId')?.setValue(+this.shareObsService.projectId);
+      this.loadQuestionsComponent();
+    }
+  }
+
   tracProjectChange() {
     this.myForm.get('projectId')?.valueChanges.subscribe((value) => {
       if (value) {
@@ -77,12 +80,18 @@ export class MissingEvidencesComponent implements OnInit {
     });
   }
 
-  get Projects() {
-    let projects: selectMenuOptions[] = [];
-    this.listOfValuesService.getProjects().subscribe((data) => {
-      projects.push(...data);
-    });
-    return projects;
+  projects: selectMenuOptions[] = [];
+  getProjects() {
+    if (this.shareObsService.projects) {
+      this.projects.push(...this.shareObsService.projects);
+      this.checkIfProjectIdExist();
+    } else {
+      this.listOfValuesService.getProjects().subscribe((data) => {
+        this.projects.push(...data);
+        this.shareObsService.projects = data;
+        this.checkIfProjectIdExist();
+      });
+    }
   }
 
   @ViewChild(AppLoaderDirective, { static: true, read: ViewContainerRef })
@@ -94,5 +103,6 @@ export class MissingEvidencesComponent implements OnInit {
       MissingEvidencesTableComponent
     );
     questionRef.instance.id = this.shareObsService.projectId;
+    questionRef.instance.paramsOptions['id'] = this.shareObsService.projectId;
   }
 }

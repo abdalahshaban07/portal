@@ -37,7 +37,7 @@ const routes: Routes = [
   },
 
   {
-    path: 'check-errors',
+    path: 'check-errors/:id',
     loadChildren: () =>
       import('@features/check-errors/check-errors.module').then(
         (m) => m.CheckErrorsModule

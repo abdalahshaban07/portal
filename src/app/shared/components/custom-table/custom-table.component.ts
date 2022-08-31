@@ -78,7 +78,7 @@ export class CustomTableComponent<T> {
     if (this.authService.hasRole([Roles.Admin])) {
       this.actionsBtn = [
         ...this.actionsBtn,
-        TableConsts.actionButton.delete,
+        // TableConsts.actionButton.delete,
         TableConsts.actionButton.edit,
       ];
     }
@@ -230,9 +230,16 @@ export class CustomTableComponent<T> {
       });
   }
 
+  paramsOptions: any = {
+    pageNum: this.current_page,
+    pagSize: this.pageSize,
+  };
+
   getItemBy(current_page = this.current_page, per_page_items = this.pageSize) {
+    this.paramsOptions.pageNum = current_page;
+    this.paramsOptions.pagSize = per_page_items;
     this.listTableService
-      .getItemBy(current_page, per_page_items, this.id, this.apiToGetListById)
+      .getItemBy(this.paramsOptions, this.apiToGetListById)
       .subscribe(({ data: { totalCount, dataList } }) => {
         this.length = totalCount;
         this.dataSource.data = dataList as [];

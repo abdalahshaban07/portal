@@ -3,6 +3,7 @@ export interface TableColumn {
   header: string;
   cell: (row: any) => string | any;
   type?: typeColumn;
+  flex?: number;
 }
 
 export enum typeColumn {

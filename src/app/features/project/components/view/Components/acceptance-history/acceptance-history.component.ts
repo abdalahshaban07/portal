@@ -30,6 +30,7 @@ export class AcceptanceHistoryComponent
 
   @Input() set historyId(id: number | string) {
     this.id = id;
+    this.paramsOptions['id'] = id;
   }
 
   @Input() inputId!: number | string;

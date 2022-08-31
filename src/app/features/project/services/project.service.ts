@@ -26,15 +26,10 @@ export class ProjectService extends ResourceService<IProject> {
   }
 
   getItemBy(
-    pageNum: number = paginatorForHttp.pageNumber,
-    pagSize: number = paginatorForHttp.pageSize,
-    id: number | string,
+    paramsOptions: {},
     api: string
   ): Observable<ApiListResponse<IProject>> {
-    let params = new HttpParams()
-      .set('id', id.toString())
-      .set('pageNum', pageNum.toString())
-      .set('pagSize', pagSize.toString());
+    let params = new HttpParams({ fromObject: paramsOptions }).toString();
     return this.injector
       .get(HttpClient)
       .get<ApiListResponse<IProject>>(

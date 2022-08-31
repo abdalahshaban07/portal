@@ -16,12 +16,7 @@ export class ListTableService {
     return of();
   }
 
-  getItemBy(
-    page: number = paginatorForHttp.pageNumber,
-    limit: number = paginatorForHttp.pageSize,
-    id: number | string,
-    api: string
-  ) {
+  getItemBy(paramsOptions: {}, api: string) {
     return of();
   }
 

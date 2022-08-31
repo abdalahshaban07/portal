@@ -61,7 +61,8 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem(this.TOKEN_KEY);
+    // localStorage.removeItem(this.TOKEN_KEY);
+    localStorage.clear();
     this._token$.next('');
     this._isLoggedIn$.next(false);
     this.user = {} as User;

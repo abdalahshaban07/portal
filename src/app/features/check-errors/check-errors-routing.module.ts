@@ -6,11 +6,16 @@ const routes: Routes = [
   {
     path: '',
     component: ListComponent,
+    data: {
+      breadcrumb: {
+        alias: 'list',
+      },
+    },
   },
-  {
-    path: 'list/:id',
-    component: ListComponent,
-  },
+  // {
+  //   path: 'list/:id',
+  //   component: ListComponent,
+  // },
 ];
 
 @NgModule({

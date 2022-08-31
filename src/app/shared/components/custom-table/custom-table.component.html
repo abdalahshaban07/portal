@@ -63,18 +63,14 @@
             <mat-header-cell
               *matHeaderCellDef
               mat-sort-header
-              [fxFlex]="
-                column.header === ('ID' || 'projectCode') ? '10%' : '50%'
-              "
+              [fxFlex]="column.flex"
               fxLayoutAlign="start center"
             >
               {{ column.header }}
             </mat-header-cell>
             <mat-cell
               *matCellDef="let row"
-              [fxFlex]="
-                column.header === ('ID' || 'projectCode') ? '10%' : '50%'
-              "
+              [fxFlex]="column.flex"
               fxLayoutAlign="start center"
               (click)="rowClicked ? getRecord(row) : null"
               [ngStyle]="{ cursor: rowClicked ? 'pointer' : 'default' }"

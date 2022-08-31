@@ -29,22 +29,26 @@ export class ListCertificateComponent
     {
       columnDef: 'id',
       header: 'ID',
+      flex: 10,
       cell: (element: ICertificate) => `${element.id}`,
     },
     {
       columnDef: 'name',
       header: 'Name',
+      flex: 30,
       cell: (element: ICertificate) => `${element.name}`,
     },
     {
       columnDef: 'description',
       header: 'Description',
+      flex: 40,
       cell: (element: ICertificate) => element.description || 'description',
     },
     {
       columnDef: 'is Active',
       header: 'Is Active',
       type: typeColumn.icon,
+      flex: 10,
       cell: (element: ICertificate) =>
         element.isActive ? 'active' : 'not_active',
     },

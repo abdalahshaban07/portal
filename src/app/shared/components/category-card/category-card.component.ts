@@ -62,13 +62,15 @@ export class CategoryCardComponent implements OnInit {
         id: item.id,
         name: item.category,
         prcentage: item.completed,
-        routerLink: `/check-errors/list/${item.id}`,
+        routerLink: `/check-errors/${item.id}?projectId=${this.shareObsService.projectId}`,
       };
     });
+
+    this.shareObsService.category = this.categories;
   }
 
   continue(category: ICategoryCard) {
-    this.router.navigate(['/check-errors/list', category.id], {
+    this.router.navigate(['/check-errors', category.id], {
       queryParams: {
         projectId: this.shareObsService.projectId,
       },

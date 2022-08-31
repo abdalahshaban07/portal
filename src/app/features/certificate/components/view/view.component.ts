@@ -72,11 +72,11 @@ export class ViewComponent implements OnInit {
         description: `${data.totalProjects} projects`,
         scroll: 'project',
       },
-      {
-        name: 'Client',
-        description: `${data.totalClients} clients`,
-        scroll: 'client',
-      },
+      // {
+      //   name: 'Client',
+      //   description: `${data.totalClients} clients`,
+      //   scroll: 'client',
+      // },
     ];
   }
 
@@ -109,6 +109,7 @@ export class ViewComponent implements OnInit {
       listQuestionComponent
     );
     questionRef.instance.id = this.id;
+    questionRef.instance.paramsOptions['id'] = this.id;
     questionRef.instance.routerName = 'question';
     questionRef.instance.apiToGetListById = 'GetListByCertifcate';
   }
@@ -116,6 +117,7 @@ export class ViewComponent implements OnInit {
   private loadProjectComponent() {
     const projectRef = this.dynamicChild.createComponent(ListProjectComponent);
     projectRef.instance.id = this.id;
+    projectRef.instance.paramsOptions['id'] = this.id;
     projectRef.instance.routerName = 'project';
     projectRef.instance.apiToGetListById = 'GetListByCertifcate';
   }

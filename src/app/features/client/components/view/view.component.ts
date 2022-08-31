@@ -103,6 +103,7 @@ export class ViewComponent implements OnInit {
       ListClientUserComponent
     );
     questionRef.instance.id = this.id;
+    questionRef.instance.paramsOptions['id'] = this.id;
     questionRef.instance.routerName = 'client-user';
     questionRef.instance.apiToGetListById = 'GetListByClient';
   }
@@ -110,6 +111,7 @@ export class ViewComponent implements OnInit {
   private loadProjectComponent() {
     const projectRef = this.dynamicChild.createComponent(ListProjectComponent);
     projectRef.instance.id = this.id;
+    projectRef.instance.paramsOptions['id'] = this.id;
     projectRef.instance.routerName = 'project';
     projectRef.instance.apiToGetListById = 'GetListByClient';
   }

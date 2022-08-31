@@ -1,6 +1,7 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { IClientUser } from '@features/client-user/models/client-user';
 import { ClientUserService } from '@features/client-user/services/client-user.service';
+import { TableConsts } from '@shared/components/custom-table/consts/table';
 import { CustomTableComponent } from '@shared/components/custom-table/custom-table.component';
 import { ListTableService } from '@shared/components/custom-table/list-table.service';
 import { TableColumn } from '@shared/models/tableColumn';
@@ -71,6 +72,8 @@ export class ListClientUserComponent
     this.hasCreateButton = true;
     this.name = 'Client User';
     this.id ? (this.hasName = true) : false;
+    let index = this.actionsBtn.indexOf(TableConsts.actionButton.view);
+    this.actionsBtn.splice(index, 1);
     super.ngOnInitC();
   }
 }
