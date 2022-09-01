@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
+import { Page404Component } from '@core/components/page404/page404.component';
 import { AuthenticatedGuard } from '@core/guards/authenticated.guard';
 import { HasRoleLoadGuard } from '@core/guards/has-role-load.guard';
-import { NonAuthenticatedGuard } from '@core/guards/non-authenticated.guard';
+import { Roles } from '@shared/Enums/roles';
 
 const routes: Routes = [
   {
@@ -15,6 +16,9 @@ const routes: Routes = [
     path: 'login',
     loadChildren: () =>
       import('@features/login/login.module').then((m) => m.LoginModule),
+    data: {
+      role: [Roles.User, Roles.Admin],
+    },
   },
 
   {
@@ -23,22 +27,40 @@ const routes: Routes = [
       import('@features/dashboard/dashboard.module').then(
         (m) => m.DashboardModule
       ),
+    data: {
+      role: [Roles.User, Roles.Admin],
+      breadcrumb: {
+        info: { myData: { icon: 'home', iconType: 'material' } },
+      },
+    },
     canLoad: [AuthenticatedGuard],
   },
 
   {
-    path: 'check-errors',
+    path: 'check-errors/:id',
     loadChildren: () =>
       import('@features/check-errors/check-errors.module').then(
         (m) => m.CheckErrorsModule
       ),
-    canLoad: [AuthenticatedGuard],
+    data: {
+      role: [Roles.User],
+      breadcrumb: {
+        alias: 'check-errors',
+      },
+    },
+    canLoad: [AuthenticatedGuard, HasRoleLoadGuard],
   },
   {
     path: 'admin',
     loadChildren: () =>
       import('@features/admin/admin.module').then((m) => m.AdminModule),
-    canLoad: [AuthenticatedGuard],
+    data: {
+      role: [Roles.Admin],
+      breadcrumb: {
+        alias: 'admin',
+      },
+    },
+    canLoad: [AuthenticatedGuard, HasRoleLoadGuard],
   },
   {
     path: 'category',
@@ -46,13 +68,25 @@ const routes: Routes = [
       import('@features/category/category.module').then(
         (m) => m.CategoryModule
       ),
-    canLoad: [AuthenticatedGuard],
+    data: {
+      role: [Roles.Admin],
+      breadcrumb: {
+        alias: 'category',
+      },
+    },
+    canLoad: [AuthenticatedGuard, HasRoleLoadGuard],
   },
   {
     path: 'client',
     loadChildren: () =>
       import('@features/client/client.module').then((m) => m.ClientModule),
-    canLoad: [AuthenticatedGuard],
+    data: {
+      role: [Roles.Admin],
+      breadcrumb: {
+        alias: 'client',
+      },
+    },
+    canLoad: [AuthenticatedGuard, HasRoleLoadGuard],
   },
   {
     path: 'client-user',
@@ -60,7 +94,10 @@ const routes: Routes = [
       import('@features/client-user/client-user.module').then(
         (m) => m.ClientUserModule
       ),
-    canLoad: [AuthenticatedGuard],
+    data: {
+      role: [Roles.User, Roles.Admin],
+    },
+    canLoad: [AuthenticatedGuard, HasRoleLoadGuard],
   },
 
   {
@@ -71,14 +108,17 @@ const routes: Routes = [
       ),
     canLoad: [AuthenticatedGuard, HasRoleLoadGuard],
     data: {
-      role: 'Admin',
+      role: [Roles.Admin],
     },
   },
   {
     path: 'project',
     loadChildren: () =>
       import('@features/project/project.module').then((m) => m.ProjectModule),
-    canLoad: [AuthenticatedGuard],
+    data: {
+      role: [Roles.User, Roles.Admin],
+    },
+    canLoad: [AuthenticatedGuard, HasRoleLoadGuard],
   },
 
   {
@@ -87,13 +127,18 @@ const routes: Routes = [
       import('@features/question/question.module').then(
         (m) => m.QuestionModule
       ),
-    canLoad: [AuthenticatedGuard],
+    data: {
+      role: [Roles.User, Roles.Admin],
+      breadcrumb: {
+        label: 'question',
+      },
+    },
+    canLoad: [AuthenticatedGuard, HasRoleLoadGuard],
   },
 
   {
     path: '**',
-    redirectTo: 'dashboard',
-    pathMatch: 'full',
+    component: Page404Component,
   },
 ];
 

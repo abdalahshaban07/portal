@@ -1,0 +1,82 @@
+<div class="wrap">
+  <div class="form-wrap" *ngIf="addComment">
+    <form [formGroup]="form" fxLayout="column">
+      <mat-form-field appearance="fill">
+        <textarea
+          formControlName="comment"
+          matInput
+          placeholder="If Not accepted Tell why!"
+          rows="5"
+        ></textarea>
+        <mat-error *ngIf="form.get('comment')?.hasError('required')">
+          This field is required
+        </mat-error>
+      </mat-form-field>
+      <div fxLayout="row" class="file-input">
+        <button mat-button (click)="fileInput.click()">
+          <mat-icon>cloud_upload</mat-icon>
+          <span>Upload File</span>
+          <input
+            #fileInput
+            type="file"
+            (change)="onFileSelected($event)"
+            style="display: none"
+            formControlName="file"
+            multiple
+          />
+        </button>
+
+        <div fxLayout="row wrap" fxLayoutGap="15px">
+          <div *ngFor="let file of selectedFile; let i = index">
+            <mat-chip-list *ngIf="selectedFile.length">
+              <mat-chip>
+                {{ file?.name }}
+                <mat-icon matChipRemove (click)="removeFileByIndex(i)"
+                  >delete</mat-icon
+                >
+              </mat-chip>
+            </mat-chip-list>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="acceptance-btn-actions" fxLayout="row" fxLayoutGap="20px">
+    <span *appHasRole="[Roles.Admin]">
+      <button
+        mat-button
+        class="btn-accept"
+        *ngIf="!addComment"
+        (click)="acceptQuestion()"
+      >
+        Accept
+      </button>
+    </span>
+    <button
+      mat-button
+      class="btn-add-comment"
+      *ngIf="!addComment"
+      (click)="addCommentToggle()"
+    >
+      Add Comment
+    </button>
+    <button
+      mat-button
+      class="btn-add-comment"
+      *ngIf="addComment"
+      (click)="cancelConfirm()"
+    >
+      Cancel
+    </button>
+    <button
+      mat-button
+      [disabled]="form.invalid"
+      class="btn-confirm"
+      *ngIf="addComment"
+      (click)="confirmComment()"
+    >
+      Confirm
+    </button>
+  </div>
+</div>

@@ -24,7 +24,7 @@
 
       <div
         class="links"
-        fxFlex="42%"
+        fxFlex="62%"
         fxShow
         fxHide.lt-md
         fxLayoutAlign="center center"
@@ -59,7 +59,7 @@
       </div>
 
       <!-- search bar -->
-      <div
+      <!-- <div
         class="search"
         fxFlex="20%"
         fxFlex.lt-md="30%"
@@ -78,7 +78,7 @@
             <mat-icon>search</mat-icon>
           </button>
         </mat-form-field>
-      </div>
+      </div> -->
 
       <!-- user -->
       <div
@@ -110,15 +110,17 @@
 
     <!-- second toolbar -->
     <!-- Category -->
-    <mat-toolbar-row
+    <!-- <mat-toolbar-row
       class="second-row"
-      *ngIf="showCategory"
+      *ngIf="showCategory && shareObsService.projectId"
       [fxHide]="sidenav.opened"
     >
       <div class="wrap-category">
-        <app-category-card></app-category-card>
+        <app-category-card
+          [id]="shareObsService.projectId || projectId"
+        ></app-category-card>
       </div>
-    </mat-toolbar-row>
+    </mat-toolbar-row> -->
   </mat-toolbar>
 
   <!-- sidenav in small screens -->
@@ -146,6 +148,7 @@
             mat-button
             [routerLink]="link.routerLink"
             [routerLinkActive]="link.Active"
+            *appHasRole="link.role"
           >
             {{ link.name }}
           </button>
@@ -169,7 +172,7 @@
       </mat-nav-list>
 
       <!-- search bar -->
-      <div class="search" fxLayoutAlign="center center" fxHide.sm>
+      <!-- <div class="search" fxLayoutAlign="center center" fxHide.sm>
         <mat-form-field>
           <input matInput type="text" />
           <button
@@ -181,7 +184,7 @@
             <mat-icon>search</mat-icon>
           </button>
         </mat-form-field>
-      </div>
+      </div> -->
 
       <!-- user -->
       <div class="user" fxShow fxLayoutAlign="center center">

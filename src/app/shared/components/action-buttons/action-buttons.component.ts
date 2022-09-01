@@ -1,3 +1,4 @@
+import { Roles } from '@shared/Enums/roles';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TableButtonAction } from '@shared/models/tableButtonAction';
 import { TableConsts } from '../custom-table/consts/table';
@@ -18,6 +19,8 @@ export class ActionButtonsComponent implements OnInit {
 
   @Input() actions!: string[];
 
+  Roles = Roles;
+
   onEditClick() {
     this.buttonAction.emit({
       name: TableConsts.actionButton.edit,
@@ -33,6 +36,12 @@ export class ActionButtonsComponent implements OnInit {
   onViewClick() {
     this.buttonAction.emit({
       name: TableConsts.actionButton.view,
+      value: this.value,
+    });
+  }
+  onDetailsClick() {
+    this.buttonAction.emit({
+      name: TableConsts.actionButton.details,
       value: this.value,
     });
   }

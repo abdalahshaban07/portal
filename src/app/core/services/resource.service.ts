@@ -3,13 +3,13 @@ import { Injectable, Injector } from '@angular/core';
 import { ApiListResponse, ResponseModel } from '@core/model/apiListResponse';
 import { environment } from '@env';
 import { paginatorForHttp } from '@shared/configs/paginator';
-import { map, Observable, shareReplay, tap } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export abstract class ResourceService<T extends { id?: string | number }> {
-  protected readonly APIUrl = environment.APIUrl + this.getResourceUrl();
+  APIUrl = environment.APIUrl + this.getResourceUrl();
 
   private _http!: HttpClient;
 
@@ -17,7 +17,7 @@ export abstract class ResourceService<T extends { id?: string | number }> {
     this._http = injector.get(HttpClient);
   }
 
-  abstract getResourceUrl(): string;
+  abstract getResourceUrl(getResourceUrl?: string): string;
 
   toServer(entity: T): any {
     return entity;
@@ -49,14 +49,11 @@ export abstract class ResourceService<T extends { id?: string | number }> {
       case 'ClientUser':
         idParam = 'UserID';
         break;
-      case 'Consultant':
-        idParam = 'UserID';
-        break;
       default:
         idParam = 'id';
     }
 
-    let params = new HttpParams().set(idParam, id.toString());
+    let params = new HttpParams().set(idParam, id);
     return this._http
       .get<ResponseModel>(`${this.APIUrl}/GetById?${params.toString()}`)
       .pipe(map((response) => response.data as T));
@@ -72,5 +69,19 @@ export abstract class ResourceService<T extends { id?: string | number }> {
 
   update(resource: T) {
     return this._http.post(`${this.APIUrl}/Update`, resource);
+  }
+
+  search(
+    search: string,
+    pageNum = this.pageNum,
+    pageSize = this.pageSize
+  ): Observable<ApiListResponse<T>> {
+    let params = new HttpParams()
+      .set('search', search)
+      .set('pageNum', pageNum.toString())
+      .set('pagSize', pageSize.toString());
+    return this._http.get<ApiListResponse<T>>(
+      `${this.APIUrl}/GetListSearch?${params.toString()}`
+    );
   }
 }

@@ -16,18 +16,19 @@ export class ListTableService {
     return of();
   }
 
-  getItemBy(
-    page: number = paginatorForHttp.pageNumber,
-    limit: number = paginatorForHttp.pageSize,
-    id: number | string,
-    api: string
-  ) {
-    console.log('getItemBy in ListTableService');
-
+  getItemBy(paramsOptions: {}, api: string) {
     return of();
   }
 
   delete(id: number) {
+    return of();
+  }
+
+  search(
+    search: string,
+    page: number = paginatorForHttp.pageNumber,
+    limit: number = paginatorForHttp.pageSize
+  ) {
     return of();
   }
 }

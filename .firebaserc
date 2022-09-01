@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "portal-edc4e": {
+      "hosting": {
+        "portal": [
+          "portal-edc4e"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "portal-edc4e"
+  }
+}

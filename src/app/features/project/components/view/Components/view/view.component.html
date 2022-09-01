@@ -1,0 +1,35 @@
+<div class="wrap" fxLayout="column" fxLayoutAlign="start">
+  <div class="header">
+    <div class="content" fxLayout="column">
+      <p class="title">{{ projectCode || "projectCode" }}</p>
+      <div fxLayout="row">
+        <span fxFlex="60%">
+          {{ description || "description" }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="warp-card" fxLayout="row wrap">
+    <mat-card
+      class="card"
+      fxFlex.sm="34%"
+      fxFlex.xs="80%"
+      fxLayout="column"
+      fxLayoutAlign="space-between start"
+      *ngFor="let item of info"
+      (click)="loadComponet(item.name)"
+    >
+      <mat-card-subtitle>{{ item.name }}</mat-card-subtitle>
+      <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">
+        <button mat-button class="disabled-btn">
+          {{ item.description }}
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <div [id]="componentId">
+    <ng-template appLoader></ng-template>
+  </div>
+</div>

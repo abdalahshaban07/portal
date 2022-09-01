@@ -1,6 +1,6 @@
 <div class="wrap" fxLayout="column" fxLayoutAlign="start">
-  <div class="create-btn" *ngIf="hasCreateButton">
-    <button mat-button (click)="createPage()">
+  <div class="create-btn" *appHasRole="[Roles.Admin]">
+    <button mat-button (click)="createPage()" *ngIf="hasCreateButton">
       <mat-icon>create_new_folder</mat-icon>
       Create New {{ name }}
     </button>
@@ -12,26 +12,20 @@
       ngClass.lt-md="table-wrap_xs"
       [ngStyle]="{ width: width, 'max-height': height }"
     >
-      <span class="table-name" *ngIf="hasName">{{ name }}</span>
+      <span class="table-name" *ngIf="hasName"
+        >{{ name }}
+        <span *appHasRole="[Roles.Admin]">
+          <mat-icon (click)="createPage()" *ngIf="hasIconAdd">add</mat-icon>
+        </span>
+      </span>
       <!-- Action Bar -->
-      <div class="table-actionbar" *ngIf="dataSource.data.length !== 0">
+      <div class="table-actionbar">
         <!-- search box -->
         <div class="search-box" *ngIf="hasSearch">
           <mat-form-field class="example-form-field" appearance="outline">
             <mat-icon matPrefix>search</mat-icon>
             <mat-label>Search</mat-label>
-
-            <!-- [(ngModel)]="value" -->
             <input matInput type="text" (keyup)="applyFilter($event)" />
-            <button
-              *ngIf="value"
-              matSuffix
-              mat-icon-button
-              aria-label="Clear"
-              (click)="value = ''"
-            >
-              <mat-icon>close</mat-icon>
-            </button>
           </mat-form-field>
         </div>
       </div>
@@ -69,28 +63,62 @@
             <mat-header-cell
               *matHeaderCellDef
               mat-sort-header
-              [fxFlex]="
-                column.header === ('ID' || 'projectCode') ? '10%' : '50%'
-              "
+              [fxFlex]="column.flex"
               fxLayoutAlign="start center"
             >
               {{ column.header }}
             </mat-header-cell>
             <mat-cell
               *matCellDef="let row"
-              [fxFlex]="
-                column.header === ('ID' || 'projectCode') ? '10%' : '50%'
-              "
+              [fxFlex]="column.flex"
               fxLayoutAlign="start center"
+              (click)="rowClicked ? getRecord(row) : null"
+              [ngStyle]="{ cursor: rowClicked ? 'pointer' : 'default' }"
             >
-              <span *ngIf="!column.icon">
-                <span *ngIf="column.hasAvatar">
+              <span [ngSwitch]="column.type">
+                <span *ngSwitchCase="typeColumn.icon">
+                  <span [class]="column.cell(row)">
+                    <mat-icon>circle</mat-icon>
+                  </span>
+                </span>
+                <span *ngSwitchCase="typeColumn.avatar">
                   <app-avatar [avatar]="row?.avatar"></app-avatar>
                 </span>
-                {{ column.cell(row) }}
-              </span>
-              <span *ngIf="column.icon" [class]="column.cell(row)">
-                <mat-icon>circle</mat-icon>
+
+                <!--  show multiple files in same row -->
+                <span *ngSwitchCase="typeColumn.fileArray">
+                  <span *ngFor="let file of column.cell(row)">
+                    <a
+                      [href]="
+                        'http://igrctesting-001-site3.etempurl.com' + file
+                      "
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <mat-icon>attach_file</mat-icon>
+                    </a>
+                    <!-- <br /> -->
+                  </span>
+                </span>
+                <span *ngSwitchCase="typeColumn.file">
+                  <a
+                    [href]="
+                      'http://mahmoud11prosmar-001-site1.itempurl.com' +
+                      column.cell(row)
+                    "
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <mat-icon>attach_file</mat-icon>
+                  </a>
+                  <!-- <br /> -->
+                </span>
+                <span *ngSwitchCase="typeColumn.date">
+                  {{ column.cell(row) | date: "d/M/yy, h:mm a" }}
+                </span>
+                <span *ngSwitchDefault>
+                  {{ column.cell(row) }}
+                </span>
               </span>
             </mat-cell>
           </ng-container>

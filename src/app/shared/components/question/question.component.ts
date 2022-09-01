@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { IQuestion } from '@features/question/models/question';
 import { Question } from '@shared/models/question';
 
 @Component({
@@ -7,12 +8,8 @@ import { Question } from '@shared/models/question';
   styleUrls: ['./question.component.scss'],
 })
 export class QuestionComponent implements OnInit {
-  @Input() question!: Question;
+  @Input() question!: IQuestion;
   constructor() {}
 
   ngOnInit(): void {}
-
-  numToSSColumnLetter(num: number): string {
-    return String.fromCharCode(65 + num).toLowerCase();
-  }
 }

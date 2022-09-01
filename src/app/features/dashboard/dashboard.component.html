@@ -1,5 +1,13 @@
-<div class="warp" fxLayout="column">
-  <div class="welcome">
+<div class="warp" fxLayout="column" fxLayoutGap="30px">
+  <!-- <div class="welcome">
     <app-welcome></app-welcome>
+  </div> -->
+
+  <div *appHasRole="[adminRole]">
+    <app-joined-count></app-joined-count>
+  </div>
+
+  <div *appHasRole="[userRole]">
+    <app-missing-evidences></app-missing-evidences>
   </div>
 </div>

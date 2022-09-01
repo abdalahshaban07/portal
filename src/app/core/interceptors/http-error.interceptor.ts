@@ -54,7 +54,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           console.log('An error occurred');
         }
 
-        // this.toastr.warning(error.statusText);
+        console.log(error);
+
         return throwError(() => new Error(error.statusText));
       })
     );

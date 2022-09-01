@@ -13,9 +13,22 @@
   xPosition="before"
   overlapTrigger="false"
 >
-  <button mat-menu-item [routerLink]="['admin/profile']">Profile</button>
-  <!-- <button mat-menu-item [routerLink]="['/certificate']">Certificate</button> -->
+  <button
+    mat-menu-item
+    [routerLink]="['admin/profile']"
+    *appHasRole="[Roles.Admin]"
+  >
+    Profile
+  </button>
+  <button
+    mat-menu-item
+    [routerLink]="['client-user/profile']"
+    *appHasRole="[Roles.User]"
+  >
+    Profile
+  </button>
+
   <button mat-menu-item>Setting</button>
   <mat-divider></mat-divider>
-  <button mat-menu-item (click)="logout()"> LogOut</button>
+  <button mat-menu-item (click)="logout()">LogOut</button>
 </mat-menu>

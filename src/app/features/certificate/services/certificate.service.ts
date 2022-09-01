@@ -29,18 +29,12 @@ export class CertificateService extends ResourceService<ICertificate> {
   }
 
   getItemBy(
-    pageNum: number = paginatorForHttp.pageNumber,
-    pagSize: number = paginatorForHttp.pageSize,
-    id: number | string
+    paramsOptions: {},
+    api: string
   ): Observable<ApiListResponse<ICertificate>> {
-    let params = new HttpParams()
-      .set('id', id.toString())
-      .set('pageNum', pageNum.toString())
-      .set('pagSize', pagSize.toString());
+    let params = new HttpParams({ fromObject: paramsOptions }).toString();
     return this.injector
       .get(HttpClient)
-      .get<ApiListResponse<ICertificate>>(
-        `${this.APIUrl}/GetListByQuesation?${params.toString()}`
-      );
+      .get<ApiListResponse<ICertificate>>(`${this.APIUrl}/${api}?${params}`);
   }
 }

@@ -19,7 +19,6 @@ export class NonAuthenticatedGuard implements CanLoad {
     return this.authService.isLoggedIn$.pipe(
       tap((isLoggedIn) => {
         if (isLoggedIn) {
-          console.log({ isLoggedIn });
           this.router.navigate(['dashboard']);
         }
         return !isLoggedIn;

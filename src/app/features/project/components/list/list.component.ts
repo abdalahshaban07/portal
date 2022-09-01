@@ -5,7 +5,7 @@ import { ProjectService } from '@features/project/services/project.service';
 import { TableConsts } from '@shared/components/custom-table/consts/table';
 import { CustomTableComponent } from '@shared/components/custom-table/custom-table.component';
 import { ListTableService } from '@shared/components/custom-table/list-table.service';
-import { TableColumn } from '@shared/models/tableColumn';
+import { TableColumn, typeColumn } from '@shared/models/tableColumn';
 
 @Component({
   selector: 'app-list-project',
@@ -16,7 +16,6 @@ import { TableColumn } from '@shared/models/tableColumn';
     '../../../../shared/components/custom-table/custom-table.component.scss',
   ],
   providers: [
-    DatePipe,
     {
       provide: ListTableService,
       useExisting: ProjectService,
@@ -28,6 +27,11 @@ export class ListProjectComponent
   implements OnInit
 {
   override columns: TableColumn[] = [
+    {
+      columnDef: 'id',
+      header: 'Id',
+      cell: (element: IProject) => `${element.id}`,
+    },
     {
       columnDef: 'projectCode',
       header: 'Code',
@@ -56,27 +60,29 @@ export class ListProjectComponent
     {
       columnDef: 'startDate',
       header: 'Start Date',
-      cell: (element: IProject) =>
-        this.datePipe.transform(element.startDate, 'dd/MM/yyyy') as string,
+      type: typeColumn.date,
+      cell: (element: IProject) => `${element.startDate}`,
     },
     {
       columnDef: 'endDate',
       header: 'End Date',
-      cell: (element: IProject) =>
-        this.datePipe.transform(element.endDate, 'dd/MM/yyyy') as string,
+      type: typeColumn.date,
+      cell: (element: IProject) => `${element.endDate}`,
     },
   ];
 
-  constructor(private injector: Injector, private datePipe: DatePipe) {
+  constructor(private injector: Injector) {
     super(injector);
   }
 
   ngOnInit(): void {
     this.haveActions = true;
     this.hasCreateButton = true;
-    this.id ? (this.hasName = true) : false;
-    // this.actionsBtn.push(TableConsts.actionButton.view);
-    this.name = 'Project';
+    this.hasSearch = false;
+    this.actionsBtn.push(TableConsts.actionButton.view);
+    this.hasName = true;
+    this.name = 'Projects';
+
     super.ngOnInitC();
   }
 }

@@ -3,6 +3,7 @@
   <!--  -->
   <header *ngIf="authService.isLoggedIn$ | async">
     <app-header></app-header>
+    <app-breadcrumb></app-breadcrumb>
   </header>
   <!-- main -->
   <section class="main">
@@ -14,6 +15,6 @@
   </footer> -->
   <ngx-loading
     [show]="(loader.loading$ | async)!"
-    [config]="{ backdropBorderRadius: '3px' }"
+    [config]="{ backdropBorderRadius: '14px', fullScreenBackdrop: true }"
   ></ngx-loading>
 </div>

@@ -1,0 +1,36 @@
+<div class="wrap">
+  <div class="card-wrap" fxLayout="row wrap" fxLayoutAlign="center">
+    <div
+      *ngFor="let item of cards"
+      fxFlex="33%"
+      fxFlex.sm="50%"
+      fxFlex.xs="100%"
+      ngClass.lt-md="card-for-sm"
+      fxLayoutAlign="center"
+    >
+      <div class="card" fxLayout="column" fxLayoutGap="10px">
+        <div class="" fxLayout="row" fxLayoutAlign="space-between">
+          <img
+            [src]="item.img"
+            [alt]="item.title"
+            width="195px"
+            height="137px"
+          />
+          <div
+            class="icon"
+            *ngIf="item.iconRouter"
+            [routerLink]="item.iconRouter"
+          >
+            <mat-icon>{{ item.icon }}</mat-icon>
+          </div>
+        </div>
+        <div class="">
+          <span>{{ item.title }}</span>
+        </div>
+        <div class="count">
+          <span>{{ item.count }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

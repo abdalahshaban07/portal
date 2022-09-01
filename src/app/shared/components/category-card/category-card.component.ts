@@ -1,9 +1,18 @@
-import { Component } from '@angular/core';
+import { ShareObsService } from './../../services/share-obs.service';
+import { QuesationService } from '@features/question/services/quesation.service';
+import { ProjectService } from '@features/project/services/project.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import {
+  IProjectPercentage,
+  PerCentage,
+} from '@features/project/models/projectPercentage';
 
-interface ICategoryCard {
+export interface ICategoryCard {
+  id: number;
   name: string;
-  description: string;
-  prcentage: number;
+  description?: string;
+  prcentage: string;
   routerLink: string;
 }
 
@@ -12,32 +21,59 @@ interface ICategoryCard {
   templateUrl: './category-card.component.html',
   styleUrls: ['./category-card.component.scss'],
 })
-export class CategoryCardComponent {
-  categories: ICategoryCard[] = [
-    {
-      name: 'List Of Documents',
-      description: 'List of all documents',
-      prcentage: 50,
-      routerLink: 'check-errors/list/documents',
-    },
-    {
-      name: 'List Of Records',
-      description: 'List of all records',
-      prcentage: 60,
-      routerLink: 'check-errors/list/records',
-    },
-    {
-      name: 'List Of Solutions',
-      description: 'List of all solutions',
-      prcentage: 70,
-      routerLink: 'check-errors/list/solutions',
-    },
-    {
-      name: 'Configuration Requirements',
-      description: 'List of all configuration requirements',
-      prcentage: 80,
-      routerLink: 'check-errors/list/configuration',
-    },
-  ];
-  constructor() {}
+export class CategoryCardComponent implements OnInit {
+  _id!: number | string;
+  @Input() set id(id: number | string) {
+    this._id = id;
+    this.getCategoryByProjectId();
+  }
+
+  categories!: ICategoryCard[];
+  constructor(
+    private activeRoute: ActivatedRoute,
+    private projectService: ProjectService,
+    private quesationService: QuesationService,
+    private router: Router,
+    private shareObsService: ShareObsService
+  ) {}
+
+  ngOnInit(): void {
+    this.getIdFromUrl();
+  }
+
+  getIdFromUrl() {
+    if (!this._id) {
+      this._id = this.activeRoute.snapshot.paramMap.get('id') as string;
+      this.getCategoryByProjectId();
+    }
+  }
+
+  getCategoryByProjectId() {
+    this.projectService
+      .getCategoryWithPercentageByProjectId(this._id)
+      .subscribe(({ data }) => {
+        data && this.prepareCategoryCard(data);
+      });
+  }
+
+  prepareCategoryCard(data: IProjectPercentage) {
+    this.categories = data.projectPercentage?.map((item) => {
+      return {
+        id: item.id,
+        name: item.category,
+        prcentage: item.completed,
+        routerLink: `/check-errors/${item.id}?projectId=${this.shareObsService.projectId}`,
+      };
+    });
+
+    this.shareObsService.category = this.categories;
+  }
+
+  continue(category: ICategoryCard) {
+    this.router.navigate(['/check-errors', category.id], {
+      queryParams: {
+        projectId: this.shareObsService.projectId,
+      },
+    });
+  }
 }

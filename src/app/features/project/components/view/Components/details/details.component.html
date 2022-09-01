@@ -1,0 +1,27 @@
+<div class="container wrap" fxLayout="column">
+  <!-- List Name -->
+  <div class="list-name">
+    <!-- <span>{{ list }}</span> -->
+  </div>
+
+  <!-- questions -->
+  <div class="question" fxLayout="column" fxLayoutGap="10px">
+    <!-- question details -->
+    <div *ngIf="question">
+      <app-question [question]="question"></app-question>
+    </div>
+
+    <!-- question comments history -->
+    <div>
+      <app-acceptance-history [historyId]="id"></app-acceptance-history>
+    </div>
+
+    <!-- question add comment for not accept answer -->
+    <div *ngIf="question">
+      <app-add-comment
+        [questionId]="questionId"
+        [lineId]="id"
+      ></app-add-comment>
+    </div>
+  </div>
+</div>

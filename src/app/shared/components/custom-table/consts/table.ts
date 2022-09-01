@@ -3,5 +3,6 @@ export const TableConsts = {
     edit: 'edit',
     delete: 'delete',
     view: 'view',
+    details: 'details',
   },
 };

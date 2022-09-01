@@ -23,8 +23,9 @@ export interface DynamicFormFieldModel {
   multiple?: boolean;
 }
 
-type DefaultValue = { value: string; disabled: boolean };
+type DefaultValue = { value: string | number; disabled: boolean };
 export type selectMenuOptions = {
   key: number | string | boolean;
   value: string | boolean | number;
+  disabled?: boolean;
 };

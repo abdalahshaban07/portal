@@ -1,13 +1,8 @@
-<div class="wrap-table">
-  <!-- <app-custom-table
-    (action)="onTableAction($event)"
-    [dataSource]="datatSet"
-    [columns]="columns"
-    [haveActions]="true"
-    [actions]="actions"
-    [haveSelect]="true"
-    [hasName]="true"
-    [name]="'Client'"
-    [width]="'90%'"
-  ></app-custom-table> -->
+<!-- category Card -->
+<div class="categoryCard" *ngIf="projectId">
+  <app-category-card [id]="projectId"></app-category-card>
+</div>
+
+<div id="question">
+  <ng-template appLoader></ng-template>
 </div>

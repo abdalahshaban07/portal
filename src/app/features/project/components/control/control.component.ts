@@ -163,13 +163,24 @@ export class ControlComponent implements OnInit {
 
   getItemById(id: number | string) {
     this.projectService.get(id).subscribe((data) => {
-      console.log(data);
       this.myForm.patchValue(data as IProject);
     });
   }
 
   saveData() {
     if (this.myForm.invalid) return;
+
+    let consultant = this.myForm.get('projectConsultans')?.value as []; //[]
+    let formConsultants = consultant.map((item) => {
+      return {
+        id: item,
+        name: '',
+      };
+    });
+
+    console.log(formConsultants, '');
+
+    this.myForm.get('projectConsultans')?.setValue(formConsultants);
 
     let data = this.myForm.value;
 

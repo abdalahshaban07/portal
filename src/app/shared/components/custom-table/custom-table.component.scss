@@ -23,8 +23,12 @@
   font-weight: bold;
   color: #242424;
   text-transform: uppercase;
-  display: inline-block;
   margin-block: 1rem;
+  display: flex;
+  align-items: flex-end;
+  .mat-icon {
+    font-size: 2rem;
+  }
 }
 .table-data {
   position: relative;
@@ -81,6 +85,10 @@
   width: 25px !important;
   border-radius: 3px;
   background: white;
+}
+
+::ng-deep .mat-cell {
+  cursor: pointer;
 }
 
 .active {

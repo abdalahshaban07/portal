@@ -25,19 +25,18 @@ export class ViewComponent implements OnInit {
   ngOnInit(): void {
     // debugger;
     this.getIdFromUrl();
-    this.loadCerticateComponent();
   }
 
   getIdFromUrl() {
     this.id = this.activeRoute.snapshot.paramMap.get('id') as string;
     if (this.id) {
       this.getDetails();
+      this.loadCerticateComponent();
     }
   }
 
   getDetails() {
     this.quesationService.get(this.id).subscribe((data) => {
-      console.log(data, 'data');
       this.name = data.quesation;
       this.description = data.description;
     });
@@ -51,6 +50,7 @@ export class ViewComponent implements OnInit {
       ListCertificateComponent
     );
     certificateRef.instance.id = this.id;
+    certificateRef.instance.paramsOptions['id'] = this.id;
     certificateRef.instance.routerName = 'certificate';
     certificateRef.instance.apiToGetListById = 'GetListByQuesation';
   }

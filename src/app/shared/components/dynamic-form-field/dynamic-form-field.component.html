@@ -39,7 +39,9 @@
 
         <!-- select -->
         <ng-container *ngSwitchCase="'select'">
+          <!-- <mat-label>Select</mat-label> -->
           <mat-select
+            disableRipple
             [formControlName]="formItem.id"
             [multiple]="formItem.multiple"
           >
@@ -69,7 +71,7 @@
           ></mat-datepicker-toggle>
           <mat-datepicker touchUi #picker></mat-datepicker>
         </ng-container>
-        
+
         <!-- toggle -->
         <ng-container *ngSwitchCase="'toggle'">
           <input

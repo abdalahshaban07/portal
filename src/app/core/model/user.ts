@@ -1,9 +1,10 @@
+import { Roles } from '@shared/Enums/roles';
 export interface User {
   preferred_username: string;
   password: string;
   userid: string;
   clientid: string;
-  role: string;
+  role: Roles;
   UserInfo: UserInfo;
 }
 
