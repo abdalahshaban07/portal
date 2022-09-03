@@ -71,7 +71,7 @@ export class ControlComponent implements OnInit {
       //   ? this.router.navigate(['/admin'])
       //   : this.router.navigate(['/client']);
 
-      this.router.navigate(['/']);
+      this.router.navigate(['/'], { replaceUrl: true });
     });
   }
 }

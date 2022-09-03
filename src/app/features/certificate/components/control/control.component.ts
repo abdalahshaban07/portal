@@ -16,6 +16,7 @@ export class ControlComponent implements OnInit {
   myForm!: FormGroup;
   dynamicFormFields!: DynamicFormFieldModel[];
   formMode!: FormMode;
+  id!: number | string;
   constructor(
     private fb: FormBuilder,
     private certificateService: CertificateService,
@@ -39,7 +40,7 @@ export class ControlComponent implements OnInit {
           value: '',
           disabled: false,
         },
-        validators: [Validators.required],
+        validators: [Validators.required, Validators.maxLength(150)],
       },
       {
         id: 'description',
@@ -49,6 +50,7 @@ export class ControlComponent implements OnInit {
           value: '',
           disabled: false,
         },
+        validators: [Validators.maxLength(150)],
       },
       {
         id: 'isActive',
@@ -73,10 +75,10 @@ export class ControlComponent implements OnInit {
   }
 
   getIdFromUrl() {
-    const id = this.activeRoute.snapshot.paramMap.get('id');
-    if (id) {
+    this.id = this.activeRoute.snapshot.paramMap.get('id') as string;
+    if (this.id) {
       this.formMode = FormMode.Edit;
-      this.getItemById(id);
+      this.getItemById();
     } else {
       this.formMode = FormMode.Add;
     }
@@ -94,8 +96,8 @@ export class ControlComponent implements OnInit {
     });
   }
 
-  getItemById(id: number | string) {
-    this.certificateService.get(id).subscribe((data) => {
+  getItemById() {
+    this.certificateService.get(this.id).subscribe((data) => {
       this.myForm.patchValue(data as ICertificate);
     });
   }
@@ -103,11 +105,12 @@ export class ControlComponent implements OnInit {
   saveData() {
     if (this.myForm.invalid) return;
 
-    const data = this.myForm.value;
+    let data = this.myForm.value;
 
     if (this.formMode === FormMode.Add) {
       this.addCertificate(data);
     } else {
+      data = { ...data, id: this.id };
       this.updateCertificate(data);
     }
   }

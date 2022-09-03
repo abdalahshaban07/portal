@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ResponseModel } from '@core/model/apiListResponse';
-import { User } from '@core/model/user';
+import { User, UserInfo } from '@core/model/user';
 import { environment } from '@env';
 import { BehaviorSubject, map } from 'rxjs';
 
@@ -20,7 +20,7 @@ export class AuthService {
 
   private _token$ = new BehaviorSubject<string>(this.token as string);
 
-  user!: User;
+  user!: UserInfo;
 
   constructor(private http: HttpClient, private router: Router) {
     this.checkToken();
@@ -28,7 +28,7 @@ export class AuthService {
 
   checkToken() {
     this._isLoggedIn$.next(!!this.token);
-    this.user = this.getUser(this.token as string) as User;
+    this.user = this.getUser(this.token as string) as UserInfo;
   }
 
   getTokenValue(): string {
@@ -36,7 +36,7 @@ export class AuthService {
   }
 
   hasRole(role: Roles[]): boolean {
-    return [this.user?.role].some((item) => role.includes(item));
+    return [this.user?.Role].some((item) => role.includes(item));
   }
 
   get token() {
@@ -54,7 +54,7 @@ export class AuthService {
           this._isLoggedIn$.next(true);
           this._token$.next(response.data as string);
           localStorage.setItem(this.TOKEN_KEY, response.data as string);
-          this.user = this.getUser(response.data as string) as User;
+          this.user = this.getUser(response.data as string) as UserInfo;
           return this.user;
         })
       );
@@ -65,13 +65,30 @@ export class AuthService {
     localStorage.clear();
     this._token$.next('');
     this._isLoggedIn$.next(false);
-    this.user = {} as User;
+    this.user = {} as UserInfo;
     this.router.navigate(['login']);
   }
 
-  private getUser(token: string): User | null {
+  private b64DecodeUnicode(str: string) {
+    return decodeURIComponent(
+      Array.prototype.map
+        .call(atob(str), (c: string) => {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        })
+        .join('')
+    );
+  }
+
+  private getUser(token: string): UserInfo | null {
+    // debugger;
     return token
-      ? (JSON.parse(atob(token?.split('.')[1])) as User | null)
+      ? JSON.parse(
+          JSON.parse(
+            this.b64DecodeUnicode(
+              token.split('.')[1].replace('-', '+').replace('_', '/')
+            )
+          ).UserInfo
+        )
       : null;
   }
 }

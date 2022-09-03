@@ -30,43 +30,51 @@ export class ListProjectComponent
     {
       columnDef: 'id',
       header: 'Id',
+      flex: 7,
       cell: (element: IProject) => `${element.id}`,
     },
     {
       columnDef: 'projectCode',
       header: 'Code',
+      flex: 10,
       cell: (element: IProject) => `${element.projectCode || 'code'}`,
     },
     {
       columnDef: 'name',
       header: 'Company',
+      flex: 10,
       cell: (element: IProject) => `${element.client}`,
     },
     {
       columnDef: 'certificate',
       header: 'Certificate',
+      flex: 10,
       cell: (element: IProject) => `${element.certificate}`,
     },
     {
       columnDef: 'description',
       header: 'Description',
+      flex: 15,
       cell: (element: IProject) => `${element.description}`,
     },
     {
       columnDef: 'quesStatus',
       header: 'Status',
+      flex: 10,
       cell: (element: IProject) => `${element.quesStatus}`,
     },
     {
       columnDef: 'startDate',
       header: 'Start Date',
       type: typeColumn.date,
+      flex: 15,
       cell: (element: IProject) => `${element.startDate}`,
     },
     {
       columnDef: 'endDate',
       header: 'End Date',
       type: typeColumn.date,
+      flex: 15,
       cell: (element: IProject) => `${element.endDate}`,
     },
   ];

@@ -23,5 +23,5 @@ export interface UserInfo {
   City: string;
   Country: string;
   Gender: string;
-  Role: string;
+  Role: Roles;
 }

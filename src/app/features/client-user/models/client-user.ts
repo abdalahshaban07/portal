@@ -5,9 +5,12 @@ export interface IClientUser {
   email: string;
   username: string;
   phone: string;
-  city: string;
   client: string;
+  city: string;
   country: string;
   gender: string;
+  cityId: number;
+  countryId: number;
+  genderId: number;
   role: string;
 }

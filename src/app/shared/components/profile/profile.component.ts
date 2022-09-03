@@ -17,7 +17,7 @@ export class ProfileComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    this.name = this.authService?.user?.preferred_username || 'userName';
+    this.name = this.authService?.user?.Username || 'userName';
   }
 
   logout() {

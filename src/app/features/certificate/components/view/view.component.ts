@@ -72,11 +72,11 @@ export class ViewComponent implements OnInit {
         description: `${data.totalProjects} projects`,
         scroll: 'project',
       },
-      // {
-      //   name: 'Client',
-      //   description: `${data.totalClients} clients`,
-      //   scroll: 'client',
-      // },
+      {
+        name: 'Client',
+        description: `${data.totalClients} clients`,
+        scroll: 'client',
+      },
     ];
   }
 

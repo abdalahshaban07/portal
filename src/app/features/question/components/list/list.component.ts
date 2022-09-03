@@ -32,19 +32,22 @@ export class listQuestionComponent
     {
       columnDef: 'id',
       header: 'ID',
+      flex: 7,
       cell: (element: IQuestion) => `${element.id}`,
     },
     {
       columnDef: 'title',
       header: 'Title',
+      flex: 35,
       cell: (element: IQuestion) =>
-        element.quesation.length > 35
-          ? element.quesation.substring(0, 35) + '...'
+        element.quesation.length > 45
+          ? element.quesation.substring(0, 45) + '...'
           : element?.quesation,
     },
     {
       columnDef: 'description',
       header: 'Description',
+      flex: 30,
       cell: (element: IQuestion) =>
         element.description.length > 30
           ? element.description.substring(0, 30).replace(/<[^>]*>/g, '') + '...'
@@ -53,11 +56,13 @@ export class listQuestionComponent
     {
       columnDef: 'category',
       header: 'Category',
+      flex: 15,
       cell: (element: IQuestion) => `${element.category}`,
     },
     {
       columnDef: 'is Active',
       header: 'Is Active',
+      flex: 10,
       type: typeColumn.icon,
       cell: (element: IQuestion) =>
         element.isActive ? 'active' : 'not_active',
@@ -83,13 +88,15 @@ export class listQuestionComponent
   ngOnInit(): void {
     this.haveActions = true;
     this.name = 'Quesation';
-    let cond = this.injector.get(AuthService).hasRole([Roles.User]);
-    if (cond) {
-      // remove view button for user
-      let index = this.actionsBtn.indexOf(TableConsts.actionButton.view);
-      this.actionsBtn.splice(index, 1);
-    } else {
+    let cond = this.injector
+      .get(AuthService)
+      .hasRole([Roles.User, Roles.Editor]);
+    if (!cond) {
       this.actionsBtn.push(TableConsts.actionButton.view);
+    } else {
+      // // remove view button for user
+      // let index = this.actionsBtn.indexOf(TableConsts.actionButton.view);
+      // this.actionsBtn.splice(index, 1);
     }
 
     super.ngOnInitC();

@@ -5,6 +5,7 @@ import { ListClientUserComponent } from '@features/client-user/components/list/l
 import { GetTotalSummary } from '@features/client/models/get.total';
 import { ClientService } from '@features/client/services/client.service';
 import { ListProjectComponent } from '@features/project/components/list/list.component';
+import { TableConsts } from '@shared/components/custom-table/consts/table';
 import { AppLoaderDirective } from '@shared/directives/app-loader.directive';
 import { Info } from '@shared/models/infor-card';
 
@@ -106,6 +107,7 @@ export class ViewComponent implements OnInit {
     questionRef.instance.paramsOptions['id'] = this.id;
     questionRef.instance.routerName = 'client-user';
     questionRef.instance.apiToGetListById = 'GetListByClient';
+    // questionRef.instance.actionsBtn.push(TableConsts.actionButton.delete);
   }
 
   private loadProjectComponent() {
@@ -114,5 +116,6 @@ export class ViewComponent implements OnInit {
     projectRef.instance.paramsOptions['id'] = this.id;
     projectRef.instance.routerName = 'project';
     projectRef.instance.apiToGetListById = 'GetListByClient';
+    // questionRef.instance.actionsBtn.push(TableConsts.actionButton.delete);
   }
 }

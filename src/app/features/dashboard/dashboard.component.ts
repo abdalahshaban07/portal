@@ -7,8 +7,7 @@ import { Roles } from '@shared/Enums/roles';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  adminRole = Roles.Admin;
-  userRole = Roles.User;
+  Roles = Roles;
   constructor() {}
 
   ngOnInit(): void {}

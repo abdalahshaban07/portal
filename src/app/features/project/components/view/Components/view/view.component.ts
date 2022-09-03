@@ -69,11 +69,11 @@ export class ViewComponent implements OnInit {
 
   getDetails() {
     this.projectService.get(this.id).subscribe((data: any) => {
-      this.projectCode = data.projectCode;
-      this.description = data.description;
+      this.projectCode = data.projectCode || 'project Code ';
+      this.description = data.description || 'description';
       this.breadcrumbService.set(
         '@View',
-        data.certificate + ' - ' + data.projectCode
+        data.certificate + ' - ' + this.projectCode
       );
     });
   }
@@ -213,5 +213,9 @@ export class ViewComponent implements OnInit {
     questionRef.instance.actionsBtn.push(TableConsts.actionButton.details);
     questionRef.instance.hasSearch = false;
     questionRef.instance.rowClicked = true;
+
+    questionRef.instance.onViewClick = (item: any) => {
+      console.log(item, 'item');
+    };
   }
 }

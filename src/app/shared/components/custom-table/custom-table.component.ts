@@ -31,7 +31,7 @@ export class CustomTableComponent<T> {
   width: string = '100%';
   height: string = '100vh';
   name!: string;
-  actionsBtn: string[] = [TableConsts.actionButton.view];
+  actionsBtn: string[] = [];
 
   id!: number | string;
   routerName!: string;

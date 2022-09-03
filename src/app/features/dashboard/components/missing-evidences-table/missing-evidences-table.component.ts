@@ -45,6 +45,7 @@ export class MissingEvidencesTableComponent
     {
       columnDef: 'id',
       header: 'ID',
+      flex: 7,
       cell: (element: IQuestion) => `${element.id}`,
     },
     {

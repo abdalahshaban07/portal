@@ -3,11 +3,11 @@
     <app-welcome></app-welcome>
   </div> -->
 
-  <div *appHasRole="[adminRole]">
+  <div *appHasRole="[Roles.Admin, Roles.Editor]">
     <app-joined-count></app-joined-count>
   </div>
 
-  <div *appHasRole="[userRole]">
+  <div *appHasRole="[Roles.User]">
     <app-missing-evidences></app-missing-evidences>
   </div>
 </div>

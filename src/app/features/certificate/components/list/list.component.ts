@@ -36,13 +36,19 @@ export class ListCertificateComponent
       columnDef: 'name',
       header: 'Name',
       flex: 30,
-      cell: (element: ICertificate) => `${element.name}`,
+      cell: (element: ICertificate) =>
+        element.name.length > 40
+          ? `${element.name.substring(0, 40)}...`
+          : `${element.name}`,
     },
     {
       columnDef: 'description',
       header: 'Description',
       flex: 40,
-      cell: (element: ICertificate) => element.description || 'description',
+      cell: (element: ICertificate) =>
+        element.description.length > 50
+          ? `${element.description.substring(0, 50)}...`
+          : `${element.description || 'No description'}`,
     },
     {
       columnDef: 'is Active',

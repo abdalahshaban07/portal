@@ -31,38 +31,45 @@ export class ListComponent
     {
       columnDef: 'id',
       header: 'ID',
+      flex: 7,
       cell: (element: IClient) => `${element.id}`,
     },
     {
       columnDef: 'name',
       header: 'Name',
+      flex: 15,
       cell: (element: IClient) => `${element.name}`,
     },
     {
       columnDef: 'email',
       header: 'Email',
+      flex: 20,
       cell: (element: IClient) => `${element.email}`,
     },
     {
       columnDef: 'address',
       header: 'Address',
+      flex: 15,
       cell: (element: IClient) => `${element.address}`,
     },
     {
       columnDef: 'phone',
       header: 'Phone',
+      flex: 10,
       cell: (element: IClient) => `${element.phone}`,
     },
     {
       columnDef: 'creationDate',
       header: 'Creation Date',
-      cell: (element: IClient) =>
-        this.datePipe.transform(element.creationDate, 'dd/MM/yyyy') as string,
+      type: typeColumn.date,
+      flex: 15,
+      cell: (element: IClient) => `${element.creationDate}`,
     },
     {
       columnDef: 'is Active',
       header: 'Is Active',
       type: typeColumn.icon,
+      flex: 10,
       cell: (element: IClient) => (element.isActive ? 'active' : 'not_active'),
     },
   ];

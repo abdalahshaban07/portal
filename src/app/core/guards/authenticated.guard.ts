@@ -20,6 +20,8 @@ export class AuthenticatedGuard implements CanLoad {
       tap((isLoggedIn) => {
         if (!isLoggedIn) {
           this.router.navigate(['login']);
+        } else if (isLoggedIn && route.path === 'login') {
+          this.router.navigate(['dashboard']);
         }
       })
     );

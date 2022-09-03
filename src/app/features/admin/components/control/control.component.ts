@@ -1,4 +1,5 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { ChangeDetectorRef, Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IAdmin } from '@features/admin/models/admin';
@@ -16,7 +17,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './control.component.html',
   styleUrls: ['./control.component.scss'],
 })
-export class ControlComponent implements OnInit {
+export class ControlComponent implements OnInit, OnDestroy {
   myForm!: FormGroup;
   dynamicFormFields!: DynamicFormFieldModel[];
   formMode!: FormMode;
@@ -34,6 +35,7 @@ export class ControlComponent implements OnInit {
   ngOnInit(): void {
     this.getIdFromUrl();
     this.createForm();
+    this.getRoles();
     this.tracCountryChange();
   }
 
@@ -125,7 +127,7 @@ export class ControlComponent implements OnInit {
         id: 'role',
         label: 'role',
         type: 'toggle',
-        selectMenuOptions: this.Roles,
+        selectMenuOptions: this.roles,
         defaultValue: {
           value: '',
           disabled: false,
@@ -168,14 +170,16 @@ export class ControlComponent implements OnInit {
     });
     return country;
   }
-
+  countrySubscribtion: Subscription | undefined;
   tracCountryChange() {
-    this.myForm.get('countryId')?.valueChanges.subscribe((value) => {
-      this.myForm.get('cityId')?.setValue('');
-      this.cities.length = 0;
-      this.getCities(value);
-      this.cdref.detectChanges();
-    });
+    this.countrySubscribtion = this.myForm
+      .get('countryId')
+      ?.valueChanges.subscribe((value) => {
+        this.myForm.get('cityId')?.setValue('');
+        this.cities.length = 0;
+        this.getCities(value);
+        this.cdref.detectChanges();
+      });
   }
   cities: selectMenuOptions[] = [];
 
@@ -185,12 +189,11 @@ export class ControlComponent implements OnInit {
     });
   }
 
-  get Roles() {
-    let roles: selectMenuOptions[] = [];
+  roles: selectMenuOptions[] = [];
+  getRoles() {
     this.listOfValuesService.getRoles().subscribe((data) => {
-      roles.push(...data);
+      this.roles.push(...data);
     });
-    return roles;
   }
 
   createForm() {
@@ -216,20 +219,23 @@ export class ControlComponent implements OnInit {
 
     let data = this.myForm.value;
 
+    data.role = this.roles.find((role) => role.key == data.role)?.value;
+
     if (this.formMode === FormMode.Add) {
-      this.addCertificate(data);
+      data = { ...data, id: 0 };
+      this.addAdmin(data);
     } else {
       data = { ...data, id: this.id };
-      this.updateCertificate(data);
+      this.updateAdmin(data);
     }
   }
 
-  addCertificate(data: IAdmin) {
+  addAdmin(data: IAdmin) {
     this.adminService.add(data).subscribe(() => {
       this.actionAfterAddOrUpdate('added');
     });
   }
-  updateCertificate(data: IAdmin) {
+  updateAdmin(data: IAdmin) {
     this.adminService.update(data).subscribe(() => {
       this.actionAfterAddOrUpdate('updated');
     });
@@ -239,5 +245,9 @@ export class ControlComponent implements OnInit {
     this.myForm.reset();
     this.toastr.success(`${status} successfully`);
     this.router.navigate(['/admin']);
+  }
+
+  ngOnDestroy(): void {
+    this.countrySubscribtion?.unsubscribe();
   }
 }

@@ -64,7 +64,7 @@ export abstract class ResourceService<T extends { id?: string | number }> {
   }
 
   delete(id: string | number): Observable<any> {
-    return this._http.delete(`${this.APIUrl}/Delete/${id}`);
+    return this._http.post(`${this.APIUrl}/Delete/${id}`, {});
   }
 
   update(resource: T) {

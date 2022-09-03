@@ -31,6 +31,7 @@ export class ListComponent
     {
       columnDef: 'id',
       header: 'ID',
+      flex: 7,
       cell: (element: ICategory) => `${element.id}`,
     },
     {
@@ -46,8 +47,8 @@ export class ListComponent
     {
       columnDef: 'creationDate',
       header: 'Creation Date',
-      cell: (element: ICategory) =>
-        this.datePipe.transform(element.creationDate, 'dd/MM/yyyy') as string,
+      type: typeColumn.date,
+      cell: (element: ICategory) => `${element.creationDate}`,
     },
     {
       columnDef: 'is Active',
@@ -62,10 +63,6 @@ export class ListComponent
     super(injector);
   }
 
-  override actionsBtn = [
-    TableConsts.actionButton.delete,
-    TableConsts.actionButton.edit,
-  ];
   ngOnInit(): void {
     this.haveActions = true;
     this.hasCreateButton = true;

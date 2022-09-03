@@ -16,9 +16,7 @@ const routes: Routes = [
     path: 'login',
     loadChildren: () =>
       import('@features/login/login.module').then((m) => m.LoginModule),
-    data: {
-      role: [Roles.User, Roles.Admin],
-    },
+    // canLoad: [AuthenticatedGuard],
   },
 
   {
@@ -28,7 +26,7 @@ const routes: Routes = [
         (m) => m.DashboardModule
       ),
     data: {
-      role: [Roles.User, Roles.Admin],
+      role: [Roles.User, Roles.Admin, Roles.Editor],
       breadcrumb: {
         info: { myData: { icon: 'home', iconType: 'material' } },
       },
@@ -116,7 +114,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('@features/project/project.module').then((m) => m.ProjectModule),
     data: {
-      role: [Roles.User, Roles.Admin],
+      role: [Roles.User, Roles.Admin, Roles.Editor],
     },
     canLoad: [AuthenticatedGuard, HasRoleLoadGuard],
   },

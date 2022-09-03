@@ -29,36 +29,43 @@ export class ListClientUserComponent
     {
       columnDef: 'id',
       header: 'ID',
+      flex: 7,
       cell: (element: IClientUser) => `${element.id}`,
     },
     {
       columnDef: 'name',
       header: 'Name',
+      flex: 15,
       cell: (element: IClientUser) => `${element.name}`,
     },
     {
       columnDef: 'email',
       header: 'Email',
+      flex: 20,
       cell: (element: IClientUser) => `${element.email}`,
     },
     {
       columnDef: 'phone',
       header: 'Phone',
+      flex: 15,
       cell: (element: IClientUser) => `${element.phone}`,
     },
     {
       columnDef: 'city',
       header: 'City',
+      flex: 10,
       cell: (element: IClientUser) => `${element.city}`,
     },
     {
       columnDef: 'company',
       header: 'Company',
+      flex: 15,
       cell: (element: IClientUser) => `${element.client}`,
     },
     {
       columnDef: 'country',
       header: 'Country',
+      flex: 10,
       cell: (element: IClientUser) => `${element.country}`,
     },
   ];
