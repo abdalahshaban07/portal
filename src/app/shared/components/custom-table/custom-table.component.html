@@ -72,8 +72,8 @@
               *matCellDef="let row"
               [fxFlex]="column.flex"
               fxLayoutAlign="start center"
-              (click)="rowClicked ? getRecord(row) : null"
-              [ngStyle]="{ cursor: rowClicked ? 'pointer' : 'default' }"
+              (click)="(detailsRequest || viewRequest) ? getRecord(row) : null"
+              [ngStyle]="{ cursor: (detailsRequest || viewRequest) ? 'pointer' : 'default' }"
             >
               <span [ngSwitch]="column.type">
                 <span *ngSwitchCase="typeColumn.icon">

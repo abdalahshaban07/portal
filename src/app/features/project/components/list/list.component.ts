@@ -90,7 +90,7 @@ export class ListProjectComponent
     this.actionsBtn.push(TableConsts.actionButton.view);
     this.hasName = true;
     this.name = 'Projects';
-
+    this.viewRequest = true;
     super.ngOnInitC();
   }
 }

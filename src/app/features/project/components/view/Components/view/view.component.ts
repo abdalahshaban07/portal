@@ -212,7 +212,7 @@ export class ViewComponent implements OnInit {
     questionRef.instance.apiToGetListById = apiToGetListById;
     questionRef.instance.actionsBtn.push(TableConsts.actionButton.details);
     questionRef.instance.hasSearch = false;
-    questionRef.instance.rowClicked = true;
+    questionRef.instance.detailsRequest = true;
 
     questionRef.instance.onViewClick = (item: any) => {
       console.log(item, 'item');

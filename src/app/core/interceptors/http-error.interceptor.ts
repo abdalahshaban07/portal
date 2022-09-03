@@ -33,8 +33,11 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             // The response body may contain clues as to what went wrong,
             switch (error.status) {
               case 401: // Unautorized
-                this.toastr.error(`${error.statusText}`, 'Authorization Error');
                 this.authService.logout();
+                this.toastr.error(`${error.statusText}`, 'Authorization Error');
+                break;
+              case 400: // Bad Request
+                this.toastr.error(`${error.statusText}`, 'Bad Request');
                 break;
               case 403: // Forbidden
                 this.toastr.error(`${error.statusText}`, 'Access Error');

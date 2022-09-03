@@ -1,3 +1,4 @@
+import { Roles } from '@shared/Enums/roles';
 import { AdminService } from '@features/admin/services/admin.service';
 import { Component, OnInit } from '@angular/core';
 import { CardCount } from '@features/dashboard/models/card-count';
@@ -10,6 +11,7 @@ import { GetTotalSummary } from '@features/dashboard/models/get-total';
 })
 export class JoinedCountComponent implements OnInit {
   cards!: CardCount[];
+  Roles = Roles;
   constructor(private adminService: AdminService) {}
 
   ngOnInit(): void {
@@ -30,6 +32,7 @@ export class JoinedCountComponent implements OnInit {
         img: 'assets/images/user-count.png',
         icon: 'list',
         iconRouter: '/client',
+        role: [Roles.Admin],
       },
       {
         title: 'Project Count',
@@ -37,6 +40,7 @@ export class JoinedCountComponent implements OnInit {
         img: 'assets/images/certificate.png',
         icon: 'list',
         iconRouter: '/project',
+        role: [Roles.Editor],
       },
       // {
       //   title: 'user online test',

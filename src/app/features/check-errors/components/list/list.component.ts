@@ -156,7 +156,7 @@ export class ListComponent implements OnInit {
     questionRef.instance.hasName = false;
     questionRef.instance.hasSearch = false;
     questionRef.instance.actionsBtn.push(TableConsts.actionButton.details);
-    questionRef.instance.rowClicked = true;
+    questionRef.instance.detailsRequest = true;
 
     questionRef.instance.onDetailsClick = (item) => {
       // this.router.navigate([`project/view/${item.projectId}/`]).then((res) => {

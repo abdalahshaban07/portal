@@ -153,10 +153,10 @@ export class CustomTableComponent<T> {
     //   (item: any) => item.id !== id
     // );
 
-    this.listTableService
-      .delete(id)
-      .pipe(finalize(() => this.paginator()))
-      .subscribe();
+    // this.listTableService
+    //   .delete(id)
+    //   .pipe(finalize(() => this.paginator()))
+    //   .subscribe();
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
@@ -246,8 +246,10 @@ export class CustomTableComponent<T> {
       });
   }
 
-  rowClicked: boolean = false;
+  detailsRequest: boolean = false;
+  viewRequest: boolean = false;
   getRecord(row: any) {
-    this.onDetailsClick(row);
+    this.viewRequest && this.onViewClick(row);
+    this.detailsRequest && this.onDetailsClick(row);
   }
 }
