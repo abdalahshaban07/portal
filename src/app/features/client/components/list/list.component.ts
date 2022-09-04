@@ -16,14 +16,13 @@ import { TableColumn, typeColumn } from '@shared/models/tableColumn';
     '../../../../shared/components/custom-table/custom-table.component.scss',
   ],
   providers: [
-    DatePipe,
     {
       provide: ListTableService,
       useExisting: ClientService,
     },
   ],
 })
-export class ListComponent
+export class ListClientComponent
   extends CustomTableComponent<IClient>
   implements OnInit
 {
@@ -63,7 +62,7 @@ export class ListComponent
       header: 'Creation Date',
       type: typeColumn.date,
       flex: 15,
-      cell: (element: IClient) => `${element.creationDate}`,
+      cell: (element: IClient) => `${element.creationDate || ''}`,
     },
     {
       columnDef: 'is Active',
@@ -74,7 +73,7 @@ export class ListComponent
     },
   ];
 
-  constructor(private injector: Injector, private datePipe: DatePipe) {
+  constructor(private injector: Injector) {
     super(injector);
   }
 
@@ -83,7 +82,7 @@ export class ListComponent
     this.hasCreateButton = true;
     this.name = 'Client';
     this.actionsBtn.push(TableConsts.actionButton.view);
-
+    this.viewRequest = true;
     super.ngOnInitC();
   }
 }

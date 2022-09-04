@@ -69,6 +69,7 @@ export class ListCertificateComponent
     this.name = 'Certificate';
     this.id ? (this.hasName = true) : false;
     this.actionsBtn.push(TableConsts.actionButton.view);
+    this.viewRequest = true;
     super.ngOnInitC();
   }
 }

@@ -49,27 +49,31 @@ export class ControlComponent implements OnInit, OnDestroy {
           value: '',
           disabled: false,
         },
-        validators: [Validators.required],
+        validators: [Validators.required, Validators.maxLength(50)],
       },
       {
         id: 'email',
         label: 'Email',
         type: 'text',
         defaultValue: {
-          value: '',
+          value: 'Admin@example.com',
           disabled: false,
         },
-        validators: [Validators.required, Validators.email],
+        validators: [
+          Validators.required,
+          Validators.email,
+          Validators.maxLength(50),
+        ],
       },
       {
         id: 'username',
         label: 'Username',
         type: 'text',
         defaultValue: {
-          value: '',
+          value: 'Admin',
           disabled: false,
         },
-        validators: [Validators.required],
+        validators: [Validators.required, Validators.maxLength(60)],
       },
       {
         id: 'password',
@@ -79,7 +83,7 @@ export class ControlComponent implements OnInit, OnDestroy {
           value: '',
           disabled: false,
         },
-        validators: [Validators.required],
+        validators: [Validators.required, Validators.maxLength(60)],
       },
       {
         id: 'phone',
@@ -89,6 +93,7 @@ export class ControlComponent implements OnInit, OnDestroy {
           value: '',
           disabled: false,
         },
+        validators: [Validators.minLength(9), Validators.maxLength(15)],
       },
       {
         id: 'genderId',
@@ -211,6 +216,7 @@ export class ControlComponent implements OnInit, OnDestroy {
   getItemById(id: number | string) {
     this.adminService.get(id).subscribe((data) => {
       this.myForm.patchValue(data as IAdmin);
+      this.myForm.get('cityId')?.setValue(data.cityId);
     });
   }
 

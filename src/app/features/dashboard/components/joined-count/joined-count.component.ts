@@ -40,7 +40,7 @@ export class JoinedCountComponent implements OnInit {
         img: 'assets/images/certificate.png',
         icon: 'list',
         iconRouter: '/project',
-        role: [Roles.Editor],
+        role: [Roles.Editor, Roles.Admin],
       },
       // {
       //   title: 'user online test',

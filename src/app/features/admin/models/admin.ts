@@ -7,5 +7,8 @@ export interface IAdmin {
   gender: string;
   city: string;
   country: string;
+  genderId: number;
+  cityId: number;
+  countryId: number;
   role: string;
 }

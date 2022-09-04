@@ -99,6 +99,8 @@ export class listQuestionComponent
       // this.actionsBtn.splice(index, 1);
     }
 
+    this.viewRequest = true;
+
     super.ngOnInitC();
   }
 }

@@ -58,7 +58,7 @@ export class ControlComponent implements OnInit {
           value: '',
           disabled: false,
         },
-        validators: [Validators.required],
+        validators: [Validators.required, Validators.maxLength(50)],
       },
       {
         id: 'email',
@@ -68,7 +68,11 @@ export class ControlComponent implements OnInit {
           value: '',
           disabled: false,
         },
-        validators: [Validators.required, Validators.email],
+        validators: [
+          Validators.required,
+          Validators.email,
+          Validators.maxLength(50),
+        ],
       },
       {
         id: 'username',
@@ -78,7 +82,7 @@ export class ControlComponent implements OnInit {
           value: '',
           disabled: false,
         },
-        validators: [Validators.required],
+        validators: [Validators.required, Validators.maxLength(60)],
       },
       {
         id: 'password',
@@ -88,7 +92,7 @@ export class ControlComponent implements OnInit {
           value: '',
           disabled: false,
         },
-        validators: [Validators.required],
+        validators: [Validators.required, Validators.maxLength(50)],
       },
       {
         id: 'phone',
@@ -98,6 +102,11 @@ export class ControlComponent implements OnInit {
           value: '',
           disabled: false,
         },
+        validators: [
+          Validators.minLength(9),
+          Validators.maxLength(15),
+          Validators.pattern('^[0-9]*$'),
+        ],
       },
       {
         id: 'genderId',

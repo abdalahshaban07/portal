@@ -40,7 +40,7 @@ export class ControlComponent implements OnInit {
           value: '',
           disabled: false,
         },
-        validators: [Validators.required],
+        validators: [Validators.required, Validators.maxLength(100)],
       },
       {
         id: 'email',
@@ -50,7 +50,11 @@ export class ControlComponent implements OnInit {
           value: '',
           disabled: false,
         },
-        validators: [Validators.required, Validators.email],
+        validators: [
+          Validators.required,
+          Validators.email,
+          Validators.maxLength(100),
+        ],
       },
       {
         id: 'address',
@@ -60,7 +64,7 @@ export class ControlComponent implements OnInit {
           value: '',
           disabled: false,
         },
-        validators: [Validators.required],
+        validators: [Validators.required, Validators.maxLength(200)],
       },
       {
         id: 'phone',
@@ -70,6 +74,11 @@ export class ControlComponent implements OnInit {
           value: '',
           disabled: false,
         },
+        validators: [
+          Validators.minLength(9),
+          Validators.maxLength(15),
+          Validators.pattern('^[0-9]*$'),
+        ],
       },
       {
         id: 'isActive',

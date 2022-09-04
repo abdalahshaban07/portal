@@ -37,7 +37,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                 this.toastr.error(`${error.statusText}`, 'Authorization Error');
                 break;
               case 400: // Bad Request
-                this.toastr.error(`${error.statusText}`, 'Bad Request');
+                let beError = error.error;
+                this.toastr.error(`${beError?.data}`);
                 break;
               case 403: // Forbidden
                 this.toastr.error(`${error.statusText}`, 'Access Error');

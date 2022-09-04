@@ -1,3 +1,4 @@
+import { ListClientComponent } from './../../../client/components/list/list.component';
 import { ComponentType } from '@angular/cdk/portal';
 import { ViewportScroller } from '@angular/common';
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
@@ -99,6 +100,10 @@ export class ViewComponent implements OnInit {
         this.componentId = 'project';
         this.loadProjectComponent();
         break;
+      case 'Client':
+        this.componentId = 'client';
+        this.loadClientComponent();
+        break;
       default:
         this.loadQuestionComponent();
         break;
@@ -120,5 +125,13 @@ export class ViewComponent implements OnInit {
     projectRef.instance.paramsOptions['id'] = this.id;
     projectRef.instance.routerName = 'project';
     projectRef.instance.apiToGetListById = 'GetListByCertifcate';
+  }
+
+  private loadClientComponent() {
+    const clientRef = this.dynamicChild.createComponent(ListClientComponent);
+    clientRef.instance.id = this.id;
+    clientRef.instance.paramsOptions['id'] = this.id;
+    clientRef.instance.routerName = 'client';
+    clientRef.instance.apiToGetListById = 'GetListByCertficate';
   }
 }

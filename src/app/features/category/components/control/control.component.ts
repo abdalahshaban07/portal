@@ -39,7 +39,7 @@ export class ControlComponent implements OnInit {
           value: '',
           disabled: false,
         },
-        validators: [Validators.required],
+        validators: [Validators.required, Validators.maxLength(150)],
       },
       {
         id: 'description',
@@ -49,6 +49,7 @@ export class ControlComponent implements OnInit {
           value: '',
           disabled: false,
         },
+        validators: [Validators.maxLength(250)],
       },
       {
         id: 'isActive',

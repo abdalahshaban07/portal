@@ -25,4 +25,14 @@ export class ClientService extends ResourceService<IClient> {
       .get<ResponseModel>(`${this.APIUrl}/GetTotalSummary?id=${id}`)
       .pipe(map((res: ResponseModel) => this.transform(res)));
   }
+
+  getItemBy(
+    paramsOptions: {},
+    api: string
+  ): Observable<ApiListResponse<IClient>> {
+    let params = new HttpParams({ fromObject: paramsOptions }).toString();
+    return this.injector
+      .get(HttpClient)
+      .get<ApiListResponse<IClient>>(`${this.APIUrl}/${api}?${params}`);
+  }
 }

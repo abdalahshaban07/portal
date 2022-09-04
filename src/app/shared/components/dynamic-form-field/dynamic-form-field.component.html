@@ -183,6 +183,9 @@
         <mat-error *ngIf="form.get(formItem.id)?.hasError('maxlength')">
           {{ formItem.label }} is too long
         </mat-error>
+        <mat-error *ngIf="form.get(formItem.id)?.hasError('minlength')">
+          {{ formItem.label }} is too short
+        </mat-error>
         <mat-error *ngIf="form.get(formItem.id)?.hasError('mustMatch')">
           {{ formItem.label }} must match with Password
         </mat-error>
