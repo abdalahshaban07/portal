@@ -88,8 +88,9 @@ export class ListProjectComponent
     this.hasCreateButton = true;
     this.hasSearch = false;
     this.actionsBtn.push(TableConsts.actionButton.view);
-    this.hasName = true;
+    this.hasName = false;
     this.name = 'Projects';
+    this.hasIconAdd = false;
     this.viewRequest = true;
     super.ngOnInitC();
   }

@@ -117,6 +117,7 @@ export class ViewComponent implements OnInit {
     questionRef.instance.paramsOptions['id'] = this.id;
     questionRef.instance.routerName = 'question';
     questionRef.instance.apiToGetListById = 'GetListByCertifcate';
+    questionRef.instance.hasSearch = false; // no api to search by name
   }
 
   private loadProjectComponent() {
@@ -133,5 +134,6 @@ export class ViewComponent implements OnInit {
     clientRef.instance.paramsOptions['id'] = this.id;
     clientRef.instance.routerName = 'client';
     clientRef.instance.apiToGetListById = 'GetListByCertficate';
+    clientRef.instance.hasSearch = false; // no api to search by name
   }
 }

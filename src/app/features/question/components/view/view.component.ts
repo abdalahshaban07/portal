@@ -53,5 +53,6 @@ export class ViewComponent implements OnInit {
     certificateRef.instance.paramsOptions['id'] = this.id;
     certificateRef.instance.routerName = 'certificate';
     certificateRef.instance.apiToGetListById = 'GetListByQuesation';
+    certificateRef.instance.hasSearch = false; // no api to search by name
   }
 }
