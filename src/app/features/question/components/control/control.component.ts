@@ -146,11 +146,11 @@ export class ControlComponent implements OnInit {
   }
 
   saveData() {
-    // if (this.myForm.invalid) return;
+    if (this.myForm.invalid) return;
     const data = this.myForm.value;
-    console.log(data);
+    // console.log(data);
 
-    return;
+    // return;
     if (this.formMode === FormMode.Add) {
       this.addQuestion(data);
     } else {

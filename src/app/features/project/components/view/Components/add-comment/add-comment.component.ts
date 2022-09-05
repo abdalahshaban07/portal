@@ -59,7 +59,7 @@ export class AddCommentComponent implements OnInit {
 
   acceptQuestion(): void {
     this.projectService.acceptQuestion(this.lineId).subscribe((data) => {
-      this.goBack();
+      // this.goBack();
     });
   }
 

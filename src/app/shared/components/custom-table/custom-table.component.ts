@@ -63,7 +63,7 @@ export class CustomTableComponent<T> {
   typeColumn = typeColumn;
   Roles = Roles;
 
-  private router!: Router;
+  protected router!: Router;
   private route!: ActivatedRoute;
   private listTableService!: ListTableService;
   protected authService!: AuthService;
