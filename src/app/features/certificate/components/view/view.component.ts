@@ -9,6 +9,8 @@ import { ListProjectComponent } from '@features/project/components/list/list.com
 import { listQuestionComponent } from '@features/question/components/list/list.component';
 import { AppLoaderDirective } from '@shared/directives/app-loader.directive';
 import { Info } from '@shared/models/infor-card';
+import { ShareObsService } from '@shared/services/share-obs.service';
+import { TableConsts } from '@shared/components/custom-table/consts/table';
 
 @Component({
   selector: 'app-view',
@@ -27,7 +29,8 @@ export class ViewComponent implements OnInit {
   constructor(
     private activeRoute: ActivatedRoute,
     private certificateService: CertificateService,
-    private scroller: ViewportScroller
+    private scroller: ViewportScroller,
+    private shareObsService: ShareObsService
   ) {}
 
   ngOnInit(): void {
@@ -117,6 +120,7 @@ export class ViewComponent implements OnInit {
     questionRef.instance.paramsOptions['id'] = this.id;
     questionRef.instance.routerName = 'question';
     questionRef.instance.apiToGetListById = 'GetListByCertifcate';
+    questionRef.instance.haveAcionInput = false;
     questionRef.instance.hasSearch = false; // no api to search by name
   }
 
@@ -126,6 +130,7 @@ export class ViewComponent implements OnInit {
     projectRef.instance.paramsOptions['id'] = this.id;
     projectRef.instance.routerName = 'project';
     projectRef.instance.apiToGetListById = 'GetListByCertifcate';
+    projectRef.instance.haveAcionInput = false;
   }
 
   private loadClientComponent() {
@@ -135,5 +140,6 @@ export class ViewComponent implements OnInit {
     clientRef.instance.routerName = 'client';
     clientRef.instance.apiToGetListById = 'GetListByCertficate';
     clientRef.instance.hasSearch = false; // no api to search by name
+    clientRef.instance.haveAcionInput = false;
   }
 }

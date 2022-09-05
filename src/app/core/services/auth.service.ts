@@ -6,6 +6,7 @@ import { ResponseModel } from '@core/model/apiListResponse';
 import { User, UserInfo } from '@core/model/user';
 import { environment } from '@env';
 import { BehaviorSubject, map } from 'rxjs';
+import { ShareObsService } from '@shared/services/share-obs.service';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +23,11 @@ export class AuthService {
 
   user!: UserInfo;
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private shareObsService: ShareObsService
+  ) {
     this.checkToken();
   }
 
@@ -60,15 +65,6 @@ export class AuthService {
       );
   }
 
-  logout() {
-    // localStorage.removeItem(this.TOKEN_KEY);
-    localStorage.clear();
-    this._token$.next('');
-    this._isLoggedIn$.next(false);
-    this.user = {} as UserInfo;
-    this.router.navigate(['login']);
-  }
-
   private b64DecodeUnicode(str: string) {
     return decodeURIComponent(
       Array.prototype.map
@@ -80,7 +76,6 @@ export class AuthService {
   }
 
   private getUser(token: string): UserInfo | null {
-    // debugger;
     return token
       ? JSON.parse(
           JSON.parse(
@@ -90,5 +85,17 @@ export class AuthService {
           ).UserInfo
         )
       : null;
+  }
+
+  logout() {
+    // localStorage.removeItem(this.TOKEN_KEY);
+    localStorage.clear();
+    this._token$.next('');
+    this._isLoggedIn$.next(false);
+    this.user = {} as UserInfo;
+    this.shareObsService.projects = [];
+    this.shareObsService.projectId = 0;
+    this.shareObsService.category = [];
+    this.router.navigate(['login']);
   }
 }

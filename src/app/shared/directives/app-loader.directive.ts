@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Directive,
   Input,
   OnInit,
@@ -12,9 +13,13 @@ import {
 export class AppLoaderDirective implements OnInit {
   // @Input() appLoader!: Type<any>;
 
-  constructor(public viewContainerRef: ViewContainerRef) {}
+  constructor(
+    public viewContainerRef: ViewContainerRef,
+    public changeDetectorRef: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     // this.viewContainerRef.createComponent(this.appLoader);
+    this.changeDetectorRef.detectChanges();
   }
 }

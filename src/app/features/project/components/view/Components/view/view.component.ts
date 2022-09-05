@@ -87,19 +87,19 @@ export class ViewComponent implements OnInit {
   prepareInfo(data?: GetTotalSummary) {
     this.info = [
       {
-        name: 'rejected',
+        name: 'Rejected',
         description: `${data?.rejectCout || 0} `,
       },
       {
-        name: 'waitingReview',
+        name: 'Waiting Review',
         description: `${data?.underReviewCount || 0}`,
       },
       {
-        name: 'accepted',
+        name: 'Accepted',
         description: `${data?.acceptCount || 0}`,
       },
       {
-        name: 'new',
+        name: 'New',
         description: `${data?.newCount || 0}`,
       },
     ];
@@ -109,11 +109,11 @@ export class ViewComponent implements OnInit {
   dynamicChild!: ViewContainerRef;
 
   apiToGetListById = {
-    all: 'GetProjectQuesationList',
-    new: 'GetProjectNewQuesations',
-    rejected: 'GetProjectRejectedQuesations',
-    accepted: 'GetProjectAcceptedQuesations',
-    waitingReview: 'GetProjectWaitingRevQuesations',
+    All: 'GetProjectQuesationList',
+    New: 'GetProjectNewQuesations',
+    Rejected: 'GetProjectRejectedQuesations',
+    Accepted: 'GetProjectAcceptedQuesations',
+    'Waiting Review': 'GetProjectWaitingRevQuesations',
   };
 
   loadComponet(componenName?: string) {
@@ -123,28 +123,28 @@ export class ViewComponent implements OnInit {
     }
     this.dynamicChild.clear();
     switch (componenName) {
-      case 'waitingReview':
-        this.componentId = 'waitingReview';
-        this.loadQuestionsComponent(this.apiToGetListById.waitingReview);
+      case 'Waiting Review':
+        this.componentId = 'Waiting Review';
+        this.loadQuestionsComponent(this.apiToGetListById['Waiting Review']);
         break;
-      case 'accepted':
-        this.componentId = 'accepted';
-        this.loadQuestionsComponent(this.apiToGetListById.accepted);
+      case 'Accepted':
+        this.componentId = 'Accepted';
+        this.loadQuestionsComponent(this.apiToGetListById.Accepted);
         break;
-      case 'rejected':
-        this.componentId = 'rejected';
-        this.loadQuestionsComponent(this.apiToGetListById.rejected);
+      case 'Rejected':
+        this.componentId = 'Rejected';
+        this.loadQuestionsComponent(this.apiToGetListById.Rejected);
         break;
-      case 'all':
-        this.componentId = 'all';
-        this.loadQuestionsComponent(this.apiToGetListById.all);
+      case 'All':
+        this.componentId = 'All';
+        this.loadQuestionsComponent(this.apiToGetListById.All);
         break;
-      case 'new':
-        this.componentId = 'new';
-        this.loadQuestionsComponent(this.apiToGetListById.new);
+      case 'New':
+        this.componentId = 'New';
+        this.loadQuestionsComponent(this.apiToGetListById.New);
         break;
       default:
-        this.loadQuestionsComponent(this.apiToGetListById.rejected);
+        this.loadQuestionsComponent(this.apiToGetListById.Rejected);
         break;
     }
   }
@@ -210,12 +210,10 @@ export class ViewComponent implements OnInit {
     questionRef.instance.routerName = 'project';
     questionRef.instance.columns = this.columns;
     questionRef.instance.apiToGetListById = apiToGetListById;
-    questionRef.instance.actionsBtn.push(TableConsts.actionButton.details);
+
     questionRef.instance.hasSearch = false;
     questionRef.instance.detailsRequest = true;
 
-    questionRef.instance.onViewClick = (item: any) => {
-      console.log(item, 'item');
-    };
+    questionRef.instance.actionBtnInput = [TableConsts.actionButton.details];
   }
 }

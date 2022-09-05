@@ -26,14 +26,14 @@ export class JoinedCountComponent implements OnInit {
 
   prepareInfo(data: GetTotalSummary) {
     this.cards = [
-      {
-        title: 'CLient Count',
-        count: data.clientCount,
-        img: 'assets/images/user-count.png',
-        icon: 'list',
-        iconRouter: '/client',
-        role: [Roles.Admin],
-      },
+      // {
+      //   title: 'CLient Count',
+      //   count: data.clientCount,
+      //   img: 'assets/images/user-count.png',
+      //   icon: 'list',
+      //   iconRouter: '/client',
+      //   role: [Roles.Admin],
+      // },
       {
         title: 'Project Count',
         count: data.projectCount,

@@ -16,7 +16,6 @@ import { TableColumn, typeColumn } from '@shared/models/tableColumn';
     '../../../../shared/components/custom-table/custom-table.component.scss',
   ],
   providers: [
-    DatePipe,
     {
       provide: ListTableService,
       useExisting: CategoryService,
@@ -59,12 +58,18 @@ export class ListComponent
     },
   ];
 
-  constructor(private injector: Injector, private datePipe: DatePipe) {
+  constructor(private injector: Injector) {
     super(injector);
   }
 
+  _actionsBtn: string[] = [
+    TableConsts.actionButton.edit,
+    // TableConsts.actionButton.delete,
+  ];
+
   ngOnInit(): void {
     this.haveActions = true;
+    this.actionsBtn = this._actionsBtn;
     this.hasCreateButton = true;
     this.name = 'Category';
     super.ngOnInitC();

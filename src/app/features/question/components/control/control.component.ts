@@ -82,12 +82,12 @@ export class ControlComponent implements OnInit {
         type: 'select',
         selectMenuOptions: [
           {
-            key: 'true',
-            value: true,
+            key: true,
+            value: 'true',
           },
           {
-            key: 'false',
-            value: false,
+            key: false,
+            value: 'false',
           },
         ],
         defaultValue: {
@@ -146,8 +146,11 @@ export class ControlComponent implements OnInit {
   }
 
   saveData() {
-    if (this.myForm.invalid) return;
+    // if (this.myForm.invalid) return;
     const data = this.myForm.value;
+    console.log(data);
+
+    return;
     if (this.formMode === FormMode.Add) {
       this.addQuestion(data);
     } else {

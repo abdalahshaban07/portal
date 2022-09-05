@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ListCertificateComponent } from '@features/certificate/components/list/list.component';
 import { QuesationService } from '@features/question/services/quesation.service';
+import { TableConsts } from '@shared/components/custom-table/consts/table';
 import { AppLoaderDirective } from '@shared/directives/app-loader.directive';
 import { Info } from '@shared/models/infor-card';
 
@@ -23,7 +24,6 @@ export class ViewComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // debugger;
     this.getIdFromUrl();
   }
 
@@ -54,5 +54,7 @@ export class ViewComponent implements OnInit {
     certificateRef.instance.routerName = 'certificate';
     certificateRef.instance.apiToGetListById = 'GetListByQuesation';
     certificateRef.instance.hasSearch = false; // no api to search by name
+
+    certificateRef.instance.actionBtnInput = [TableConsts.actionButton.view];
   }
 }

@@ -1,5 +1,13 @@
 import { ViewportScroller } from '@angular/common';
-import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ViewContainerRef,
+  Injector,
+  ChangeDetectorRef,
+  ApplicationRef,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ListClientUserComponent } from '@features/client-user/components/list/list.component';
 import { GetTotalSummary } from '@features/client/models/get.total';
@@ -8,6 +16,7 @@ import { ListProjectComponent } from '@features/project/components/list/list.com
 import { TableConsts } from '@shared/components/custom-table/consts/table';
 import { AppLoaderDirective } from '@shared/directives/app-loader.directive';
 import { Info } from '@shared/models/infor-card';
+import { ShareObsService } from '@shared/services/share-obs.service';
 
 @Component({
   selector: 'app-view',
@@ -25,7 +34,10 @@ export class ViewComponent implements OnInit {
   constructor(
     private activeRoute: ActivatedRoute,
     private clientService: ClientService,
-    private scroller: ViewportScroller
+    private scroller: ViewportScroller,
+    private shareObsService: ShareObsService,
+    private injector: Injector,
+    private appRef: ApplicationRef
   ) {}
 
   ngOnInit(): void {
@@ -100,22 +112,23 @@ export class ViewComponent implements OnInit {
   }
 
   private loadClientUserComponent() {
-    const questionRef = this.dynamicChild.createComponent(
+    const clientRef = this.dynamicChild.createComponent(
       ListClientUserComponent
     );
-    questionRef.instance.id = this.id;
-    questionRef.instance.paramsOptions['id'] = this.id;
-    questionRef.instance.routerName = 'client-user';
-    questionRef.instance.apiToGetListById = 'GetListByClient';
-    // questionRef.instance.actionsBtn.push(TableConsts.actionButton.delete);
-  }
 
+    clientRef.instance.id = this.id;
+    clientRef.instance.paramsOptions['id'] = this.id;
+    clientRef.instance.routerName = 'client-user';
+    clientRef.instance.apiToGetListById = 'GetListByClient';
+    clientRef.instance.haveAcionInput = false;
+  }
   private loadProjectComponent() {
     const projectRef = this.dynamicChild.createComponent(ListProjectComponent);
     projectRef.instance.id = this.id;
     projectRef.instance.paramsOptions['id'] = this.id;
     projectRef.instance.routerName = 'project';
     projectRef.instance.apiToGetListById = 'GetListByClient';
-    // questionRef.instance.actionsBtn.push(TableConsts.actionButton.delete);
+    projectRef.instance.haveAcionInput = true;
+    projectRef.instance.actionBtnInput = [TableConsts.actionButton.view];
   }
 }

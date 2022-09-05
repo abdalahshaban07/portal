@@ -1,6 +1,7 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { IAdmin } from '@features/admin/models/admin';
 import { AdminService } from '@features/admin/services/admin.service';
+import { TableConsts } from '@shared/components/custom-table/consts/table';
 import { CustomTableComponent } from '@shared/components/custom-table/custom-table.component';
 import { ListTableService } from '@shared/components/custom-table/list-table.service';
 import { TableColumn } from '@shared/models/tableColumn';
@@ -65,6 +66,10 @@ export class ListComponent
     this.haveActions = true;
     this.hasCreateButton = true;
     this.name = 'Admin';
+    this.actionsBtn = [
+      TableConsts.actionButton.edit,
+      // TableConsts.actionButton.delete,
+    ];
     super.ngOnInitC();
   }
 }

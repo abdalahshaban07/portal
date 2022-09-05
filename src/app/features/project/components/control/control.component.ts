@@ -62,7 +62,7 @@ export class ControlComponent implements OnInit {
       },
       {
         id: 'projectConsultans',
-        label: 'Consultants',
+        label: 'Editors',
         type: 'select',
         selectMenuOptions: this.Consultants,
         defaultValue: {

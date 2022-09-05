@@ -16,7 +16,6 @@ const routes: Routes = [
     path: 'login',
     loadChildren: () =>
       import('@features/login/login.module').then((m) => m.LoginModule),
-    // canLoad: [AuthenticatedGuard],
   },
 
   {
@@ -93,7 +92,7 @@ const routes: Routes = [
         (m) => m.ClientUserModule
       ),
     data: {
-      role: [Roles.User, Roles.Admin],
+      role: [Roles.Admin],
     },
     canLoad: [AuthenticatedGuard, HasRoleLoadGuard],
   },
@@ -126,7 +125,7 @@ const routes: Routes = [
         (m) => m.QuestionModule
       ),
     data: {
-      role: [Roles.User, Roles.Admin],
+      role: [Roles.Admin],
       breadcrumb: {
         label: 'question',
       },

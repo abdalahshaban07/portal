@@ -64,12 +64,26 @@ export class ListCertificateComponent
     super(injector);
   }
 
+  _haveActions: boolean = true;
+  @Input() set haveAcionInput(have: boolean) {
+    this._haveActions = have;
+  }
+
+  _actionsBtn: string[] = [
+    TableConsts.actionButton.edit,
+    TableConsts.actionButton.view,
+  ];
+
+  @Input() set actionBtnInput(actions: string[]) {
+    this._actionsBtn = actions;
+  }
+
   ngOnInit(): void {
-    this.haveActions = true;
+    this.haveActions = this._haveActions;
     this.name = 'Certificate';
     this.id ? (this.hasName = true) : false;
-    this.actionsBtn.push(TableConsts.actionButton.view);
     this.viewRequest = true;
+    this.actionsBtn = this._actionsBtn;
     super.ngOnInitC();
   }
 }

@@ -15,7 +15,7 @@
       </form>
     </div>
     <!-- category Card -->
-    <div class="categoryCard" *ngIf="shareObsService.projectId">
+    <div class="categoryCard" *ngIf="shareObsService.projectId > 0">
       <app-category-card [id]="shareObsService.projectId"></app-category-card>
     </div>
     <!-- miss evidence table -->

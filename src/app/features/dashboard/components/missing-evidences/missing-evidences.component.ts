@@ -1,11 +1,5 @@
 import { ShareObsService } from './../../../../shared/services/share-obs.service';
-import {
-  Component,
-  OnInit,
-  ChangeDetectorRef,
-  ViewContainerRef,
-  ViewChild,
-} from '@angular/core';
+import { Component, OnInit, ViewContainerRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import {
   DynamicFormFieldModel,
@@ -25,7 +19,6 @@ export class MissingEvidencesComponent implements OnInit {
   dynamicFormFields!: DynamicFormFieldModel[];
   constructor(
     private fb: FormBuilder,
-    private cdref: ChangeDetectorRef,
     private listOfValuesService: ListOfValuesService,
     public shareObsService: ShareObsService
   ) {}
@@ -65,7 +58,7 @@ export class MissingEvidencesComponent implements OnInit {
   }
 
   checkIfProjectIdExist() {
-    if (this.shareObsService.projectId) {
+    if (this.shareObsService.projectId > 0) {
       this.myForm.get('projectId')?.setValue(+this.shareObsService.projectId);
       this.loadQuestionsComponent();
     }
@@ -82,7 +75,7 @@ export class MissingEvidencesComponent implements OnInit {
 
   projects: selectMenuOptions[] = [];
   getProjects() {
-    if (this.shareObsService.projects) {
+    if (this.shareObsService.projects.length) {
       this.projects.push(...this.shareObsService.projects);
       this.checkIfProjectIdExist();
     } else {

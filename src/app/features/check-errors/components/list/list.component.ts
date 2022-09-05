@@ -155,18 +155,10 @@ export class ListComponent implements OnInit {
     questionRef.instance.hasIconAdd = false;
     questionRef.instance.hasName = false;
     questionRef.instance.hasSearch = false;
-    questionRef.instance.actionsBtn.push(TableConsts.actionButton.details);
+    questionRef.instance.actionBtnInput = [TableConsts.actionButton.details];
     questionRef.instance.detailsRequest = true;
 
     questionRef.instance.onDetailsClick = (item) => {
-      // this.router.navigate([`project/view/${item.projectId}/`]).then((res) => {
-      //   console.log('navigate to project view', res);
-      //   this.shareObsService.runGetDetails = {
-      //     run: true,
-      //     data: { id: item.id, quesation: item.quesationId },
-      //   };
-      // });
-
       this.router.navigate(
         [`project/view/${item.projectId}/details/${item.id}`],
         {

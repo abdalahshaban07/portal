@@ -1,7 +1,14 @@
+import { ShareObsService } from '@shared/services/share-obs.service';
 import { AuthService } from '@core/services/auth.service';
 import { Roles } from '@shared/Enums/roles';
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, Injector, ViewChild } from '@angular/core';
+import {
+  AfterContentInit,
+  AfterViewInit,
+  Component,
+  Injector,
+  ViewChild,
+} from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -59,7 +66,7 @@ export class CustomTableComponent<T> {
   private router!: Router;
   private route!: ActivatedRoute;
   private listTableService!: ListTableService;
-  private authService!: AuthService;
+  protected authService!: AuthService;
 
   constructor(injector: Injector) {
     this.router = injector.get(Router);
@@ -75,18 +82,9 @@ export class CustomTableComponent<T> {
       this.columns.map((x) => x.columnDef)
     );
 
-    if (this.authService.hasRole([Roles.Admin])) {
-      this.actionsBtn = [
-        ...this.actionsBtn,
-        // TableConsts.actionButton.delete,
-        TableConsts.actionButton.edit,
-      ];
-    }
-
     this.haveActions && this.displayedColumns.push('action');
 
     this.dataSource.sort = this.sort;
-
     if (this.id) {
       this.hasCreateButton = false;
       this.getItemBy();

@@ -3,6 +3,6 @@
     <p>-{{ question.quesation }}</p>
   </div>
   <div class="question-note">
-    <p [innerText]="question.description || 'No Description'"></p>
+    <p [innerHTML]="question.description || 'No Description'"></p>
   </div>
 </div>

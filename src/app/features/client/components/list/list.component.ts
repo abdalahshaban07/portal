@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, Injector, Input, OnInit } from '@angular/core';
 import { IClient } from '@features/client/models/client';
 import { ClientService } from '@features/client/services/client.service';
 import { TableConsts } from '@shared/components/custom-table/consts/table';
@@ -77,12 +77,26 @@ export class ListClientComponent
     super(injector);
   }
 
+  _haveActions: boolean = true;
+  @Input() set haveAcionInput(have: boolean) {
+    this._haveActions = have;
+  }
+
+  _actionsBtn: string[] = [
+    TableConsts.actionButton.edit,
+    TableConsts.actionButton.view,
+  ];
+
+  @Input() set actionBtnInput(actions: string[]) {
+    this._actionsBtn = actions;
+  }
+
   ngOnInit(): void {
-    this.haveActions = true;
+    this.haveActions = this._haveActions;
     this.hasCreateButton = true;
     this.name = 'Client';
-    this.actionsBtn.push(TableConsts.actionButton.view);
     this.viewRequest = true;
+    this.actionsBtn = this._actionsBtn;
     super.ngOnInitC();
   }
 }

@@ -1,4 +1,4 @@
-import { DatePipe } from '@angular/common';
+import { Roles } from './../../../../shared/Enums/roles';
 import { Component, Injector, Input, OnInit } from '@angular/core';
 import { IProject } from '@features/project/models/project';
 import { ProjectService } from '@features/project/services/project.service';
@@ -83,11 +83,27 @@ export class ListProjectComponent
     super(injector);
   }
 
+  _haveActions: boolean = true;
+  @Input() set haveAcionInput(have: boolean) {
+    this._haveActions = have;
+  }
+
+  _actionsBtn: string[] = [
+    (this.authService.hasRole([Roles.Admin]) &&
+      TableConsts.actionButton.edit) ||
+      '',
+    TableConsts.actionButton.view,
+  ];
+
+  @Input() set actionBtnInput(actions: string[]) {
+    this._actionsBtn = actions;
+  }
+
   ngOnInit(): void {
-    this.haveActions = true;
+    this.haveActions = this._haveActions;
+    this.actionsBtn = this._actionsBtn;
     this.hasCreateButton = true;
     this.hasSearch = false;
-    this.actionsBtn.push(TableConsts.actionButton.view);
     this.hasName = false;
     this.name = 'Projects';
     this.hasIconAdd = false;

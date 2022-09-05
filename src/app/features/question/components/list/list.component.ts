@@ -85,22 +85,25 @@ export class listQuestionComponent
     }
   }
 
+  _haveActions: boolean = true;
+  @Input() set haveAcionInput(have: boolean) {
+    this._haveActions = have;
+  }
+
+  _actionsBtn: string[] = [
+    TableConsts.actionButton.edit,
+    TableConsts.actionButton.view,
+  ];
+
+  @Input() set actionBtnInput(actions: string[]) {
+    this._actionsBtn = actions;
+  }
+
   ngOnInit(): void {
-    this.haveActions = true;
+    this.haveActions = this._haveActions;
     this.name = 'Quesation';
-    let cond = this.injector
-      .get(AuthService)
-      .hasRole([Roles.User, Roles.Editor]);
-    if (!cond) {
-      this.actionsBtn.push(TableConsts.actionButton.view);
-    } else {
-      // // remove view button for user
-      // let index = this.actionsBtn.indexOf(TableConsts.actionButton.view);
-      // this.actionsBtn.splice(index, 1);
-    }
-
     this.viewRequest = true;
-
+    this.actionsBtn = this._actionsBtn;
     super.ngOnInitC();
   }
 }
